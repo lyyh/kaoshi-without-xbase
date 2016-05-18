@@ -1,0 +1,314 @@
+﻿<style>
+    #semesterYear,
+    #semesterTerm {
+        width: 48%;
+        float: left;
+        display: block;
+    }
+
+    #semesterTerm {
+        float: right;
+    }
+
+    .durationTip {
+        position: static;
+        margin-top: 10px;
+    }
+
+    .duration {
+        padding: 5px 0;
+        position: static;
+        width: 100%;
+    }
+
+    .header .paperTip {
+        margin-top: 0;
+    }
+
+    .fontPart,
+    .rule {
+        height: 400px;
+    }
+
+    .checkKnowledgePoint {
+        margin: 0 0 0 -6px;
+    }
+</style>
+
+<body>
+
+<div class="totalContainer">
+    <!--卷头信息-->
+    <div class="fontPart">
+        <div class="form-group">
+            <label>科&nbsp;&nbsp;&nbsp;&nbsp;目：</label>
+            <input type="text" id="course" name="1" class="form-control" value="JAVA" disabled>
+        </div>
+
+        <div class="form-group">
+            <label>命题人：</label>
+            <input type="text" id="teacherName" class="form-control" value="T103001" disabled>
+        </div>
+
+        <div class="form-group">
+            <label>学&nbsp;&nbsp;&nbsp;&nbsp;期：</label>
+
+            <div style="width: 100%; margin-top: -30px;">
+                <select id="semesterYear" class="semesterYear form-control">
+                    <option>2016年上半学期</option>
+                    <option>2016年下半学期</option>
+                    <option>2017年上半学期</option>
+                    <option>2017年下半学期</option>
+                    <option>2018年上半学期</option>
+                    <option>2018年下半学期</option>
+                    <option>2019年上半学期</option>
+                    <option>2019年下半学期</option>
+                </select>
+                <select id="semesterTerm" class="semesterTerm form-control">
+                    <option>平时测验</option>
+                    <option>半期</option>
+                    <option>期末</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="durationTip">时&nbsp;&nbsp;&nbsp;&nbsp;长：</label>
+
+            <div style="width: 100%;">
+                <div class="input-group input-sm duration">
+                    <input id="duration" type="number" class="form-control" min="0">
+
+                    <div class="input-group-addon">分钟</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>备&nbsp;&nbsp;&nbsp;&nbsp;注：</label>
+            <input type="text" id="paperTip" class="paperTip form-control" placeholder="试卷备注">
+        </div>
+
+    </div>
+    <!--制卷规则-->
+    <div class="rule">
+        <div class="myTitle"><span class="glyphicon glyphicon-wrench"></span> 机器制卷规则</div>
+        <div class="ruleContent">
+            <strong>1.</strong>点击 <span class="glyphicon glyphicon-plus"></span>
+            根据题目类型添加一个制卷规则，系统将会根据您每个题型制卷规则中设置的题目个数、题型分数、题型难度和题目知识点自动生成试卷。<br>
+            <strong>2.</strong>注意，题型难度并不是指的某个题目的难度,而是整个题目类型的难度档次:<br>
+            【简单】代表 简单题:中等题:容易题的比例是4:1:1;
+            【中等】代表 简单题:中等题:容易题的比例是3:1:1;
+            【困难】代表 简单题:中等题:容易题的比例是2:1:1。<br>
+            <strong>3.</strong>点击 <span class="glyphicon glyphicon-minus"></span> 删除选中的制卷规则。点击 <span
+                class="glyphicon glyphicon-pencil"></span> 编辑选中的制卷规则。<br>
+            <strong>4.</strong>点击【生成试卷】完成制卷。<br>
+        </div>
+    </div>
+
+    <div class="btn-group  toolbar">
+        <button id="addNewRule" class="btn btn-default"><span class="glyphicon glyphicon-plus"
+                                                              data-toggle="tooltip" data-placement="right"
+                                                              title="新增一条规则"></span>
+        </button>
+        <button id="removeRule" class="btn btn-default">
+                    <span class="glyphicon glyphicon-minus" data-toggle="tooltip" data-placement="right"
+                          title="减少一条规则"></span>
+        </button>
+        <button id="editRule" class="btn btn-default">
+                    <span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="right"
+                          title="编辑这条规则"></span>
+        </button>
+    </div>
+
+    <table id="myPaper" class="myPaper table">
+        <thead>
+        <tr>
+            <th></th>
+            <th>题目类型</th>
+            <th>题目个数</th>
+            <th>每题分数</th>
+            <th>题目难度</th>
+            <th class="knowledgePointTh">知识点</th>
+            <th>题型总分</th>
+        </tr>
+        </thead>
+
+        <tr>
+            <th colspan="2">总计：</th>
+            <th colspan="2">题目个数： 0 个</th>
+            <th colspan="3" style="color: red;font-size: 20px">总分： <span id="myScore">0 </span>分</th>
+        </tr>
+    </table>
+
+    <div style="text-align: center">
+        <button id="makePaper" class="makePaper btn btn-primary btn-lg">生成试卷</button>
+    </div>
+</div>
+
+<div class="modal fade" id="newRuleModal" tabindex="-1">
+    <div class="modal-dialog" style="width: 60%;min-width: 700px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    添加一个制卷规则
+                </h4>
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>题目类型</label>
+                    <select id="questionType" class="form-control">
+                        <option value="1" selected>单项选择题</option>
+                        <option value="5">多项选择题</option>
+                        <option value="2">填空题</option>
+                        <option value="3">判断题</option>
+                        <option value="4">简答题</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>题目个数</label>
+                    <input id="questionAmount" type="number" class="form-control" value="1" min="0">
+                </div>
+                <div class="form-group">
+                    <label>题型分数</label>
+                    <input id="questionScore" type="number" class="form-control" value="1" min="1">
+                </div>
+                <div class="form-group">
+                    <label>题型难度</label>
+                    <select id="questionLevel" class="form-control">
+                        <option value="1" selected>简单</option>
+                        <option value="2">中等</option>
+                        <option value="3">难</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label> 知&nbsp;识&nbsp;&nbsp;点</label>
+                    <div>
+                        <input id="knowledgePoint" type="text" class="form-control knowledgePoint" disabled>
+                        <button class="checkKnowledgePoint" data-toggle="modal"
+                                data-target="#myKnowledgePointModal">
+                            <span class="glyphicon glyphicon-search" style="color: whitesmoke"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <!--<span>每种题型对应一种规则；每个题目的分数只支持整数</span>-->
+                <button id="addNewRuleFS" class="btn sure">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editRuleModal" tabindex="-1">
+    <div class="modal-dialog" style="width: 60%;min-width: 700px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    修改制卷规则
+                </h4>
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label>题目类型</label>
+                    <select id="questionTypeFC" class="form-control" disabled>
+                        <option value="1">单项选择题</option>
+                        <option value="5">多项选择题</option>
+                        <option value="2">填空题</option>
+                        <option value="3">判断题</option>
+                        <option value="4">简答题</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>题目个数</label>
+                    <input id="questionAmountFC" type="number" class="form-control" value="1">
+                </div>
+                <div class="form-group">
+                    <label>题型分数</label>
+                    <input id="questionScoreFC" type="number" class="form-control" value="1">
+                </div>
+                <div class="form-group">
+                    <label>题型难度</label>
+                    <select id="questionLevelFC" class="form-control">
+                        <option value="1" selected>简单</option>
+                        <option value="2">中等</option>
+                        <option value="3">难</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label> 知&nbsp;识&nbsp;&nbsp;点</label>
+                    <input id="knowledgePointFC" type="text" class="form-control" disabled>
+                    <button class="checkKnowledgePoint" data-toggle="modal"
+                            data-target="#myKnowledgePointModal">
+                        <span class="glyphicon glyphicon-search" style="color: whitesmoke"></span>
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <!--<span>每种题型对应一种规则；每个题目的分数只支持整数</span>-->
+                <button id="editNewRuleFS" class="btn sure" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myKnowledgePointModal" tabindex="-1">
+    <div class="modal-dialog modal-lg" style="width:40%;min-width: 500px;">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #303641">
+                <h4 class="modal-title">
+                    选择知识点
+                </h4>
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
+            </div>
+
+            <div class="modal-body myKnowledgePoint">
+                <table id="myKnowledgePoint" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>知识点名称</th>
+                        <th><input type="checkbox" id="allKnowledgePoint"></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div class="modal-footer" style="background-color: #303641">
+                <!--<span>知识点匹配自题库，修改知识点内容需要提供管理员权限</span>-->
+                <button id="addKnowledgeFS" class="btn sure" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/tiku/js/child-function/makePaperByMachine.js"></script>
+<script>
+    $(".back").click(function () {
+        $.ajax({
+            type: "get",
+            url: "/tiku/page/teacher/teacher-paper-manage.html",
+            dataType: "html",
+            beforeSend: function () {
+                $(".main-block").html("<div class='myJava'>数据加载中...</div>")
+            },
+            success: function (result) {
+                $(".back").unbind("click");
+                $(".location").html("试卷管理");
+                $(".main-block").html("");
+                $(".main-block").append(result);
+            },
+            error: function () {
+                $(".main-block").html("<div class='wrong404'></div>")
+            }
+        });
+    })
+</script>
+</body>

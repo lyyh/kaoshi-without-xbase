@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>注册</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="/system/css/reg.css"/>
+    <link rel="stylesheet" href="/system/css/index.css" />
+    <!--<link rel="stylesheet" type="text/css" href="/system/easyui/themes/default/easyui.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="/system/easyui/themes/icon.css">-->
+    <script type="text/javascript" src="/system/js/jquery.js"></script>
+    <script type="text/javascript" src="/system/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/system/js/validate2.js"></script>
+    <script type="text/javascript" src="/system/easyui/easyui-lang-zh_CN.js"></script>
+    <script language="javascript" type="text/javascript" src="/system/My97DatePicker/WdatePicker.js"></script>
+    <script language="javascript" type="text/javascript" src="/system/js/common.js"></script>
+    <script type="text/javascript" src="/system/js/reg.js"></script>
+    <script>
+        $(function() {
+            checkCanReg(1);
+            onSelectCredType();
+        });
+    </script>
+</head>
+<body id="bg-wrap">
+<div id="header">
+    <div class="wrap">
+        <div class="logo"></div>
+    </div>
+</div>
+<div id="c-w" class="float-wrapper">
+    <div class="title"></div>
+    <form class="n" id="form" onsubmit="return false;">
+        <label class="label">
+            <input onclick="ChoiceBaseDialog('/system/dept/listNologin.do?system_id=1&dept_status=1',false,false,getObj(this,'dept_id'),getObj(this,'dept_name',null));" name="dept_name" readonly/>
+            <input name="dept_id" type="hidden">
+            <span id="vdept_id"><span>*</span> 请选择部门</span>
+            <div class="label">工作单位</div>
+        </label>
+        <label class="label">
+            <input id="user_id" name="user_id" onblur="validatePassportAjax(1)">
+            <span id="vuser_id"><span>*</span> 4-20位英文或数字</span>
+            <div class="label">用户名</div>
+        </label>
+        <label class="label">
+            <input id="passport_pwd" name="passport_pwd" type="password" onblur="validatePwd(1)">
+            <span id="vpassport_pwd"><span>*</span> 6-20位英文或数字</span>
+            <div class="label">密码</div>
+        </label>
+        <label class="label">
+            <input id="rpassport_pwd" name="rpassport_pwd" type="password" onblur="validatePwd(2)">
+            <span id="vrpwd"><span>*</span> 6-20位英文或数字</span>
+            <div class="label">确认密码</div>
+        </label>
+        <label class="label">
+            <input id="user_realName" name="user_realName" onblur="validateName()">
+            <span id="vrealname"><span>*</span> 请输入真实姓名</span>
+            <div class="label">姓名</div>
+        </label>
+        <label class="label">
+            <div class="s-s">
+                <label><input name="user_cred_type" type="radio" value="1" checked><span>身份证</span></label>
+                <label><input name="user_cred_type" type="radio" value="2"><span>军官证</span></label>
+            </div>
+            <div class="label">证件类型</div>
+        </label>
+        <div class="label">
+            <input id="user_cred_code" name="user_cred_code" style="padding-left: 141px; width: 163px;"
+                   onblur="validateSfc(1)">
+            <span id="vuser_cred_code"><span>*</span> 身份证15或18位，军官证7位数字</span>
+            <div class="label">证件信息</div>
+        </div>
+        <div class="label">
+            <div class="s-s">
+                <label><input name="user_sex" type="radio" value="男" checked><span>男</span></label>
+                <label><input name="user_sex" type="radio" value="女"><span>女</span></label>
+            </div>
+            <div class="label">性别</div>
+        </div>
+        <label class="label">
+            <input id="user_birthday" name="user_birthday" readonly onClick="WdatePicker()"/>
+            <span id="vuser_birthday"><span>*</span> 请选择出生年月</span>
+            <div class="label">出生年月</div>
+        </label>
+        <label class="label">
+            <input id="user_email" name="user_email" onblur="validateEmail(true)">
+            <span id="vuser_email"><span>*</span> 请输入邮箱</span>
+            <div class="label">邮箱</div>
+        </label>
+        <label class="label">
+            <input id="user_mobilephone" name="user_mobilephone" onblur="validateMobile()">
+            <span id="vuser_mobilephone"><span>*</span> 请输入与手机</span>
+            <div class="label">手机</div>
+        </label>
+        <label class="label vaCode float-wrapper">
+            <input name="check_code">
+            <div class="label">验证码</div>
+            <img id='checkCodeImg' src="/system/checkCode.do" alt="点击刷新"
+                 onclick="javascript:this.src='/system/checkCode.do?'+Math.random()"
+                 style="cursor:pointer; vertical-align:middle; width:63px; height:30px; margin-left:5px;"/>
+        </label>
+        <div class="label">
+            <input type="submit" class="btn" value="注册" onclick="return reg(event);">
+        </div>
+    </form>
+    <form class="l-b">
+        > 已经拥有系统帐号? <a href="/">直接登录</a>
+    </form>
+</div>
+<div class="line"></div>
+<!--#include virtual="/system/page/util/copyright.html"-->
+</body>
+
+<script type="text/javascript">
+    var validate;
+    $(function () {
+        validate = V('#c-w', getValidateJson("user"));
+    });
+    function preventDefault(event){
+        if(document.all){
+            window.event.returnValue = false;
+        }else{
+            event.preventDefault();
+        }
+    }
+    var flag = false;
+    function reg(e) {
+        //检查身份证与出生日期是否相符
+        var current_code = $("#user_cred_code").val();
+        var user_cred_type=$("input[name='user_cred_code']").val();
+        if(user_cred_type==1){
+            var sfz_birth = getUserBirthdayFromCredCode(current_code);
+            var birth = $("#user_birthday").val();
+
+            if(birth!=sfz_birth){
+                if(confirm("出生日期必须身份证的日期一致，是否修改为身份证中的日期？")) {
+                    $("#user_birthday").val(sfz_birth);
+                } else {
+                    return false;
+                }
+            }
+        }
+
+//        e.preventDefault();
+        preventDefault(e);
+        validate.validate();
+        if (!(validateRegUserCommon()&& validateBirthday() && validateCompany())) {
+            return false;
+        }
+
+        var cr = validate.check();
+        if ( cr && !flag) {
+            flag = true;
+            var info = $("#form").serializeArray();
+            $.ajax({
+                url: "/system/reg/userReg.do",
+                type: 'POST',
+                data: info,
+                dataType: 'json',
+                error: function () {
+                    $.messager.alert("提示", "超时或者系统异常...");
+//                    location.href = "/business/userinfo/reg/index.do"
+                },
+                success: function (data) {
+                    if (data.res == 1) {
+                        $.messager.alert("提示", "注册成功，请等待审核！", "info", function () {
+                            location.href = "/system/page/util/login.shtml"
+                        })
+                    } else {
+                        if(data.res == -4) {
+                            changeCheckCode();
+                        }
+                        alert(data.msg);
+                    }
+                },
+                complete: function () {
+                    flag = false;
+                }
+            });
+        } else {
+            if (validate.check() && flag) {
+                alert("你已提交，请耐心等待！");
+            }
+        }
+    }
+
+    function validateBirthday() {
+        return validateField('user_birthday', 'vuser_birthday', '请选择出生日期');
+    }
+
+    function validateCompany() {
+        return true;
+    }
+
+</script>
+</html>

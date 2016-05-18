@@ -1,0 +1,268 @@
+<link rel="stylesheet" type="text/css" href="/tiku/css/base/base.css">
+<style>
+    .totalContainer {
+        margin: 0 auto;
+        padding: 30px 10px;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .row {
+        text-align: left;
+        padding-left: 30px;
+    }
+
+    .row .btn {
+        margin-left: 10px;;
+    }
+
+    .row .xz-tx {
+        float: right;
+        margin-right: 30px;
+    }
+
+    .xz-tx select {
+        width: 140px;;
+    }
+
+    .table {
+        margin-top: 20px;;
+        text-align: center;
+    }
+
+    .table th {
+        text-align: center;
+    }
+
+    .modal-body {
+        height: 400px;
+        overflow-y: auto;
+    }
+</style>
+<body>
+<div class="totalContainer">
+    <div class="row">
+        <button type="button" class="btn btn-primary btn-sm btn--arrange-new" style="margin-left: 0px;">
+            <span class="glyphicon glyphicon-plus"></span> 安排考试
+        </button>
+    </div>
+    <table id="table-luti" class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th width="3%"><input type="checkbox" class="checkall"></th>
+            <th width="5%">试卷编号</th>
+            <th width="5%">出卷人</th>
+            <th width="10%">考试学期</th>
+            <th width="10%">考试类型</th>
+            <th width="10%">总分</th>
+        </tr>
+        </thead>
+        <tbody id="neirong">
+        </tbody>
+    </table>
+    <ul class="pagination">
+    </ul>
+</div>
+
+<!--安排新考试-->
+<div class="modal fade" id="arrange-new" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 26%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    安排考试
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>开始时间</label>
+                    <input type="text" class="form-control" id="startTime" placeholder="开始时间">
+                </div>
+                <div class="form-group">
+                    <label>结束时间</label>
+                    <input type="text" class="form-control" id="endTime" placeholder="结束时间">
+                </div>
+                <div class="form-group">
+                    <label>考试地点</label>
+                    <input type="text" class="form-control" placeholder="具体时间">
+                </div>
+                <div class="content">
+                    <div class="form-group">
+                        <label>试卷编号</label>
+                        <input type="text" class="form-control" value="试卷编号" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>出卷人</label>
+                        <input type="text" class="form-control" value="试卷编号" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>科目</label>
+                        <input type="text" class="form-control" value="科目" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>考试学期</label>
+                        <input type="text" class="form-control" placeholder="考试学期" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>考试类型</label>
+                        <input type="text" class="form-control" placeholder="考试类型" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/tiku/js/page-function/page.js"></script>
+<script type="text/javascript" src="/tiku/page/system/My97DatePicker/WdatePicker.js"></script>
+<script>
+    $("document").ready(function () {
+        table.page({
+            pageurl: "/paper/selectallpaper.do",
+            pagedata: {
+                page: 1,
+                rows: 15,
+            }
+        });
+        function setItems(data) {
+            $("#neirong").html('');
+            //后台渲染
+            var items = data.rows;
+            for (var i = 0; i < items.length; i++) {
+                var difficulty = ((items[i].testpaperType == 0) ? '模拟考试' : '正式考试');
+                $("#neirong").append('<tr><td><input value="' + items[i].testpaperId + '" type="checkbox" name="checkname"></td><td>' + items[i].testpaperId + '</td><td>' + items[i].passportName + '</td><td>' + items[i].mkpaperTerm + '</td><td>'+ difficulty + '</td><td>' +  items[i].mkpaperScore + '</td></tr>');
+            }
+            //表格选择
+            $("#neirong tr").click(function (e) {
+                var input = $(this).find("input[name=checkname]");//获取checkbox
+                if ($(e.target).attr("type") != "checkbox") {
+                    //判断当前checkbox是否为选中状态
+                    if (input.is(":checked")) {
+                        input.prop("checked", false);
+                    } else {
+                        input.prop("checked", true);
+                    }
+                }
+            })
+        }
+
+        //初始化时间
+        $("#startTime").bind("click", function () {
+            WdatePicker({
+                doubleCalendar: true,
+                startDate: '%y-{%M-1}-%d',
+                dateFmt: 'yyyy-MM-dd HH:mm:ss',
+                autoPickDate: true,
+                maxDate: '#F{$dp.$D(\'endTime\')||\'%y-%M-%d\'}',
+                onpicked: function () {
+                    endTime.click();
+                }
+            });
+        });
+        $("#endTime").bind("click", function () {
+            WdatePicker({
+                doubleCalendar: true,
+                startDate: '%y-{%M-1}-%d',
+                minDate: '#F{$dp.$D(\'startTime\')}',
+                dateFmt: 'yyyy-MM-dd HH:mm:ss',
+                autoPickDate: true
+            });
+        });
+
+        //安排考试
+        $(".btn--arrange-new").click(function () {
+            var checks = $(".table tr").find("input[name=checkname]"),
+                    n = 0;
+            for (var i = 0; i < checks.length; i++) {
+                if (checks[i].checked)
+                    n++;
+            }
+            if (n != 1) {
+                var a = $("#tip").find(".modal-body");
+                a.html("<p>只能选择一行数据</p>");
+                $('#tip').modal({backdrop: 'static', keyboard: false});
+            }
+            else {
+                $('#arrange-new').modal({backdrop: 'static', keyboard: false});
+            }
+        })
+
+
+        //全选
+        $(".checkall").click(function () {
+            if (this.checked) {
+                $("input[name='checkname']").each(function () {
+                    this.checked = true;
+                });
+            } else {
+                $("input[name='checkname']").each(function () {
+                    this.checked = false;
+                });
+            }
+        });
+
+        //模态框调整
+        t = setTimeout(function () {
+            var _modal = $(".modal-dialog");
+            _modal.animate({'margin-top': parseInt(($(window).height() - _modal.height()) / 8)}, 300)
+        }, 200);
+
+
+        //加载所有科目
+        $.ajax({
+            url: "",
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                $("#luti-op").html("<option value='-1'>全部</option>");
+                for (var i = 0; i < data.length; i++) {
+                    $("#luti-op").append('<option value="">' + +'</option>');
+                }
+            }
+        })
+
+        //表格选择
+        $("#neirong tr").click(function (e) {
+            var input = $(this).find("input[name=checkname]");//获取checkbox
+            if ($(e.target).attr("type") != "checkbox") {
+                //判断当前checkbox是否为选中状态
+                if (input.is(":checked")) {
+                    input.prop("checked", false);
+                } else {
+                    input.prop("checked", true);
+                }
+            }
+        })
+        //返回
+        $(".back").click(function () {
+            $.ajax({
+                type: "get",
+                url: "/tiku/page/teacher/teacher-arrange-test.html",
+                dataType: "html",
+                beforeSend: function () {
+                    $(".main-block").html("<div class='myJava'>数据加载中...</div>")
+                },
+                success: function (result) {
+                    $(".back").unbind("click");
+                    $(".location").html("考试安排");
+                    $(".main-block").html("");
+                    $(".main-block").append(result);
+                },
+                error: function () {
+                    $(".main-block").html("<div class='wrong404'></div>")
+                }
+            });
+        });
+
+    })
+
+</script>
+</body>

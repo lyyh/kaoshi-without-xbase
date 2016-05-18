@@ -1,0 +1,242 @@
+/*���Թ������*/
+.totalContainer {
+    width: 1024px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.testRules{
+    width: 850px;
+    height: 540px;
+    padding: 5px 100px 0 100px;
+    margin: 1% auto;
+
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#909090, direction=120, strength=3); /*ie*/
+    -moz-box-shadow: 2px 2px 10px #909090; /*firefox*/
+    -webkit-box-shadow: 2px 2px 10px #909090; /*safari��chrome*/
+    box-shadow: 2px 2px 10px #909090; /*opera��ie9*/
+
+    text-align: center;
+    overflow: hidden;
+}
+
+.testRules h2{
+    margin-bottom: 40px;
+}
+
+.test-tip{
+    /*height: 450px;*/
+    text-align: left;
+    font-size: 17px;
+    line-height: 15px;
+}
+
+.test-tip p{
+    margin-top: 5px;
+    line-height:130%;
+}
+
+.start-exam{
+    margin: 70px auto;
+}
+
+/*���Թ�����*/
+.myModal {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.myContent {
+    /*width: 1100px;*/
+    /*height: 95%;*/
+    margin: 10px auto;
+    background-color: #2B2B2B;
+
+    color: whitesmoke;
+    font-size: 15px;
+
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#909090, direction=120, strength=3); /*ie*/
+    -moz-box-shadow: 2px 2px 10px #909090; /*firefox*/
+    -webkit-box-shadow: 2px 2px 10px #909090; /*safari��chrome*/
+    box-shadow: 2px 2px 10px #909090; /*opera��ie9*/
+}
+
+.info-bar {
+    width: 100%;
+    height: 8%;
+    background-color: #3C3F41;
+    border-bottom: 1px solid #282828;
+    overflow: hidden;
+}
+
+.info-bar div {
+    float: left;
+    min-width: 10%;
+    height: 100%;
+    padding: 1%;
+    text-align: center;
+}
+
+.info-bar .test-time {
+    float: right;
+}
+
+.left-tools-bar {
+    float: left;
+
+    width: 200px;
+    height: 92%;
+    padding-top: 5px;
+    border: 1px solid #282828;
+    border-top-color: #555555;
+
+    text-align: center;
+    background-color: #3C3F41;
+}
+
+.left-tools-bar .test-info {
+    width: 90%;
+    margin: 0 auto;
+    padding-left: 15px;
+    border: 1px solid gray;
+
+    font-size: 15px;
+    text-align: left;
+    line-height: 200%;
+    color: #ddd8d8;
+}
+
+.left-tools-bar .quickType {
+    width: 100%;
+    padding: 0;
+    margin: 40% auto;
+
+    list-style: none;
+    overflow: hidden;
+}
+
+.left-tools-bar .quickType li {
+    float: left;
+
+    width: 100%;
+    height: 50px;
+    padding: 15px;
+    border: 1px solid #3a3a3a;
+
+    text-align: left;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.left-tools-bar .quickType li span{
+    float: right;
+}
+
+.left-tools-bar .quickType li:first-child{
+    background-color: #4B6EAF;
+}
+
+.top-tools-bar {
+    height: 5%;
+    padding: 1px;
+    border-top: #555555 1px solid;
+    background-color: #3C3F41;
+}
+
+.top-tools-bar button {
+    float: right;
+
+    min-width: 3%;
+    height: 100%;
+    margin-right: 2px;
+    border: 1px solid transparent;
+
+    background-color: transparent;
+    text-align: center;
+    overflow: hidden;
+}
+
+.top-tools-bar button:first-child {
+    border-left: 1px dotted #555555;
+}
+
+.top-tools-bar button:hover {
+    background-color: #9a9a9a;
+}
+/*�Ծ���*/
+.paper-block{
+    height: 87%;
+    padding:10px 0 0 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    font-size: 15px;
+    font-family:"Microsoft YaHei";
+    color: #FFC66D;
+}
+
+.paper-block ul{
+    padding: 0;
+    list-style: none;
+}
+
+.paper-block ul li label{
+    color: #bc562c;
+}
+
+.paper-block ul li>p{
+    display:inline-block;
+}
+
+.paper-block ul li ul li>p{
+    display: inline-block;
+}
+
+.paper-block ul li .options{
+    color: #9876AA;
+}
+
+.paper-block .judge-que li .options{
+    color: #6A8759;
+}
+
+.paper-block ul li img{
+    background-color: white;
+}
+
+.paper-block ul li .options li{
+    padding-left: 10px;
+}
+
+.paper-block ul li .options li:hover{
+    background-color: #323232;
+    cursor: pointer;
+}
+
+.paper-block input[type=radio], .paper-block input[type=checkbox]{
+    margin: 0 5px 0 0;
+    cursor: pointer;
+}
+
+
+.blank-que input[type='text']{
+    width: 300px;
+    height: 30px;
+    margin-top: 5px;
+
+    color: black;
+}
+
+.short-answer-que textarea{
+    width: 98%;
+    height: 150px;
+    margin: 0 auto;
+    color: black;
+    resize: none;
+}

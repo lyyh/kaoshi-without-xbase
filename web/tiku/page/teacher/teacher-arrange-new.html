@@ -1,0 +1,149 @@
+<link rel="stylesheet" type="text/css" href="/tiku/css/base/base.css">
+<style>
+    .totalContainer {
+        margin: 0 auto;
+        padding: 30px 10px;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .row {
+        text-align: left;
+        padding-left: 30px;
+    }
+
+    .row .btn {
+        margin-left: 10px;;
+    }
+
+    .row .xz-tx {
+        float: right;
+        margin-right: 30px;
+    }
+
+    .xz-tx select {
+        width: 140px;;
+    }
+
+    .table {
+        margin-top: 20px;;
+        text-align: center;
+    }
+
+    .table th {
+        text-align: center;
+    }
+
+    #show-info .modal-body .content {
+        height: 400px;
+        overflow-y: auto;
+    }
+</style>
+<body>
+<div class="totalContainer">
+    <div class="row">
+        <button type="button" class="btn btn-primary btn-sm btn-arrange-new" style="margin-left: 0px;">
+            <span class="glyphicon glyphicon-plus"></span> 安排考试
+        </button>
+    </div>
+    <table id="table-anpai" class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th width="5%"><input type="checkbox" class="checkall"></th>
+            <th width="15%">试卷编号</th>
+            <th width="10%">出卷人</th>
+            <th width="20%">考试学期</th>
+            <th width="20%">考试类型</th>
+            <th width="20%">总分</th>
+        </tr>
+        </thead>
+        <tbody id="neirong">
+        <tr>
+            <td><input type="checkbox" name="checkname"></td>
+            <td>加载中...</td>
+            <td>
+                <div class="neirong-title">加载中...</div>
+            </td>
+            <td>加载中...</td>
+            <td>加载中...</td>
+            <td>加载中...</td>
+            <td>加载中...</td>
+        </tr>
+        </tbody>
+    </table>
+    <ul class="pagination">
+    </ul>
+</div>
+
+<!--安排新考试-->
+<div class="modal fade" id="arrange-new" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width: 26%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    安排考试
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>开始时间</label>
+                    <input type="text" class="form-control" id="testStarttime" placeholder="开始时间yyyy-MM-dd HH:mm:ss">
+                </div>
+                <div class="form-group">
+                    <label>结束时间</label>
+                    <input type="text" class="form-control" id="testEndtime" placeholder="结束时间yyyy-MM-dd HH:mm:ss">
+                </div>
+                <div class="content">
+                    <div class="form-group">
+                        <label>试卷编号</label>
+                        <input type="text" class="form-control"  id="testpaperId" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>出卷人</label>
+                        <input type="text" class="form-control"  id="teaName" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>考试学期</label>
+                        <input type="text" class="form-control"  id="mkpaperTerm" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>考试类型</label>
+                        <input type="text" class="form-control"  id="testpaperType" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>总分</label>
+                        <input type="text" class="form-control"  id="mkpaperScore" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>出卷人编号</label>
+                        <input type="text" class="form-control"  id="createPpassportId" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>课程编号</label>
+                        <input type="text" class="form-control"  id="courseId" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-edit-sure" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/tiku/js/page-function/page.js"></script>
+<script type="text/javascript" src="/tiku/page/system/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/tiku/js/page-function/teacher-arrange-new.js"></script>
+<script>
+    $(".back").click(function () {
+        $(".back").unbind("click");
+        $(".location").html("系统主页");
+        $(".main-block").html("<div class='myJava'></div>")
+    });
+</script>
+</body>

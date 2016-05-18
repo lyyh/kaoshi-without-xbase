@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>登陆系统</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="/system/css/login.css" />
+    <link rel="stylesheet" href="/system/css/index.min.css" />
+    <script type="text/javascript">
+        if(!+'\v1' && !'1'[0]){
+            location.href="/system/page/util/obsolete.html";
+        }
+
+        if(navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.match(/8./i)=="8."){
+            location.href="/system/page/util/obsolete.html";
+        }
+    </script>
+</head>
+<body id="bg-wrap">
+<div id="header">
+    <div class="wrap">
+        <div class="logo"></div>
+    </div>
+</div>
+<div id="c-w" class="float-wrapper">
+    <a style="color: #05aac3;font-size:15px;padding-left: 625px;" href="/system/page/notice/newsMoreList.shtml">更多...</a>
+    <ul class="n" id="login_news_list">
+    </ul>
+    <form class="l-b" id="form" onsubmit="return false;">
+        <label class="label">
+            <input name="passport_id" id="passport" type="text" autocomplete="off" value="">
+            <div class="label">用户名</div>
+        </label>
+        <label class="label">
+            <input name="passport_pwd" id="pwd" type="password" autocomplete="off" value="">
+            <div class="label">密码</div>
+        </label>
+        <label class="label vaCode float-wrapper">
+            <input id="randcode" name="randcode">
+            <div class="label">验证码</div>
+            <img id='checkCodeImg' src="/system/checkCode.do" alt="点击刷新" onclick="javascript:this.src='/system/checkCode.do?'+Math.random()" style="cursor:pointer; vertical-align:middle; width:63px; height:30px; margin-left:5px;"/>
+        </label>
+        <div class="label">
+            <input type="submit" class="btn" value="登陆" onclick="login();">
+            <!--#include virtual="/system/reg/getRegButton.do"-->
+        </div>
+        <div class="label tip">
+            忘记密码？点击<a href="/system/page/util/pwdStep1.shtml">找回密码</a>&nbsp;
+            <a href="/file/downfile.do?filename=shouce" target="_blank">使用手册</a>
+        </div>
+    </form>
+</div>
+<div class="line"></div>
+<!--#include virtual="/system/page/util/copyright.html"-->
+</body>
+
+<script type="text/javascript" src="/system/js/jquery.js"></script>
+<script type="text/javascript" src="/system/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+    /*if(!+'\v1' && !'1'[0]){
+     var msg="由于您的浏览器版本太低，并且官方已不再维护<br/><br/>此浏览器版本，为了你的安全，请升级或者使用<br/><br/>其它浏览器，点击以下链接下载相应浏览器<br/><br/>" +
+     "<a href='http://dlsw.baidu.com/sw-search-sp/soft/9d/14744/ChromeStandalone_V42.0.2311.135_Setup.1430289688.exe' style='color: #ff0000' target='_blank'>Chrome浏览器下载链接</a> "+
+     "<br/><br/><a href='http://windows.microsoft.com/zh-cn/internet-explorer/download-ie' style='color: #ff0000' target='_blank'>IE11浏览器下载链接</a> ";
+     $.messager.alert('提示', msg);
+     }*/
+    $(document).ready(function(e){
+        $.get("/system/notice/noticList.do?module_id=8",
+                function(data){
+                    for(var i=0;i<data.rows.length;i++){
+                        if(data.rows[i].notice_title.length>31){
+                            $("#login_news_list").append("<li><a href='/system/page/notice/news.shtml?id="+data.rows[i].notice_id+"'>"+data.rows[i].notice_title.substr(0,30)+"..."+"</a><span>"+data.rows[i].puser_time+"</span></li>");
+                        }
+                        else{
+                            $("#login_news_list").append("<li><a href='/system/page/notice/news.shtml?id="+data.rows[i].notice_id+"'>"+data.rows[i].notice_title+"</a><span>"+data.rows[i].puser_time+"</span></li>");
+                        }
+
+                    }
+                }
+        );
+    });
+    //    document.onkeydown = function(event) {
+    //        var e = event ? event : (window.event ? window.event : null);
+    //        if (e.keyCode == 13) {
+    //            login();
+    //        }
+    //    };
+
+    var mark = 0;
+    function login() {
+        if (mark == 1) {
+            $.messager.alert('提示', "系统验证中...");
+        }
+        var name = $("#passport").val();
+        var pwd = $("#pwd").val();
+        var randcode = $("#randcode").val();
+        if (name == "") {
+            $.messager.alert("提示","亲爱的用户，请输入帐号！");
+            return;
+        }
+        if (pwd == "") {
+            $.messager.alert("提示","亲爱的用户，请输入密码！");
+            return;
+        }
+//        if(randcode == "") {
+//            $.messager.alert("提示","亲爱的用户，请输入验证码！");
+//            return;
+//        }
+        mark = 1;
+        var info = $("#form").serializeArray();
+        $.ajax({
+            url: "/system/login/check.do",
+            type: 'POST',
+            data: info,
+            dataType: 'json',
+            error: function () {
+                $.messager.alert("提示","超时或者系统异常...");
+                mark = 0;
+            },
+            success: function (data) {
+                if (data == "000009") {
+                    location.href = "/system/page/util/index.shtml?t=" + Math.random();
+                }else {
+                    changeCheckCode();
+                    if(data=="001003") {
+                        $.messager.alert("提示","登录失败，账号密码不正确!");
+                    } else if(data=="001008") {
+                        $.messager.alert("提示","登录失败，账号尚未审核!");
+                    } else if(data=="001009") {
+                        $.messager.alert("提示","登录失败，账号审核不通过!");
+                    } else if(data=="001010") {
+                        $.messager.alert("提示","验证码不正确，请重新输入!");
+                    } else {
+                        $.messager.alert("提示","登录失败，账号校验非法或者状态异常!");
+                    }
+                }
+                mark = 0;
+            }
+        });
+    }
+    //更换验证码
+    function changeCheckCode() {
+        $("#checkCodeImg").attr("src", "/system/checkCode.do?rand="+Math.random());
+    }
+</script>
+</html>

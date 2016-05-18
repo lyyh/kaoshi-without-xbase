@@ -1,0 +1,111 @@
+
+<div name="winDataListButtons" class="toobar" style="padding: 5px 1px 5px">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true"  style="height: 22px" onclick="refresh()">刷新</a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="openWinUrl(800, 550, '模块选择', '/system/menus/ModuleList.shtml?menugroup_id='+getCurrWin().find('[name=menugroup_id]').val()+'&system_id='+getParentWin().find('[name=system_id]').val(), null, null, null);">模块导入</a>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-show',plain:true" onclick="showRow('show','查看')">查看</a>
+</div>
+
+<table  name="winDataList" class="treegrid" data-options="cache:false,animate:true,autoRowHeight:false,fitColumns:true,striped:true,rownumbers:true,singleSelect:true,treeField:'text',idField:'id',
+onLoadSuccess: function (row) {$(this).treegrid('enableDnd', row ? row.id : null);},   //启动treegrid的拖拽功能
+onBeforeDrop: function (targetRow, sourceRow, point) {
+                if((','+sourceRow['pid']+',').indexOf(','+targetRow['id']+',')!=-1){
+                    $.messager.alert('提示', '不能将自己拖动到自己的目录下！');
+                    return false;
+                }
+                if (confirm('是否确认拖动 ' + sourceRow.text + ' 到 ' + targetRow.text + ' 下')) {
+                    var param = {};
+                    param['id'] = sourceRow['id'];
+                    param['pid'] = targetRow['id'];
+                    param['option_type'] = 'drop';
+                    loadData('/system/menus/save.do', function (ret) {retMessage(ret, function () {refresh();}, true);}, {data:param});
+                }
+                return false;
+            }
+">
+    <thead>
+    <tr>
+        <th data-options="field:'ck',checkbox:true"></th>
+        <th data-options="field:'text',align:'left',width:120">菜单名称</th>
+        <th data-options="field:'id',align:'center',width:40">菜单编号</th>
+        <th data-options="field:'menugroup_name',align:'center',width:99">菜单分组</th>
+        <th data-options="field:'module_name',align:'center',width:99">关联模块</th>
+    </tr>
+    </thead>
+</table>
+<input type="hidden" name="menugroup_id">
+<textarea name="winEditHtml" style="display:none;">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'center'" style="padding: 12px 12px 0 12px;">
+            <form name="obj"  method="post" class="c-form">
+                <!--隐藏域-->
+                <input type="hidden" name="menus_id">
+                <input type="hidden" name="menugroup_id">
+                <input type="hidden" name="module_id" value="module_id">
+                <input type="hidden" name="option_type" value="add">
+                <input type="hidden" name="menus_pid" value="0">
+                <table class="table">
+                    <tr>
+                        <td class="label">父菜单:</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" name="parent_menus_name" value="默认父菜单" data-options="editable:false,required:true,buttonIcon:'icon-search',onClickButton:function(){ChoiceBaseDialog('/system/menus/menusTree.do?id='+getParentWin().find('input[name=menugroup_id]').val(),false,false,getObj(this,'menus_pid'),getObj(this,'parent_menus_name','textboxname'));}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">模块:</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" name="module_name" data-options="editable:false,required:true,buttonIcon:'icon-search',onClickButton:function(){var tmp=$(this);ChoiceBaseDialog('/system/getModuleTree.do?id='+getParentWin().find('[name=menugroup_id]').val(),false,false,getObj(this,'module_id'),getObj(this,'module_name','textboxname'),function(){setVal(getObj(tmp,'menus_name','textboxname'),getObj(tmp,'module_name','textboxname').val());});}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">菜单名称:</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" type="text" name="menus_name" data-options="required:true,validType:'length[2,30]'"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">菜单状态：</td>
+                        <td class="value"><select class="easyui-combobox"  name="menus_status"><option value="1">开启</option><option value="0">关闭</option></select></td>
+                    </tr>
+                    <tr>
+                        <td class="label">菜单排序：</td>
+                        <td class="value"><input class="easyui-numberbox" type="text" name="menus_sort" data-options="min:0,max:999,value:0"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">菜单图标：</td>
+                        <td class="value"><input class="easyui-textbox" type="text" name="menus_icon"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label" style="height:80px">备注：</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" type="text" name="menus_memo" maxlength="100" data-options="multiline:true,validType:'maxLength[200]'" style="height:80px"/></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="c-w-t" data-options="region:'south'">
+            <#buttons/>
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-close',plain:true" onclick="closeCurrWin()">关闭</a>
+        </div>
+    </div>
+</textarea>
+<script>
+    !function(){
+        var menugroup_id=getUrlParam('?<!--#echo var="QUERY_STRING"-->',"id");
+        getCurrWin().find('input[name=menugroup_id]').val(menugroup_id);
+        listBind({
+            windowWidth:430,
+            windowHeight:415,
+            keyField:'id',
+            save:"/system/menus/save.do",
+            show:"/system/menus/show.do",
+            del: "/system/menus/del.do",
+            listUrl:'/system/menus/menusTree.do?id='+menugroup_id,
+            param:{},
+            afterAdd:function(){
+                getCurrWin().find('input[name=menugroup_id]').val(menugroup_id);
+            },
+            afterListBind:function(){
+                //初始工具栏权限
+                $.ajax({type: 'post',url: '/system/menus/groups/checkMenusAction.do',data: {id:menugroup_id},
+                    success: function (res) {
+                        getCurrWin().find("[name=winDataListButtons]").append(res);
+                        $.parser.parse(getCurrWin().find("[name=winDataListButtons]"));
+                    }
+                });
+            }
+        });
+    }();
+</script>

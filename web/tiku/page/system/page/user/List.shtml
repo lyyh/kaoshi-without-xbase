@@ -1,0 +1,239 @@
+<div name="winDataListButtons" class="toobar" style="padding: 5px 1px 5px">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refresh()">刷新</a>
+    <!--#include virtual="/system/getActions.do?module=user"-->
+    | 所属系统：<input class="easyui-combotree" name="system_id" width="120px" data-options="required:true,url:'/system/getSystem.do',method:'get',required:true,editable: false,valueField:'id',textField:'text',onSelect:function(){setTimeout(function(){setParam();refresh();},0);}"/>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="searchShow(this)">更多查询</a>
+</div>
+<table name="winDataList" class="datagrid" style="width: 100%; height: 100%" data-options="cache:false,fit:true,autoRowHeight:false,pageSize:20,fitColumns:true,pagePosition:'bottom',striped:true,rownumbers:true,singleSelect:true,pagination:true,method:'get'">
+    <thead>
+    <tr>
+        <th data-options="field:'ck',checkbox:true"></th>
+        <th data-options="field:'user_id',align:'center',width:120">账号</th>
+        <th data-options="field:'user_realName',align:'center',width:120">姓名</th>
+        <th data-options="field:'user_nickName',align:'left',width:120">昵称</th>
+        <th data-options="field:'user_status',align:'center',width:60,formatter:formatProgress">状态</th>
+        <th data-options="field:'user_sex',align:'left',width:60">性别</th>
+        <th data-options="field:'user_tel',align:'left',width:120">电话</th>
+        <th data-options="field:'user_email',align:'left',width:120">邮箱</th>
+        <th data-options="field:'passport_lastLoginTime',align:'center',width:100">最近登录时间</th>
+    </tr>
+    </thead>
+</table>
+
+<textarea name="winEditHtml" style="display: none;">
+    <form name="obj" method="post" class="c-form" style="height: 100%;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center'">
+                <div class="easyui-tabs" style="width: 100%;" data-options="fit:true">
+                    <div title="基础信息">
+                        <input type="hidden" name="role_id">
+                        <input type="hidden" name="menugroup_id">
+                        <input type="hidden" name="option_type" value="add"><!--判断类型 必须包含-->
+                        <!--用户授权模块的隐藏框-->
+                        <!--<input type="hidden" name="system_id">-->
+                        <input type="hidden" name="system_name">
+                        <input type="hidden" name="passport_pwd_old">
+
+                        <table class="table">
+                            <tr>
+                                <td class="label-2"><font color="red">* </font>账号：</td>
+                                <td class="value-2"><input class="easyui-textbox easyui-validatebox" data-options="required:true" name="user_id"></td>
+                                <td class="label-2">密码：</td>
+                                <td class="value-2"><input type="password" name="passport_pwd" class="easyui-validatebox easyui-textbox" data-options="required:true"></td>
+                            </tr>
+                            <tr>
+                                <td class="label-2">姓名：</td>
+                                <td class="value-2"><input class="easyui-textbox easyui-validatebox" name="user_realName" data-options="required:true,validType:'length[2,30]'"></td>
+                                <td class="label-2">用户状态：</td>
+                                <td class="value-2"><select class="easyui-combobox" data-options="editable:false" name="user_status"><option value="1">可用</option><option value="0">不可用</option></select></td>
+                            </tr>
+                            <tr>
+                                <td class="label-2">角色菜单：</td>
+                                <td class="value-2"><input class="easyui-textbox easyui-validatebox" name="role_name" data-options="editable:false,required:true,buttonIcon:'icon-search',onClickButton:function(){ChoiceBaseDialog('/system/getRole.do?system_id=1',false,true,getObj(this,'role_id'),getObj(this,'role_name','textboxname'));}"/></td>
+                                <td class="label-2">限制登录IP：</td>
+                                <td class="value-2"><input type="text" class="easyui-textbox easyui-validatebox" name="passport_limitIp" data-options="validType:'maxLength[50]'" style="width:97%"></td>
+                            </tr>
+                            <tr>
+                                <td class="label-2">昵称：</td>
+                                <td class="value-2"><input class="easyui-textbox easyui-validatebox" name="user_nickName"></td>
+                                <td class="label-2">性别：</td>
+                                <td class="value-2"><select class="easyui-combobox" data-options="editable:false" name="user_sex"><option value="男">男</option><option value="女">女</option></select></td>
+                            </tr>
+                            <tr>
+                                <td class="label-2">电话：</td>
+                                <td class="value-2"><input class="easyui-textbox easyui-validatebox" name="user_tel" data-options="validType:'maxLength[40]'"></td>
+                                <td class="label-2">手机：</td>
+                                <td class="value-2"><input class="easyui-textbox easyui-validatebox" name="user_mobilephone" data-options="validType:'maxLength[40]'"></td>
+                            </tr>
+                            <tr>
+                                <td class="label-2">QQ：</td>
+                                <td class="value-2"><input class="easyui-textbox easyui-validatebox" name="user_qq" data-options="validType:'maxLength[20]'"></td>
+                                <td class="label-2">邮箱：</td>
+                                <td class="value-2"><input class="easyui-textbox easyui-validatebox" name="user_email" data-options="validType:'maxLength[60]'"></td>
+                            </tr>
+                            <tr>
+                                <td class="label-2" style="height:80px">备注：</td>
+                                <td class="value-2" colspan="3"><input class="easyui-textbox easyui-validatebox" type="text" name="user_memo" data-options="multiline:true,validType:'maxLength[200]'" style="height:80px;width:97%"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div title="所属系统及部门">
+                        <div class="easyui-layout" data-options="fit:true">
+                            <table id="dg" name="sysDept" class="easyui-datagrid" style="width:700px;height:auto" data-options="fit:true,iconCls: 'icon-edit',singleSelect: true,toolbar: '#tb',method: 'get',onClickRow:function(index){onClickRow('#dg',index);}">
+                                <thead>
+                                <tr>
+                                    <th data-options="field:'uuid',hidden:true"></th>
+                                    <th data-options="field:'system_id',formatter:function(value,row){return row.system_name},width:180,editor:{type:'combobox',options:{editable:false,onChange:function(){
+                                    var editIndex=$('#dg').data('rowIndex');
+                                    var systemCombo = $('#dg').datagrid('getEditor', {index:editIndex,field:'system_id'});
+                                    if(systemCombo) {
+                                        var system_id = $(systemCombo.target).combobox('getValue');
+                                        var deptCombo = $('#dg').datagrid('getEditor', {index:editIndex,field:'dept_id'});
+                                        $(deptCombo.target).combotree('reload', '/system/dept/list.do?system_id='+system_id);
+                                        $('#dg').datagrid('getRows')[editIndex]['dept_id'] = '';
+                                        $('#dg').datagrid('getRows')[editIndex]['dept_name'] = '';
+                                    }
+                                }, valueField:'id',textField:'text',url:'/system/getSystem.do',method:'get',required:true}}">所属系统</th>
+                                    <th data-options="field:'dept_id',formatter:function(value,row){return row.dept_name},width:230,editor:{type:'combotree',options:{valueField:'id',textField:'text',method:'get',required:true}}">所属部门</th>
+                                </tr>
+                                </thead>
+                            </table>
+
+                            <div id="tb" style="height:auto">
+                                <a name="dg_toolbar" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="append('#dg')">添加</a>
+                                <a name="dg_toolbar" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true" onclick="removeit('#dg')">删除</a>
+                                <a name="dg_toolbar" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="accept('#dg')">确认</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div title="账号信息">
+                        <table class="table">
+                            <tr>
+                                <td class="label">顺序账号：</td>
+                                <td class="value"><input type="hidden" name="passport_id"></td>
+                            </tr>
+                            <tr>
+                                <td class="label">注册时间：</td>
+                                <td class="value"><input type="hidden" name="passport_regtime"></td>
+                            </tr>
+                            <tr>
+                                <td class="label">登录次数：</td>
+                                <td class="value"><input type="hidden" name="passport_loginCount"></td>
+                            </tr>
+                            <tr>
+                                <td class="label">最近登录：</td>
+                                <td class="value"><input type="hidden" name="passport_lastLoginTime"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="c-w-t" data-options="region:'south'">
+                <#buttons/>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-close',plain:true" onclick="closeCurrWin()">关闭</a>
+            </div>
+        </div>
+    </form>
+</textarea>
+<script>
+    !function () {
+        listBind({
+            windowWidth: 680,
+            windowHeight: 422,
+            keyField: 'user_id',
+            save: "/system/user/save.do",
+            show: "/system/user/show.do",
+            del: "/system/user/del.do",
+            search: [
+                {field: 'user_id', title: '账号', c_dataType: 'string'},
+                {field: 'user_tel', title: '电话', c_dataType: 'string'},
+                {field: 'user_email', title: '邮箱', c_dataType: 'string'}
+            ],
+            listUrl:"/system/user/list.do",
+            param:{},
+            beforeSave:function(){
+                accept('#dg');
+//                var sysDept=$('#dg').datagrid('getRows');
+//                var mm= JSON.stringify(sysDept);
+//                console.log(mm);
+//                var val="",val2="";
+//                rows.forEach(function(value){
+//                    val=val+","+value.system_id;
+//                    val2=val2+","+value.dept_id;
+//                });
+//                if(val=="" && val2==""){
+//                    return false;
+//                }
+//                if(val!="")val=val.substr(1);
+//                if(val2!="")val2=val2.substr(1);
+//                getCurrWin().find("[name=system_id]").val(val);
+                getCurrWin().find("[name=system_name]").val(JSON.stringify($('#dg').datagrid('getRows')));
+//                console.log(getCurrWin().find("[name=sysDept]").val());
+                return true;
+            },
+            afterShow:function(){
+                $("#tb a[name=dg_toolbar]").hide();
+            },
+//            onOpen: function(){
+//                var type = getCurrWin().find("input[name=option_type]").val();
+//                if(type=="show") {
+//                    $("#tb a[name=dg_toolbar]").hide();
+//                } else {
+//                    $("#tb a[name=dg_toolbar]").show();
+//                }
+//            },
+            afterEdit:function(){
+                $("#tb a[name=dg_toolbar]").show();
+                bindEditGridSetVal('#dg',function(id,index){
+                    var ed = $(id).datagrid('getEditor', {index:index,field:'system_id'});
+                    $(id).datagrid('getRows')[index]['system_name'] = $(ed.target).combobox('getText');
+
+                    ed = $(id).datagrid('getEditor', {index:index,field:'dept_id'});
+                    $(id).datagrid('getRows')[index]['dept_name'] = $(ed.target).combotree('getText');
+                });
+                bindEditGridEditVal('#dg',function(id,index){
+                    var systemId = $(id).datagrid('getRows')[index]['system_id'];
+                    $(id).datagrid('selectRow', index).datagrid('beginEdit', index);
+                    var comboTree = $(id).datagrid('getEditor', {index:index,field:'dept_id'});
+                    $(comboTree.target).combotree({
+                        url: '/system/dept/list.do?system_id='+systemId,
+                        required: true,
+                        onLoadSuccess:function(node, data) {
+                            var deptId = $(id).datagrid('getRows')[index]['dept_id'];
+                            $(comboTree.target).combotree("setValue", deptId);
+                            var deptName = $(id).datagrid('getRows')[index]['dept_name'];
+                            $(comboTree.target).combo('setText', deptName);
+                        }
+                    });
+                });
+            },
+            afterAdd:function(){
+                bindEditGridSetVal('#dg',function(id,index){
+                    var ed = $(id).datagrid('getEditor', {index:index,field:'system_id'});
+                    $(id).datagrid('getRows')[index]['system_name'] = $(ed.target).combobox('getText');
+
+                    ed = $(id).datagrid('getEditor', {index:index,field:'dept_id'});
+                    $(id).datagrid('getRows')[index]['dept_name'] = $(ed.target).combotree('getText');
+                });
+                bindEditGridEditVal('#dg',function(id,index){
+                    var systemId = $(id).datagrid('getRows')[index]['system_id'];
+                    $(id).datagrid('selectRow', index).datagrid('beginEdit', index);
+                    var comboTree = $(id).datagrid('getEditor', {index:index,field:'dept_id'});
+                    $(comboTree.target).combotree({
+                        url: '/system/dept/list.do?system_id='+systemId,
+                        required: true,
+                        onLoadSuccess:function(node, data) {
+                            var deptId = $(id).datagrid('getRows')[index]['dept_id'];
+                            $(comboTree.target).combotree("setValue", deptId);
+                            var deptName = $(id).datagrid('getRows')[index]['dept_name'];
+                            $(comboTree.target).combo('setText', deptName);
+                        }
+                    });
+                });
+                append('#dg');
+            }
+        },true);
+    }();
+
+</script>

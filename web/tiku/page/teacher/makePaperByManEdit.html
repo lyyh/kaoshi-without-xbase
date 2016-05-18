@@ -1,0 +1,342 @@
+<link href="/tiku/css/functionParts/makePaperByMan.css" rel="stylesheet">
+    <style>
+        .panel-body{
+            text-align: left;
+        }
+        .modal-header{
+            text-align: left;
+        }
+        .modal-header h4{
+            width: 100%;
+        }
+        .modal-body{
+            height:auto;
+        }
+        .btn-fanhui{
+            color: #ffffff;
+            float: right;
+        }
+        .btn-fanhui:hover{
+            cursor: pointer;
+            color: #FF0000;
+        }
+        #semesterYear,
+        #semesterTerm{
+            width: 48%;
+            float: left;
+            display: block;
+        }
+        #semesterTerm{
+            float: right;
+        }
+        .durationTip{
+            position: static;
+            margin-top: 10px;
+        }
+        .duration{
+            padding: 5px 0;
+            position: static;
+            width: 100%;
+        }
+    </style>
+<body>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        制卷
+        <span class="glyphicon glyphicon-remove btn-fanhui"></span>
+    </div>
+    <div class="panel-body">
+        <!--制卷主体-->
+        <div class="totalContainer">
+            <!--卷头部分-->
+            <div class="header">
+                <!--卷头信息-->
+                <div class="fontPart">
+                            <div class="form-group">
+                                <label>科&nbsp;&nbsp;&nbsp;&nbsp;目：</label>
+                                <input type="text" id="course" class="form-control" value="JAVA" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>命题人：</label>
+                                <input type="text" id="teacherName" class="form-control" value="T103001" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>学&nbsp;&nbsp;&nbsp;&nbsp;期：</label>
+                                <div style="width: 100%; margin-top: -30px;">
+                                    <select id="semesterYear" class="form-control">
+                                        <option>大一上半学期</option>
+                                        <option>大一下半学期</option>
+                                        <option>大二上半学期</option>
+                                        <option>大二下半学期</option>
+                                        <option>大三上半学期</option>
+                                        <option>大三下半学期</option>
+                                        <option>大四上半学期</option>
+                                        <option>大四下半学期</option>
+                                    </select>
+                                    <select id="semesterTerm" class="form-control">
+                                        <option>平时测验</option>
+                                        <option>半期</option>
+                                        <option>期末</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="durationTip">时&nbsp;&nbsp;&nbsp;&nbsp;长：</label>
+                                <div style="width: 100%;">
+                                    <div class="input-group input-sm duration">
+                                        <input id="duration" type="number" class="form-control" min="0">
+
+                                        <div class="input-group-addon">分钟</div>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+                <!--制卷规则-->
+                <div class="rule">
+                    <div class="myTitle">人工制卷规则</div>
+                    <div class="ruleContent">
+                        <strong>1.</strong>点击工具栏中的 <span class="glyphicon glyphicon-plus" style="color: #008200"></span>
+                        为试卷添加新的题目。在随后弹出的窗口中通过【题目检索】以获得符合条件的题目。选中查找到题目前的单选框，将题目加入到试卷中。取消选中题目前面的单选框的对勾将题目从您的试卷中移除。<br>
+                        <strong>2.</strong>可以通过 <span class="glyphicon glyphicon-pushpin" style="color: blue"></span>
+                        设置每个题型的默认分数，也可以单独设置每个题目的分数。<br>
+                        <strong>3.</strong>点击 <span class="glyphicon glyphicon-warning-sign" style="color: orangered"></span>
+                        设置总分提醒，若您试卷的总分不满足设置的值，系统会提示您。<br>
+                        <strong>4.</strong>点击 <span class="glyphicon glyphicon-info-sign" style="color: black"></span>
+                        为这张卷子添加备注。<br>
+                        <strong>5.</strong>点击【修改试卷】完成制卷。<br>
+                    </div>
+                </div>
+                <!--制卷工具条-->
+                <div class="btn-group  toolbar">
+                    <button id="addNewQuestion" class="btn btn-default" data-toggle="modal"
+                            data-target="#addNewQuestionModal"><span class="glyphicon glyphicon-plus"
+                                                                     style="color: #008200" data-toggle="tooltip"
+                                                                     data-placement="left" title="新增题目"></span>
+                    </button>
+                    <button id="setDefaultScore" class="btn btn-default" data-toggle="modal"
+                            data-target="#setDefaultScoreModal"><span class="glyphicon glyphicon-pushpin"
+                                                                      style="color: blue" data-toggle="tooltip"
+                                                                      data-placement="top" title="快速设置分数"></span>
+                    </button>
+                    <button id="setScoreWarning" class="btn btn-default" data-toggle="modal"
+                            data-target="#setScoreWarningModal"><span class="glyphicon glyphicon-warning-sign"
+                                                                      style="color: orangered" data-toggle="tooltip"
+                                                                      data-placement="top" title="设置总分提醒"></span>
+                    </button>
+                    <button id="setInfo" class="btn btn-default" data-toggle="modal" data-target="#setInfoModal"><span
+                            class="glyphicon glyphicon-info-sign"
+                            style="color: black" data-toggle="tooltip"
+                            data-placement="right" title="为试卷添加备注"></span></button>
+                </div>
+
+                <div class="scorePart"><span class="scoreTip">已选题目总分：</span><span id="score">0</span><span class="scoreTip">分</span></div>
+            </div>
+            <!--试卷浏览模块-->
+            <div class="previewPaper">
+                <h3>浏览试卷</h3>
+
+                <div id="paperContainer">
+                    <table class="table table-striped">
+                        <tr name="choiceQuestion"></tr>
+                        <tr name="judgementQuestion"></tr>
+                        <tr name="blankQuestion"></tr>
+                        <tr name="shortAnswerQuestion"></tr>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    在确认试卷后点击【修改试卷】即可修改相应的试卷
+                </div>
+            </div>
+            <button id="makePaper" class="btn btn-primary btn-lg makePaper">修改试卷</button>
+        </div>
+
+
+        <!--模态框部分-->
+        <!--增加题目的模态框-->
+        <div class="modal fade" id="addNewQuestionModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" style="width: 1000px">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            新增题目
+                            <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                        </h4>
+                    </div>
+
+                    <div class="modal-body" style="width: 1000px">
+                        <div class="searchQuestion">
+                            <!--设置检索题目类型-->
+                            <select id="questionType" class="form-control">
+                                <option value="1">选择题</option>
+                                <option value="2">填空题</option>
+                                <option value="3">判断题</option>
+                                <option value="4">简答题</option>
+                            </select>
+                            <!--设置检索题目难度-->
+                            <select id="questionLevel" class="form-control">
+                                <option value="0">全部难度</option>
+                                <option value="1">简单</option>
+                                <option value="2">中等</option>
+                                <option value="3">困难</option>
+                            </select>
+                            <!--设置检索知识点-->
+                            <select id="knowledgePoint" class="form-control">
+                                <!--模拟检索出的知识点-->
+                            </select>
+                            <!--设置检索章节-->
+                            <div class="input-group has-success chapter" data-toggle="tooltip" data-placement="top" title="章节数为0代表全部章节">
+                                <div class="input-group-addon">第</div>
+                                <input id="chapter" type="number" class="form-control" placeholder="章节数" min="0">
+                                <div class="input-group-addon">章</div>
+                            </div>
+                            <!--检索按钮-->
+                            <button id="search" class="btn btn-success">检索</button>
+                        </div>
+
+                        <div class="questionContainer">
+                            <table id="questionContainer" class="table table-striped">
+                                <!--模拟从后台获取数据-->
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <span>选中题目前的单选框将题目加入试卷中，取消题目前单选框的对勾将其从试卷中移除</span>
+                        <button class="btn btn-primary" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--根据题目类型设置题目分数的模态框-->
+        <div class="modal fade" id="setDefaultScoreModal" tabindex="-1">
+            <div class="modal-dialog modal-lg" style="width: 500px">
+                <div class="modal-content" style="margin: 50px auto;width: 500px">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            设置默认分数
+                            <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                        </h4>
+                    </div>
+
+                    <div class="modal-body setDefaultScoreModal">
+                        <div class="input-group has-success input-group-lg" data-toggle="tooltip" data-placement="left"
+                             title="您可以通过修改这里来设置下面所有选择题的分数">
+                            <div class="input-group-addon">选择题</div>
+                            <input id="choiceQueScore" name="1" class="form-control" type="number" value="1">
+
+                            <div class="input-group-addon">分</div>
+                        </div>
+
+                        <div class="input-group has-default input-group-lg" data-toggle="tooltip" data-placement="left"
+                             title="您可以通过修改这里来设置下面所有判断题的分数">
+                            <div class="input-group-addon">判断题</div>
+                            <input id="judgementQueScore" name="2" class="form-control" type="number" value="1">
+
+                            <div class="input-group-addon">分</div>
+                        </div>
+
+                        <div class="input-group has-error input-group-lg" data-toggle="tooltip" data-placement="left"
+                             title="您可以通过修改这里来设置下面所有填空题的分数">
+                            <div class="input-group-addon">填空题</div>
+                            <input id="blankQueScore" name="3" class="form-control" type="number"  value="1">
+
+                            <div class="input-group-addon">分</div>
+                        </div>
+
+                        <div class="input-group has-warning input-group-lg" data-toggle="tooltip" data-placement="left"
+                             title="您可以通过修改这里来设置下面所有简答题的分数">
+                            <div class="input-group-addon">简答题</div>
+                            <input id="answerQueScore" name="4" class="form-control" type="number"  value="1">
+
+                            <div class="input-group-addon">分</div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <span>为了防止您在预览试卷中为单个题目设置的分数被默认<br>的分数覆盖，请您先设置默认分数，再设置单个分数。</span>
+                        <button class="btn btn-primary" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--设置总分提示的模态框-->
+        <div class="modal fade" id="setScoreWarningModal" tabindex="-1">
+            <div class="modal-dialog modal-lg" style="width: 400px">
+                <div class="modal-content" style="width: 400px;margin: 150px auto;">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            设置总分提示
+                            <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                        </h4>
+                    </div>
+
+                    <div class="modal-body setScoreWarningModal">
+                        <input id="totalScore" class="form-control" type="number" placeholder="试卷总分" min="0">
+
+                        <select id="scoreWarningCondition" class="form-control">
+                            <option value="0">不提示</option>
+                            <option value="1">当分数超出总分提示</option>
+                            <option value="2">当分数低于总分提示</option>
+                            <option value="3">当分数不满足总分提示</option>
+                            <option value="4">当分数低于总分不得制卷</option>
+                            <option value="5">当分数高于总分不得制卷</option>
+                            <option value="6">当分数不满足总分不得制卷</option>
+                        </select>
+                    </div>
+
+                    <div class="modal-footer">
+                        <span>当您试卷的总分不满足您设置的分数，<br>系统会按照您设置的提示条件给您提示</span>
+                        <button class="btn btn-primary" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--为试卷添加备注的模态框-->
+        <div class="modal fade" id="setInfoModal" tabindex="-1">
+            <div class="modal-dialog modal-lg" style="width: 500px;margin: 100px auto">
+                <div class="modal-content" style="width: 500px;margin: 100px auto">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            为试卷添加备注
+                            <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                        </h4>
+                    </div>
+
+                    <div class="modal-body" style="width:500px">
+                        <input id="note" class="form-control" type="text">
+                    </div>
+
+                    <div class="modal-footer">
+                        <span>制卷完成后，您可以根据试卷备注更方便<br>的找到您的试卷并对其进行修改等各种操作</span>
+                        <button class="btn btn-primary" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="/tiku/js/child-function/makePaperByMan.js"></script>
+<script src="/tiku/js/child-function/EditPaper.js"></script>
+<script>
+    $(".back").click(function () {
+        $.ajax({
+            type: "get",
+            url: "/tiku/page/teacher/teacher-paper-manage.html",
+            dataType: "html",
+            beforeSend: function () {
+                $(".main-block").html("<div class='myJava'>数据加载中...</div>")
+            },
+            success: function (result) {
+                $(".back").unbind("click");
+                $(".location").html("试卷管理");
+                $(".main-block").html("");
+                $(".main-block").append(result);
+            },
+            error: function () {
+                $(".main-block").html("<div class='wrong404'></div>")
+            }
+        });
+    })
+</script>

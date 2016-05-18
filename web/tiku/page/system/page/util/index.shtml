@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <!--#include virtual="/system/page/util/title.html"-->
+    <link rel="shortcut icon" href="favicon.ico"/>
+    <link rel="stylesheet" href="/system/css/index.min.css" />
+</head>
+
+<body>
+<input type="hidden" id="currUserType" name="currUserType"/>
+<div id="global_window"></div>
+<div id="main-layout" class="easyui-layout" data-options="fit:true">
+    <div id="head" data-options="region:'north'">
+        <div>
+            <span class="logo"></span>
+        </div>
+        <div id="head-option">
+            <span class="title">用户：<!--#include virtual="/system/login/user.do"--></span>
+            &nbsp;&nbsp;<span class="option exit" onclick="javascript:window.location.href='/system/login/out.do'"></span><span><a href="/system/login/out.do">退出系统</a></span>
+            &nbsp;&nbsp;
+            <div class="p-w">
+                <span data-toggle="dropdown" class="option config dropdown-toggle"></span>
+                <ul role="menu" class="dropdown-menu">
+                    <li onclick="editProfile();"><i class="ficon-edit"></i>修改资料</li>
+                    <li onclick="updatePassword();"><i class="ficon-wrench"></i>密码重置</li>
+                    <li onclick="location.href='/system/login/out.do';"><i class="ficon-signout"></i>退出</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="menu" class="no-select" data-options="region:'west',title:'菜单',split:true"></div>
+    <div data-options="region:'center'">
+        <div id="second-class-layout" class="easyui-layout" data-options="fit:true">
+            <div id="second-class-top-tab" data-options="region:'north',border:false" style="height: 100%">
+                <div id="xiongtab" class="easyui-tabs" data-options="border:false,fit:true">
+                    <div id="help-tab" title="主页" data-options="iconCls:'icon-help', href:'welcome.html'" style="padding:10px"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--#include virtual="/system/page/util/copyright.html"-->
+</div>
+<div id="mask"></div>
+
+
+<!--搜索 -->
+<script id="widget-search-tmpl" type="text/html">
+    <div class="widget-search">
+        <div class="title">
+            <span class="icon"></span>
+            <span class="my-btn2 my-btn2-s my-btn2-close">X</span>
+        </div>
+        <div class="content">
+            <table class="my-table"></table>
+            <div class="empty-tip">请添加搜索条件</div>
+            <div class="option-bar">
+                <span class="my-btn3 my-btn3-add"></span>
+                <span class="my-btn3 my-btn3-search"></span>
+            </div>
+        </div>
+    </div>
+</script>
+<!--搜索 - 每行 -->
+<script id="widget-search-column-tmpl" type="text/html">
+    <tr>
+        <td class="search-field c1">
+            <div class="position-wrap">
+                <span data-toggle="dropdown" class="dropdown-toggle"><span class="txt">{{html column[0].title}}</span> <span class="caret"></span></span>
+                <ul role="menu" class="dropdown-menu">
+                    {{each(i,col) column}}
+                    <li field="{{html col.field}}"><a>{{html col.title}}</a></li>
+                    {{/each}}
+                </ul>
+            </div>
+        </td>
+        <td class="search-operation c2">
+            <div class="position-wrap">
+                <span data-toggle="dropdown" class="dropdown-toggle"><span class="txt">{{html operation[0].name}}</span> <span class="caret"></span></span>
+                <ul role="menu" class="dropdown-menu">
+                    {{each(i,opt) operation}}
+                    <li operator="{{html opt.operator}}"><a>{{html opt.name}}</a></li>
+                    {{/each}}
+                </ul>
+            </div>
+        </td>
+        <td class="search-value c3"></td>
+        <td class="search-multi c4">
+            <div class="position-wrap">
+                <span data-toggle="dropdown" class="dropdown-toggle"><span class="txt">{{html multi[0].name}}</span> <span class="caret"></span></span>
+                <ul role="menu" class="dropdown-menu">
+                    {{each(i,mul) multi}}
+                    <li operator="{{html mul.operator}}"><a>{{html mul.name}}</a></li>
+                    {{/each}}
+                </ul>
+                <span class="close">X</span>
+            </div>
+        </td>
+    </tr>
+</script>
+<!--搜索 - select -->
+<script id="widget-search-select-tmpl" type="text/html">
+    <div class="position-wrap">
+        <span data-toggle="dropdown" class="dropdown-toggle"><span class="txt">{{html column[0]}}</span> <span class="caret"></span></span>
+        <ul role="menu" class="dropdown-menu">
+            {{each(i,col) column}}
+            <li field="{{html col.field}}"><a>{{html col}}</a></li>
+            {{/each}}
+        </ul>
+    </div>
+</script>
+</body>
+<script type="text/javascript" src="/system/js/jquery.js"></script>
+<script type="text/javascript" src="/system/js/jquery.json-2.2.min.js"></script>
+<script type="text/javascript" src="/system/js/jquery.nicescroll.js"></script>
+<script type="text/javascript" src="/system/js/jquery.tmpl.js"></script>
+<script type="text/javascript" src="/system/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/system/easyui/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/system/easyui/treegrid-dnd.js"></script>
+<script type="text/javascript" src="/system/js/lang.js"></script>
+<script type="text/javascript" src="/system/js/validate.js"></script>
+<script type="text/javascript" src="/system/js/widgets.js"></script>
+<script type="text/javascript" src="/system/js/validate_easyui.js"></script>
+<script type="text/javascript" src="/system/js/common.js"></script>
+<script type="text/javascript" src="/system/js/index.js"></script>
+</html>

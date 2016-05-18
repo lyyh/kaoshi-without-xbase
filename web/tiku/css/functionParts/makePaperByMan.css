@@ -1,0 +1,282 @@
+/*卷头板块*/
+.totalContainer {
+    width: 1080px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.header {
+    width: auto;
+    padding: 20px 40px 20px 40px;
+    overflow: hidden;
+}
+
+.fontPart {
+    height: 350px;
+    width: 570px;
+    padding: 20px 40px 10px 40px;
+    border: 1px solid #6DC5A3;
+    margin: 0 120px 0 0;
+    display: inline-block;
+    vertical-align:top;
+    position: relative;
+}
+
+.fontPart > input {
+    width: 85%;
+    margin-top: 30px;
+    display: inline;
+}
+
+.fontPart span {
+    margin-bottom: 30px;
+    font-size: 18px;
+    font-family: "Microsoft YaHei";
+}
+
+#semesterYear{
+    width: 54%;
+    margin-top: 30px;
+    display: inline;
+}
+
+#semesterTerm{
+    width: 30%;
+    margin-top: 30px;
+    display: inline;
+}
+
+.duration {
+    width: 77%;
+    position: absolute;
+    left: 16%;
+    top: 238px;
+}
+
+.duration input {
+    border: 1px solid #6DC5A3
+}
+
+.duration .input-group-addon {
+    border-top: 1px solid #6DC5A3;
+    border-right: 1px solid #6DC5A3;
+    border-bottom: 1px solid #6DC5A3;
+    color: #6DC5A3;
+}
+
+.durationTip {
+    position: absolute;
+    top: 245px;
+}
+
+/*制卷规则板块*/
+.rule {
+    width: 300px;
+    height: 350px;
+    border: 1px solid #6DC5A3;
+    border-radius: 10px;
+    /*float: right;*/
+    display: inline-block;
+    vertical-align:top;
+    font-family: "Microsoft YaHei";
+    overflow: hidden;
+}
+
+.myTitle {
+    padding-left: 5px;
+    border-radius: 8px 8px 0 0;
+    color: white;
+    font-size: 19px;
+    display: block;
+    background-color: #6DC5A3;
+}
+
+.ruleContent {
+    font-size: 16px;
+    padding: 5px 10px 5px 10px;
+    line-height: 26px;
+}
+
+/*试卷制作及预览板块*/
+
+/*制卷工具板块*/
+.toolbar {
+    border-radius: 8px;
+    margin: 20px 630px 0 0;
+    display: inline-block;
+    vertical-align:top;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#909090, direction=120, strength=3); /*ie*/
+    -moz-box-shadow: 2px 2px 10px #909090; /*firefox*/
+    -webkit-box-shadow: 2px 2px 10px #909090; /*safari或chrome*/
+    box-shadow: 2px 2px 10px #909090; /*opera或ie9*/
+}
+
+/*查看分数板块*/
+.scorePart {
+    padding: 3px 5px 3px 5px;
+    border: 1px solid #6DC5A3;
+    border-radius: 8px;
+    margin: 15px 0 0 0;
+    display: inline-block;
+    vertical-align:top;
+    color: red;
+    font-size: 30px;
+}
+
+.scoreTip {
+    color: black;
+    font-size: 20px;
+}
+
+/*试卷预览板块*/
+.previewPaper {
+    margin: 0 auto;
+    width: 1000px;
+    /*制作边框阴影*/
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#909090, direction=120, strength=3); /*ie*/
+    -moz-box-shadow: 2px 2px 10px #909090; /*firefox*/
+    -webkit-box-shadow: 2px 2px 10px #909090; /*safari或chrome*/
+    box-shadow: 2px 2px 10px #909090; /*opera或ie9*/
+}
+
+.previewPaper h3 {
+    padding: 10px 0;
+    border-bottom: 1px solid #DDDDDD;
+    margin: 0 auto;
+    text-align: center;
+    font-family: "STSong";
+}
+
+#paperContainer {
+    width: 1000px;
+    height: 500px;
+    overflow-y: auto;
+    font-size: 17px;
+}
+
+#paperContainer input[type=checkbox] {
+    width: 14px;
+    height: 14px;
+    margin: 2.5px 3px 0 0px;
+    float: left;
+}
+
+#paperContainer table{
+    overflow-x: hidden;
+}
+
+#paperContainer table td{
+    font-size: 15px;
+}
+
+
+.scoreDe{
+    margin-top: -20px;
+    float: right;
+    display: inline;
+}
+
+#paperContainer input[type=number]{
+    border-radius: 5px 0 0 5px ;
+    width: 60px;
+    display: inline;
+}
+
+#paperContainer .scoreDeAdd{
+    display: inline;
+    width: 35px;
+    height: 34px;
+    padding: 7px;
+    border: 1px solid #CCCCCC;
+    border-radius: 0 5px 5px 0;
+    float: right;
+    color: grey;
+    background-color: snow;
+}
+
+#paperContainer tr[name] td{
+    padding: 0;
+    border: 1px solid #6DC5A3;
+}
+
+/*生成试卷*/
+.makePaper {
+    margin: 30px 44%;
+}
+
+/*模态框*/
+/*新增题目*/
+.searchQuestion {
+    position: relative;
+}
+
+.searchQuestion select {
+    width: 19%;
+    padding: 2px 0 0 0;
+    border: 1px solid #3499DB;
+    margin: 0 0 0 25px;
+    display: inline-block;
+    font-size: 15px;
+    font-family: "Microsoft YaHei";
+}
+
+.chapter {
+    width: 19%;
+    position: absolute;
+    left: 69%;
+    top: 0;
+}
+
+/*.chapter .input-group-addon{*/
+    /*border-top: 1px solid #3499DB;*/
+    /*border-right: 1px solid #3499DB;*/
+    /*border-bottom: 1px solid #3499DB;*/
+    /*color: #2a79af;*/
+/*}*/
+
+#search{
+    float: right;
+    margin-right: 20px;
+}
+
+.questionContainer {
+    height: 380px;
+    padding: 0;
+    border: 1px solid #3499DB;
+    margin-top: 20px;
+    overflow: auto;
+}
+
+#questionContainer {
+    width: 100%;
+    height: 378px;
+    border-radius: 10px;
+    margin: 0 10px 0 0;
+    font-size: 17px;
+}
+
+#questionContainer input{
+    width: 14px;
+    height: 14px;
+    margin: 2.5px 3px 0 0px;
+    float: left;
+}
+
+/*设置题目默认分数*/
+.setDefaultScoreModal {
+    padding: 5px 40px 0 40px;
+}
+
+.setDefaultScoreModal > div {
+    margin: 10px 0 10px 0
+}
+
+/*设置总分提醒*/
+.setScoreWarningModal input {
+    margin-bottom: 10px;
+}
+
+/*为试卷添加备注*/
+#note {
+    font-size: 18px;
+}

@@ -1,0 +1,298 @@
+.totalContainer {
+    width: 85%;
+    min-width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.myTip {
+    width: 22%;
+    background-color: #6DC5A3;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 17px;
+    color: white
+}
+
+.setQuestionDetails {
+    min-width: 900px;
+    width: 100%;
+    height: 50px;
+    border: 1px solid #6DC5A3;
+    position: relative;
+    overflow: hidden;
+}
+
+.setQuestionDetails select {
+    width: 22%;
+    margin: 7px 0 0 23px;
+    display: inline-block;
+}
+
+.chapter {
+    width: 20%;
+    margin: 7px 0 0 20px;
+    display: inline-block;
+}
+
+.chapter input {
+    height: 30px;
+    width: 78%;
+    border: 1px solid #6DC5A3;
+    border-radius: 5px 0 0 5px;
+    margin-top: 2px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.chapter div {
+    width: 20%;
+    height: 30px;
+    padding-top: 5px;
+    border: 1px solid #6DC5A3;
+    border-left-color: transparent;
+    border-radius: 0 5px 5px 0;
+    margin-left: -4px;
+    margin-top: 2px;
+    display: inline-block;
+    vertical-align: top;
+    background-color: #79d6b3;
+    color: whitesmoke;
+    text-align: center;
+}
+
+.setQuestionContent {
+    width: 100%;
+    border: 1px solid #6DC5A3;
+    position: relative;
+    background-color: #6DC5A3;
+}
+
+#questionContent {
+    min-height: 195px;
+}
+
+/*设置选择题答案及选项表格*/
+.setQuestionChoice {
+    width: 100%;
+    min-height: 250px;
+    padding: 10px 10px;
+    border: 1px solid #6DC5A3;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.questionChoice {
+    margin: 10px 0 0 0;
+    width: 100%;
+    border: 1px solid #DDDDDD;
+}
+
+.questionChoice th {
+    border: 1px solid #DDDDDD;
+    font-family: "Microsoft YaHei";
+    text-align: center;
+}
+
+.questionChoice td {
+    text-align: center;
+    border: 1px solid #DDDDDD;
+}
+
+.questionChoice p{
+    margin-bottom: 0;
+}
+
+.questionChoice th:nth-child(1) {
+    width: 8%;
+}
+
+.questionChoice td:nth-child(1) {
+    width: 8%;
+    font-size: 15px;
+}
+
+.questionChoice td:nth-child(2) {
+    padding-left: 20px;
+    text-align: left;
+    font-size: 15px;
+}
+
+.questionChoice th:nth-child(3) {
+    width: 10%;
+}
+
+.questionChoice th:nth-child(4) {
+    width: 12%;
+}
+
+.questionChoice input {
+    width: 15px;
+    height: 15px;
+}
+
+.questionChoice button {
+    width: 20px;
+    height: 20px;
+    border: 1px solid transparent;
+    padding-right: 15px;
+    background-color: transparent;
+}
+
+/*设置填空题答案表格*/
+#blankQuestionArea {
+    display: none;
+}
+
+.setBlankAnswer {
+    width: 100%;
+    min-height: 250px;
+    padding: 10px 10px;
+    border: 1px solid #6DC5A3;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.blankAnswer {
+    margin: 10px 0 0 0;
+    width: 100%;
+    border: 1px solid #DDDDDD;
+}
+
+.blankAnswer th {
+    border: 1px solid #DDDDDD;
+    font-family: "Microsoft YaHei";
+    text-align: center;
+}
+
+.blankAnswer td {
+    text-align: center;
+    border: 1px solid #DDDDDD;
+}
+
+.blankAnswer th:nth-child(1) {
+    width: 15%;
+}
+
+.blankAnswer td:nth-child(1) {
+    width: 15%;
+    font-size: 16px;
+}
+
+.blankAnswer td:nth-child(2) {
+    padding-left: 20px;
+    text-align: left;
+    font-size: 15px;
+}
+
+.blankAnswer th:nth-child(3) {
+    width: 10%;
+}
+
+.blankAnswer th:nth-child(3) {
+    width: 10%;
+}
+
+.blankAnswer button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid transparent;
+    padding-right: 14px;
+    background-color: transparent;
+    color: #2d2d2d;
+}
+
+/*设置判断题的正确答案*/
+#judgeQuestionArea {
+    display: none;
+}
+
+.setJudgeQuestionAnswer {
+    width: 100%;
+    min-height: 50px;
+    padding: 10px 10px;
+    /*border: 1px solid #337AB7;*/
+    border: 1px solid #6DC5A3;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.answerTrue {
+    color: green;
+    font-size: 17px;
+    font-family: "Microsoft YaHei";
+}
+
+.answerFalse {
+    color: red;
+    font-size: 17px;
+    font-family: "Microsoft YaHei";
+}
+
+/*为简答题设置正确答案*/
+#shortAnswerArea {
+    display: none;
+
+}
+
+.setShortAnswer {
+    width: 100%;
+    min-height: 100px;
+    padding: 10px 10px;
+    border: 1px solid #6DC5A3;
+    position: relative;
+    overflow-x: hidden;
+}
+
+#shortAnswer {
+    margin-top: 10px;
+    min-height: 200px;
+}
+
+/*为小工具的按钮设置颜色*/
+.totalContainer .glyphicon-plus, .glyphicon-ok {
+    color: green;
+}
+
+.totalContainer .glyphicon-minus, .totalContainer .glyphicon-remove, .totalContainer .glyphicon-repeat {
+    color: red;
+}
+
+/*预览题目*/
+#previewQuestion {
+    margin: 22px 0 0 40%;
+}
+
+/*确定录入题目*/
+#recordQuestion {
+    margin: 20px 0 0 3%;
+}
+
+
+/*UEditor编辑器*/
+#newChoice, #newBlankAnswer, #myChoice, #myBlankAnswer {
+    min-height: 230px;
+    width: 100%;
+}
+
+/*去除uEdit编辑器下面显示html和计算字数的板块*/
+.edui-default .edui-editor-bottomContainer td{
+    display: none;
+}
+
+/*设置答案解析*/
+.setQuestionSolution {
+    width: 100%;
+    border: 1px solid #6DC5A3;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: #6DC5A3;
+}
+
+#questionSolution {
+    min-height: 100px;
+}
+
+
+

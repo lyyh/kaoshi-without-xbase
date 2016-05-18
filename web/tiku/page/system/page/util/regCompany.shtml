@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>单位注册</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="/system/css/regCompany.css" />
+    <link rel="stylesheet" href="/system/css/index.css" />
+    <script type="text/javascript" src="/system/js/jquery.js"></script>
+    <script type="text/javascript" src="/system/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/system/js/validate2.js"></script>
+    <script language="javascript" type="text/javascript" src="/system/js/common.js"></script>
+    <script type="text/javascript" src="/system/js/reg.js"></script>
+</head>
+<body id="bg-wrap">
+<div id="header">
+    <div class="wrap">
+        <div class="logo"></div>
+    </div>
+</div>
+<div id="c-w" class="float-wrapper">
+    <div class="title"></div>
+    <form class="n" id="form">
+        <label class="label">
+            <input name="dept_city_name" readonly onfocus="ChoiceBaseDialog('/system/reg/getCqArea.do',false,false,getObj(this,'dept_city'),getObj(this,'dept_city_name',null));" />
+            <input name="dept_city" type="hidden">
+            <span id="vdept_city"><span>*</span> 请选择地区</span>
+            <div class="label">所属地区</div>
+        </label>
+        <label class="label">
+            <input id="dept_code" name="dept_code" onblur="validateCode(1)">
+            <span id="vdept_code"><span>*</span> 组织机构代码为10位或者9位，格式为 XXXXXXXX-M或XXXXXXXXM。由八位数字（或大写字母）本体代码和一位数字（或大写字母）校验码组成。</span>
+            <div class="label">组织机构代码</div>
+        </label>
+        <label class="label">
+            <input id="dept_name" name="dept_name" onblur="validateUnitName(true)"/>
+            <span id="vdept_name"><span>*</span> 单位名称不能为空</span>
+            <div class="label">单位名称</div>
+        </label>
+        <label class="label">
+            <input id="dept_addr" name="dept_addr" onblur="validateAddr()"/>
+            <span id="vdept_addr"><span>*</span> 单位地址不能为空</span>
+            <div class="label">单位地址</div>
+        </label>
+
+        <br>
+        <hr style="border : 1px dashed #8d9293;" />
+        <div style="color: #6a6d6e">单位管理员信息：</div>
+
+        <label class="label">
+            <input id="user_id" name="user_id" onblur="validatePassportAjax(1)">
+            <span id="vuser_id"><span>*</span> 4-20位英文或数字</span>
+            <div class="label">用户名</div>
+        </label>
+        <label class="label">
+            <input id="passport_pwd" name="passport_pwd" type="password" onblur="validatePwd(1)">
+            <span id="vpassport_pwd"><span>*</span> 6-20位英文或数字</span>
+            <div class="label">密码</div>
+        </label>
+        <label class="label">
+            <input id="rpassport_pwd" name="rpassport_pwd" type="password" onblur="validatePwd(2)">
+            <span id="vrpwd"><span>*</span> 6-20位英文或数字</span>
+            <div class="label">确认密码</div>
+        </label>
+        <label class="label">
+            <input id="user_realName" name="user_realName" onblur="validateName()">
+            <span id="vrealname"><span>*</span> 请输入真实姓名</span>
+            <div class="label">姓名</div>
+        </label>
+        <label class="label">
+            <div class="s-s">
+                <label><input name="user_cred_type" type="radio" value="1" checked><span>身份证</span></label>
+                <label><input name="user_cred_type" type="radio" value="2"><span>军官证</span></label>
+            </div>
+            <div class="label">证件类型</div>
+        </label>
+        <div class="label">
+            <input id="user_cred_code" name="user_cred_code" style="padding-left: 141px; width: 163px;"
+                   onblur="validateSfc(1)">
+            <span id="vuser_cred_code"><span>*</span> 身份证15或18位，军官证7位数字</span>
+            <div class="label">证件信息</div>
+        </div>
+        <div class="label">
+            <div class="s-s">
+                <label><input name="user_sex" type="radio" value="男" checked><span>男</span></label>
+                <label><input name="user_sex" type="radio" value="女"><span>女</span></label>
+            </div>
+            <div class="label">性别</div>
+        </div>
+        <label class="label">
+            <input id="user_email" name="user_email" onblur="validateEmail(true)">
+            <span id="vuser_email"><span>*</span> 请输入邮箱</span>
+            <div class="label">邮箱</div>
+        </label>
+        <label class="label">
+            <input id="user_mobilephone" name="user_mobilephone" onblur="validateMobile()">
+            <span id="vuser_mobilephone"><span>*</span> 请输入与手机</span>
+            <div class="label">手机</div>
+        </label>
+        <label class="label vaCode float-wrapper">
+            <input name="check_code">
+            <div class="label">验证码</div>
+            <img id='checkCodeImg' src="/system/checkCode.do" alt="点击刷新"
+                 onclick="javascript:this.src='/system/checkCode.do?'+Math.random()"
+                 style="cursor:pointer; vertical-align:middle; width:63px; height:30px; margin-left:5px;"/>
+        </label>
+        <div class="label">
+            <input type="submit" class="btn" value="注册" onclick="return reg(event);">
+        </div>
+    </form>
+    <form class="l-b">
+        > 已经拥有系统帐号? <a href="/">直接登录</a>
+        <p>
+            > 组织机构代码查询<a href="http://www.nacao.org.cn/" target="_blank">链接</a>
+        </p>
+
+    </form>
+</div>
+<div class="line"></div>
+<!--#include virtual="/system/page/util/copyright.html"-->
+</body>
+
+<script type="text/javascript">
+    var validate;
+    $(function(){
+        checkCanReg(2);
+        validate = V('#c-w', getValidateJson("unit"));
+        onSelectCredType();
+    });
+
+    function preventDefault(event){
+        if(document.all){
+            window.event.returnValue = false;
+        }else{
+            event.preventDefault();
+        }
+    }
+    //验证单位模块的输入是否正确
+    function validateRegUnit() {
+        return (validateAddr() && validateUnitName() && validateCode());
+    }
+
+    var flag = false;
+    function reg(e){
+        preventDefault(e);
+        validate.validate();
+
+        if (!(validateRegUnit() && validateRegUserCommon())) {
+            return false;
+        }
+        if(validate.check() && !flag ) {
+            flag=true;
+            var info = $("#form").serializeArray();
+            $.ajax({
+                url: "/system/reg/unitReg.do",
+                type: 'POST',
+                data: info,
+                dataType: 'json',
+                error: function () {
+                    $.messager.alert("提示", "超时或者系统异常...");
+                },
+                success: function (data) {
+                    if (data.res == 1) {
+                        $.messager.alert("提示", "单位注册成功，请等待审核！", "info", function () {
+                            location.href = "/system/page/util/login.shtml"
+                        })
+                    } else {
+                        if(data.res == -4) {
+                            changeCheckCode();
+                        }
+                        alert(data.msg);
+                    }
+                },
+                complete: function () {
+                    flag = false;
+                }
+            });
+        }else{
+            if(validate.check()&&flag){
+                $.messager.alert("提示","你已提交，请耐心等待！");
+            }
+        }
+    }
+
+    function validateCode(ajaxCheck) {
+        var code = $("#dept_code").val();
+        var ret = validateDeptCode(code);
+        if(!ret.status) {
+            $("#vdept_code").html("<span>"+ret.msg+"</span>");
+            return false;
+        } else {
+            if (ajaxCheck) {
+                var flag = false;
+                $.ajax({
+                    url:  "/system/reg/checkDeptCode.do",
+                    async: true,
+                    type: "post",
+                    dataType: "json",
+                    data: {val: code},
+                    error: function (msg) {
+                        $.messager.alert("提示", "超时或系统异常");
+                        return false;
+                    },
+                    success: function (data) {
+                        if (data == 0) {
+                            $("#vdept_code").html("");
+                            flag = true;
+                        } else {
+                            $("#vdept_code").html("<span>该组织机构代码已存在<span>");
+                            flag = false;
+                        }
+                    }
+                });
+                return flag;
+            } else {
+                $("#vdept_code").html("");
+                return true;
+            }
+        }
+//        return validateField('dept_code', 'vdept_code', '组织机构代码为10位或者9位，格式为 XXXXXXXX-M或XXXXXXXXM。由八位数字（或大写字母）本体代码和一位数字（或大写字母）校验码组成。',
+//                'dept_code', '组织机构代码为10位或者9位，格式为 XXXXXXXX-M或XXXXXXXXM。由八位数字（或大写字母）本体代码和一位数字（或大写字母）校验码组成。', {
+//            url: "/system/reg/checkDeptCode.do",
+//            msg: "该组织代码已被注册",
+//            ajaxCheck: ajaxCheck
+//        });
+    }
+    function validateUnitName(ajaxCheck) {
+        return validateField('dept_name', 'vdept_name', '请输入单位名称', 'all', '单位名称只能填写30个字以内', {
+            url: "/system/reg/checkDeptName.do",
+            msg: "该单位名称已被注册",
+            ajaxCheck: ajaxCheck
+        });
+    }
+    function validateAddr() {
+        return validateField('dept_addr', 'vdept_addr', '请输入单位地址', 'all', '单位地址只能填写60个字以内');
+    }
+</script>
+</html>

@@ -1,0 +1,110 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="/tiku/css/base/base.css">
+    <link rel="stylesheet" href="/tiku/css/functionParts/exam.css">
+</head>
+
+<!--<link rel="stylesheet" type="text/css" href="/tiku/css/functionParts/student-test.css">-->
+<!--<style>-->
+<!--#test-content .modal-content{-->
+<!--width: 1080px;-->
+<!--height: auto;-->
+<!--}-->
+
+<!--.test-question-content .btn {-->
+<!--height: 50px;-->
+<!--line-height: 39px;-->
+<!--margin-top: 20px;-->
+<!--}-->
+
+<!--.active {-->
+<!--background-color: #286090;-->
+<!--}-->
+
+<!--.test-question-info {-->
+<!--display: none;-->
+<!--}-->
+
+<!--.on {-->
+<!--display: block !important;-->
+<!--}-->
+
+<!--.test-question-topic input[type=checkbox] {-->
+<!--margin-top: -40px;-->
+<!--width: 20px;-->
+<!--}-->
+
+<!--.test-question-topic input[type=text] {-->
+<!--width: 92%;-->
+<!--border: none;-->
+<!--border-bottom: 1px solid #cccccc;-->
+<!--}-->
+<!--</style>-->
+<body>
+<div class="totalContainer">
+    <div class="testRules">
+        <h2>考试须知</h2>
+
+        <div class="test-tip">
+            <p>1.点击【开始考试】后，本系统的其他功能将被屏蔽无法使用，直到您提交试卷为止。</p>
+
+            <p>2.如果您不小心关闭了浏览器（甚至关闭了电脑），请不要着急，您的答案仍然存在，直到您提交试卷或者考试时间结束为止。</p>
+
+            <p>3.考试期间，无论您采取什么样的方式在本机上访问外部网站，本系统将您的行为上报监考主机，并立即冻结您的所有行为以及成绩。</p>
+
+            <p>4.请您务必在规定时间内作答，当考试计时为0后，系统将自动为您提交试卷。</p>
+
+            <p>5.答题过程中，应保持安静，不允许有任何形式的外部交流，否则按照作弊论处。</p>
+
+            <p>6.本系统试卷由老师统一命题，但题目出现顺序和选项顺序均会被打乱。</p>
+
+            <p>7.如果您遇到系统崩溃，请勿擅自操作，请及时向监考教师报告。</p>
+
+            <p>8.感谢您对本系统的使用，祝您取得优异的成绩。</p>
+        </div>
+        <button type="button" class="btn btn-primary start-exam">开始考试</button>
+    </div>
+</div>
+
+
+<div class="myModal">
+    <div class="myContent">
+        <div class="info-bar">
+            <div class="test-time"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp;剩余时间：<span class="odd-time">00:00:00</span></div>
+            <div class="student-name"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;姓名：<span class="student-name"></span></div>
+            <div class="student-num"><span class="glyphicon glyphicon-pushpin"></span>&nbsp;&nbsp;学号：<span class="student-num"></span></div>
+        </div>
+        <div class="left-tools-bar">
+            <div class="test-info">
+                <div>科目：<span class="course"></span></div>
+                <div>时长：<span class="duration"></span></div>
+                <div>总分：<span class="total-score"></span></div>
+            </div>
+            <ul class="quickType">
+                <li value="0">全部题型 <span class="badge">0</span></li>
+                <li value="1">单项选择题 <span class="badge">0</span></li>
+                <li value="5">多项选择题 <span class="badge">0</span></li>
+                <li value="2">判断题 <span class="badge">0</span></li>
+                <li value="3">填空题 <span class="badge">0</span></li>
+                <li value="4">简答题 <span class="badge">0</span></li>
+            </ul>
+        </div>
+        <div class="top-tools-bar">
+            <button class="hand-in"><span class="glyphicon glyphicon-send"></span> 提交试卷</button>
+            <button><span class="glyphicon glyphicon-eye-open"></span></button>
+            <button><span class="glyphicon glyphicon-arrow-right"></span></button>
+            <button><span class="glyphicon glyphicon-arrow-left"></span></button>
+        </div>
+        <div class="paper-block">
+            <ul class="single-choice-que"></ul>
+            <ul class="choices-que"></ul>
+            <ul class="blank-que"></ul>
+            <ul class="judge-que"></ul>
+            <ul class="short-answer-que"></ul>
+        </div>
+    </div>
+</div>
+<script src="/tiku/js/child-function/exam.js"></script>
+<script>
+    //设置考试工作区的长度为屏幕长度的85%，且不会出现元素浮动，宽度变化导致的崩溃
+    setSize($(".myContent"),0.85,0.75);
+</script>

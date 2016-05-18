@@ -1,0 +1,84 @@
+<div name="winDataListButtons" class="toobar" style="padding: 5px 1px 5px">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refresh()">刷新</a>
+    <!--#include virtual="/system/getActions.do?module=role"-->
+    | 所属系统：<input class="easyui-combotree" name="system_id" width="120px" data-options="required:true,url:'/system/getSystem.do',method:'get',required:true,editable: false,valueField:'id',textField:'text',onSelect:function(){setTimeout(function(){setParam();refresh();},0);}"/>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="searchShow(this)">更多查询</a>
+</div>
+
+<table name="winDataList" class="datagrid" style="height: 100%;width: 100%" data-options="cache:false,autoRowHeight:false,pageSize:20,fitColumns:true,pagePosition:'bottom',striped:true,rownumbers:true,singleSelect:true,pagination:true,method:'get'">
+    <thead>
+    <tr>
+        <th data-options="field:'ck',checkbox:true"></th>
+        <th data-options="field:'role_id',align:'center',width:30">角色编号</th>
+        <th data-options="field:'role_name',align:'center',width:150">角色名称</th>
+        <th data-options="field:'system_name',align:'center',width:150">系统名称</th>
+        <th data-options="field:'role_status',align:'center',width:30,formatter:formatProgress">角色状态</th>
+        <th data-options="field:'role_memo',width:200,align:'left'">备注</th>
+    </tr>
+    </thead>
+</table>
+
+<textarea name="winEditHtml" style="display: none;">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'center'" style="padding: 12px 12px 0 12px;">
+            <form name="obj" method="post" class="c-form">
+                <input type="hidden" name="role_id">
+                <input type="hidden" name="option_type" value="add">
+                <input type="hidden" name="system_id">
+
+                <table class="table">
+                    <tr>
+                        <td class="label">所属系统:</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" name="system_name" data-options="editable:false,required:true,buttonIcon:'icon-search',onClickButton:function(){ChoiceBaseDialog('/system/getSystem.do',false,true,getObj(this,'system_id'),getObj(this,'system_name','textboxname'));}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">角色名称:</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" type="text" name="role_name" data-options="required:true,validType:'length[2,30]'"/></td>
+                    </tr>
+
+                    <tr>
+                        <td class="label">角色状态:</td>
+                        <td class="value"><select class="easyui-combobox" data-options="editable:false" name="role_status"><option value="1">可用</option><option value="0">不可用</option></select></td>
+                    </tr>
+                    <tr>
+                        <td class="label" style="height:80px">备注：</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" type="text" name="role_memo" data-options="multiline:true,validType:'maxLength[200]'" style="height:80px"/></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="c-w-t" data-options="region:'south'">
+            <#buttons/>
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-close',plain:true" onclick="closeCurrWin()">关闭</a>
+        </div>
+    </div>
+</textarea>
+<script>
+    !function () {
+        listBind({
+            windowWidth: 400,
+            windowHeight: 278,
+            keyField: 'role_id',
+            save: "/system/role/save.do",
+            del: "/system/role/del.do",
+            show: "/system/role/show.do",
+            search: [
+                {field: 'role_id', title: '角色编号', c_dataType: 'number'},
+                {field: 'role_name', title: '角色名称', c_dataType: 'string'},
+                {field: 'role_memo', title: '备注', c_dataType: 'string'}
+            ],
+            listUrl: "/system/role/list.do",
+            param:{}  //不需要的参数,json格式，主要拿到工具条上输入框中的值
+            // afterListBind:function(obj){}  //初始化绑定数据后调用,obj为表格控件实例对象
+            // beforeSave:function(){}  //保存之前调用
+            // afterSave:function(){}  //保存之后窗口关闭前调用
+            // afterEdit:function(){}  //编辑窗口显示后调用
+            // beforAdd:function(txt){}//添加数据窗口打开之前调用,txt:要显示的html内容，可以更改txt的内容，但是必须返回最终txt的内容,返回null则终止执行
+            // afterAdd:function(){}  //添加数据窗口打开后调用
+            // beforShow:function(type,txt,data){}//显示数据之前调用,type:当前操作类型，值为edit或者show；txt:要显示的html内容，可以更改txt的内容，但是必须返回最终txt的内容;data:从后台返回的json数据
+            // afterShow:function(){}  //显示数据窗口打开后调用
+            // afterDel:function(){}  //删除数据后调用
+
+        },true)
+    }();
+</script>

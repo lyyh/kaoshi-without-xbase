@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+</head>
+<body>
+<input type="button" value="插入数据" onclick="insertLabour()">
+<input type="button" value="删除数据" onclick="deleteLabour()">
+<input type="button" value="修改数据" onclick="updateLabour()">
+<input type="button" value="显示题目编号list" onclick="showList()">
+<script>
+    function insertLabour(){
+        var subjectJson = "[{\"questionId\":\"1\",\"score\":\"100\"},{\"questionId\":\"2\",\"score\":\"100\"}]";
+        var testJson = "{\"courseId\":\"1\",\"mkpaperTerm\":\"123\",\"mkpaperExtime\":" +
+                "\"123\"}";
+        $.ajax({
+            type:"post",
+            url:"/insertL.do",
+            dataType:"json",
+            data:{
+                "subjectJson":"[{\"questionId\":\"1\",\"score\":\"100\"},{\"questionId\":\"2\",\"score\":\"100\"}]",
+                "testJson":"{\"courseId\":\"1\",\"mkpaperTerm\":\"123\",\"mkpaperExtime\":" +
+                "\"123\"}"
+            },
+            success: function (data) {
+            }
+        });
+    }
+
+    function deleteLabour(){
+        $.ajax({
+            type:"post",
+            url:"/deleteL.do",
+            dataType:"json",
+            data:{
+                "testpaperId":"3",
+            },
+            success: function (data) {
+            }
+        });
+    }
+    function updateLabour(){
+        $.ajax({
+            type:"post",
+            url:"/updateL.do",
+            dataType:"json",
+            data:{
+                "testpaperId":"4",
+                "subjectJson":"[{\"questionId\":\"3\",\"score\":\"100\"},{\"questionId\":\"4\",\"score\":\"100\"}]",
+                "testJson":"{\"courseId\":\"3\",\"mkpaperTerm\":\"123\",\"mkpaperExtime\":" +
+                "\"123\",\"ppassportId\":\"5\"}",
+            },
+            success: function (data) {
+            }
+        });
+    }
+    function showList(){
+        $.ajax({
+            type:"post",
+            url:"/showT.do",
+            dataType:"json",
+            data:{
+                "testpaperId":"4",
+            },
+            success: function (data) {
+            }
+        });
+    }
+</script>
+</body>
+</html>

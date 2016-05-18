@@ -1,0 +1,262 @@
+/*设置页面样式*/
+html, body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    overflow: hidden;
+}
+
+.indexContainer {
+    height: 100%;
+    font-family: "Microsoft YaHei";
+    overflow: hidden;
+    background-color: #F2F4F8;
+}
+
+/*滚动条样式*/
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* 滚动条的滑轨背景颜色 */
+::-webkit-scrollbar-track {
+    background-color: transparent;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+/* 滑块颜色 */
+::-webkit-scrollbar-thumb {
+    background-color: #6e7173;
+    border-radius: 10px;
+}
+/* 滑轨两头的监听按钮颜色 */
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+/*框架上面的板块*/
+.top-block {
+    height: 6%;
+    background-color: #6DC5A3;
+    color: floralwhite;
+    overflow: hidden;
+}
+
+.myLogo{
+    float: left;
+    height: 100%;
+    width: 205px;
+    background: url("/tiku/img/myLogo.png") no-repeat;
+    background-size: 205px 100%;
+}
+
+.top-block button{
+    width: 4%;
+    height: 100%;
+    border: 1px solid transparent;
+    /*border-left-color: #4f987f;*/
+    text-align: center;
+    float: right;
+    background-color:#6DC5A3 ;
+}
+
+.top-block .myTime{
+    width: 200px;
+    height: 100%;
+    border: 1px solid transparent;
+    text-align: center;
+    padding-top: 0.5%;
+    float: right;
+    background-color:#6DC5A3;
+}
+
+.top-block .location{
+    width: 15%;
+    height: 100%;
+    border: 1px solid transparent;
+    margin-left: 20px;
+    text-align: left;
+    padding-top: 0.5%;
+    float: left;
+    background-color:#6DC5A3;
+}
+
+.top-block button span{
+    font-size: 17px;
+    margin:1% 1% 1%;
+    cursor: pointer;
+}
+
+.top-block button:hover{
+    background-color: #5faf90;
+}
+
+.tool-userMessage {
+    text-align: left;
+    font-size: 15px;
+    font-family: "Microsoft YaHei";
+    color: black;
+}
+
+/*设置左侧导航条的样式*/
+/*设置左侧隐藏滚动条*/
+.left-block-container {
+    overflow-x: hidden;
+    width: 205px;
+    height: 94%;
+    float: left;
+}
+
+/*左侧导航条*/
+.left-block {
+    float: left;
+    width: 230px;
+    height: 100%;
+    background-color: #303641;
+    overflow: auto;
+}
+
+/*伸缩按钮*/
+.left-block .navigation>ul>li:first-child{
+    background-color: #262B34;
+}
+
+.left-block .navigation ul .pushButton .glyphicon-chevron-left,.teacher-left-block .navigation ul .pushButton .glyphicon-chevron-right{
+    font-size: 10px;
+    position: absolute;
+    top: 15px;
+    left: 170px;
+}
+
+/*功能按钮*/
+.left-block .navigation {
+    float: left;
+}
+
+.left-block .navigation ul > li {
+    width: 205px;
+    padding: 14px 0 0 20px;
+    height: 45px;
+    float: left;
+    font-size: 13px;
+    text-align: left;
+    color: #ffffff;
+    position: relative;
+    cursor: pointer;
+}
+
+.left-block li span:first-child {
+    top: 15px;
+    position: absolute;  }
+
+.left-block ul li .functionName {
+    margin-left: 50px;
+}
+
+.left-block .navigation ul li .glyphicon-chevron-up, .left-block .navigation ul li .glyphicon-chevron-down {
+    font-size: 10px;
+    position: absolute;
+    top: 15px;
+    left: 170px;
+}
+
+/*设置功能模块的子功能的样式*/
+.left-block .navigation ul .childFunction {
+    display: none;
+    padding: 0;
+    height: auto;
+    overflow: hidden;
+    font-size: 10px;
+}
+
+.left-block .navigation ul .childFunction li {
+    padding: 12px 0 0 20px;
+    height: 40px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.left-block .navigation ul .childFunction li:first-child {
+    border-top: 1px solid #373737;
+}
+
+.left-block .navigation ul .childFunction li:last-child {
+    border-bottom: 1px solid gray;
+}
+
+/*设置鼠标悬浮效果*/
+.left-block .navigation ul li:hover:not(.childFunction) {
+    background-color: #17BB9B;
+}
+
+.left-block .navigation ul .childFunction li:hover {
+    background-color: black;
+}
+
+/*设置功能模块转化的工具条的样式*/
+.left-tools-container {
+    overflow: hidden;
+    width: 58px;
+    height: 94%;
+    float: left;
+    display: none;
+}
+
+.left-tools {
+    float: left;
+    width: 75px;
+    height: 100%;
+    text-align: left;
+    background-color: #303641;
+    overflow: auto;
+    display: none;
+}
+
+.left-tools .navigation ul li {
+    width: 58px;
+    padding: 15px;
+    height: 50px;
+    font-size: 13px;
+    text-align: center;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.left-tools .navigation ul li:first-child {
+    background-color: #262B34;
+}
+
+.left-tools .navigation ul li:hover {
+    background-color: #17BB9B;
+    cursor: pointer;
+}
+
+.left-tools .navigation ul li span {
+    float: left;
+    margin-left: 5px;
+}
+
+/*左侧工具条的用户信息*/
+.tool-userInfo-title {
+    text-align: center;
+    font-size: 15px;
+    font-family: "Microsoft YaHei";
+    color: black;
+}
+
+.tool-userInfo {
+    text-align: center;
+    font-size: 15px;
+    font-family: "Microsoft YaHei";
+    color: black;
+}
+
+/*操作的主要板块*/
+.main-block {
+    height: 94%;
+    /*margin-top: 2px;*/
+    overflow: auto;
+}
+
+

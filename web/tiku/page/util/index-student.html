@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>JAVA/.NET考试学生云平台</title>
+    <meta charset="utf-8">
+    <link href="/tiku/img/logo.png" rel="shortcut icon"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <link rel="stylesheet" type="text/css" href="/tiku/css/frame-work/reset.css">
+    <link rel="stylesheet" type="text/css" href="/tiku/css/frame-work/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/tiku/css/base/base.css">
+    <link rel="stylesheet" type="text/css" href="/tiku/css/index/index.css">
+    <link rel="stylesheet" type="text/css" href="/tiku/css/index/index-student.css">
+</head>
+<body>
+<div class="indexContainer">
+    <!--框架上部工具条-->
+    <div class="top-block">
+        <div class="myLogo"></div>
+        <div class="location">系统首页</div>
+        <button class="back" data-toggle="tooltip" data-placement="bottom" title="上一级"><span
+                class="glyphicon glyphicon-share-alt"></span></button>
+        <button class="home" data-toggle="tooltip" data-placement="bottom" title="返回首页"><span
+                class="glyphicon glyphicon glyphicon-home"></span></button>
+        <button class="settings" data-toggle="tooltip" data-placement="bottom" title="设置"><span
+                class="glyphicon glyphicon glyphicon-cog"></span></button>
+        <button class="myMessage"><span class="glyphicon glyphicon glyphicon-envelope"></span></button>
+        <div class="myTime"></div>
+    </div>
+
+    <!--框架左部导航条-->
+    <div class="left-block-container">
+        <div class="left-block">
+            <div class="student-user-info">
+                <div class="student-user-icon-container"><span
+                        class="student-user-icon glyphicon glyphicon-user"></span></div>
+                <div class="student-user-name"><div class="name"></div><div class="code"></div></div>
+            </div>
+
+            <div class="navigation">
+                <ul>
+                    <li class="pushButton">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </li>
+
+                    <li class="news">
+                        <span class="glyphicon glyphicon-bullhorn"></span>
+                        <span class="functionName">新闻公告</span>
+                    </li>
+
+                    <li class="student-study">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        <span class="functionName">学习系统</span>
+                    </li>
+
+                    <li class="student-exam">
+                        <span class="glyphicon glyphicon-list-alt"></span>
+                        <span class="functionName">考试系统</span>
+                    </li>
+
+                    <li class="student-grade-analysis">
+                        <span class="glyphicon glyphicon-signal"></span>
+                        <span class="functionName">成绩统计</span>
+                    </li>
+
+                    <li class="student-introduction">
+                        <span class="glyphicon glyphicon-book"></span>
+                        <span class="functionName">系统使用说明</span>
+                    </li>
+
+                    <li class="student-download">
+                        <span class="glyphicon glyphicon-cloud-download"></span>
+                        <span class="functionName">文档下载</span>
+                    </li>
+
+                    <li class="student-user-operate">
+                        <span class="glyphicon glyphicon-user"></span>
+                        <span class="functionName">用&nbsp; &nbsp; &nbsp;&nbsp;户</span>
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                    </li>
+
+                    <li class="childFunction">
+                        <ul>
+                            <li class="changePassword">
+                                <span class="glyphicon glyphicon-tags"></span>
+                                <span class="functionName">修改密码</span>
+                            </li>
+                            <li class="cancellation">
+                                <span class="glyphicon glyphicon-off"></span>
+                                <span class="functionName">注销用户</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--框架左部导航工具-->
+    <div class="left-tools-container">
+        <div class="left-tools">
+            <div class="navigation">
+                <ul>
+                    <li class="pushButton">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </li>
+
+                    <li class="student-user" data-toggle="popover">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </li>
+
+                    <li class="news">
+                        <span class="glyphicon glyphicon-bullhorn" data-toggle="tooltip" data-placement="right"
+                              title="新闻公告"></span>
+                    </li>
+                    <li class="student-study-manage">
+                        <span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="right"
+                              title="学习系统"></span>
+                    </li>
+
+                    <li class="student-exam">
+                        <span class="glyphicon glyphicon-list-alt" data-toggle="tooltip" data-placement="right"
+                              title="考试系统"></span>
+                    </li>
+
+                    <li class="student-grade-analysis">
+                        <span class="glyphicon glyphicon-signal" data-toggle="tooltip" data-placement="right"
+                              title="成绩统计"></span>
+                    </li>
+
+                    <li class="student-introduction">
+                        <span class="glyphicon glyphicon-book" data-toggle="tooltip" data-placement="right"
+                              title="系统使用说明"></span>
+                    </li>
+
+                    <li class="download">
+                        <span class="glyphicon glyphicon-cloud-download" data-toggle="tooltip" data-placement="right"
+                              title="文档下载"></span>
+                    </li>
+
+                    <li class="changePassword">
+                        <span class="glyphicon glyphicon-tags" data-toggle="tooltip" data-placement="right"
+                              title="修改密码"></span>
+                    </li>
+
+                    <li class="cancellation">
+                        <span class="glyphicon glyphicon-off" data-toggle="tooltip" data-placement="right"
+                              title="注销用户"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--框架中心内容-->
+        <div class="main-block">
+            <div class="myJava"></div>
+        </div>
+</div>
+
+<!--确认删除的提示框-->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    删除提示
+                </h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-delete-modal btn-sm">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--消息提示框-->
+<div class="modal fade" id="tip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    消息提示
+                </h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/tiku/js/frame-work/jquery-1.9.1.min.js"></script>
+<script src="/tiku/js/frame-work/bootstrap.min.js"></script>
+<script src="/tiku/js/tool-function.js"></script>
+<script type="text/javascript" src="/tiku/js/nav/nav-base.js"></script>
+<script type="text/javascript" src="/tiku/js/nav/nav-student.js"></script>
+
+<script type="text/javascript">
+    $(function(){
+        $.ajax({
+            url:"/passport/selfPassportInfo.do",
+            type:"post",
+            dataType:"json",
+            success:function(result){
+                if(result.code==-1){
+                    alert(result.msg);
+                    window.location.href="/";
+                }else if(result.code==1){
+                    $(".student-user-name .name").html(result.data.passportName);
+                    $(".student-user-name .code").html(result.data.passportCode);
+                }else{
+                    alert(result.msg);
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

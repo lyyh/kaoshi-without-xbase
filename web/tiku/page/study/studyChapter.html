@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="/system/js/jquery.js"></script>
+</head>
+</srcipt>
+<body>
+<script>
+    //初始化科目编号
+    $(function(){
+        $.ajax({
+            url:"/study/showCourse.do",
+            type:"post",
+            dataType:"json",
+            success:function(data){
+                $.each(data,function(i,item){
+                    i++;
+                    //生成科目选项
+                    $("#selectCou").append("<option value=\""+i+"\">"+item.courseId+"</option>")
+                });
+                //默认下拉框为1
+                initChapter(1);
+            }
+        });
+        //下拉框触发事件(改变时才触发)
+        $("#selectCou").change(function(){
+            //获取下拉框选中的值
+            var couId = $("#selectCou").find("option:selected").val();
+            //初始化章节
+            initChapter(couId);
+        });
+    })
+
+    //根据科目初始化章节
+    function initChapter(courseId){
+        $.ajax({
+            url:"/study/showChapter.do",
+            dataType:"json",
+            type:"post",
+            data:{
+                "courseId":courseId,
+            },
+            success:function(data){
+                //清空前面的操作
+                $("#selectCha").empty();
+                $.each(data,function(i,item){
+                    i++;
+                    //生成章节选项
+                    $("#selectCha").append("<option value=\""+i+"\">"+item+"</option>")
+                });
+            }
+        })
+    }
+
+    //根据获得的对象初始化题目
+    function initSubject(data){
+        if(data==null){
+            alert("找不到题目！");
+            return;
+        }
+        //题目题库编号（全局变量）
+        subjectId = data.subjectId;
+        //题目显示编号（全局变量）
+        number = data.number;
+//        console.log(data);
+        var optionNum = 0;
+        //生成题目内容
+        $("#subName").html(data.number + "." + data.subjectName);
+        var subOp = data.subjectOptions;
+        //生成题目选项内容
+        for (var i = 0; i < subOp.length; i++) {
+            var char = String.fromCharCode(optionNum++ + 65);
+            $("#subQue").append(char + "." + subOp[i] + "</br>");
+        }
+        //生成题目选项
+        for(var i = 0; i < optionNum; i++){
+            var j = i;
+            var char = String.fromCharCode(j++ + 65);
+            //加上了name属性之后就是单选框
+            $("#subOps").append(char+"：<input type=\"radio\" name=\"radio\" value=\""+char+"\"></br>");
+        }
+        //单选框prop(修改)
+//        $("input[type=radio]").click(function(){
+//            //把所有选项框清空
+//            $("input[type=radio]").prop("checked", false);
+//            //标记选中的选项
+//            $(this).prop("checked", true);
+//        });
+    }
+
+    //在初始化或者下一道题的时候清空题目内容
+    function subEmpty(){
+        $("#subName").empty();
+        $("#subQue").empty();
+        $("#subOps").empty();
+    }
+
+    //初始化第一道题目
+    function initFirSubject(){
+        //清空题目
+        subEmpty();
+        //获取下拉框选中的值
+        var chaId = $("#selectCha").val();
+        var couId = $("#selectCou").val();
+        var selectNum = $("#selectNum").val();
+        var blankNum = $("#blankNum").val();
+        var checkNum = $("#checkNum").val();
+        var explainNum = $("#explainNum").val();
+        //对检索条件进行判断
+//        if(chaId.length==""||couId.length==""||selectNum.length==""||blankNum.length==""||checkNum.length==""||explainNum==""){
+//            alert("请补全信息！");
+//            return;
+//        }
+//        if(isNaN(chaId)||isNaN(couId)||isNaN(selectNum)||isNaN(blankNum)||isNaN(checkNum)||isNaN(explainNum)){
+//            alert("非法字符！");
+//            return;
+//        }
+
+        $.ajax({
+            url: "/study/init.do",
+            type: "post",
+            dataType: "json",
+            data: {
+                "courseId": couId,
+                "chapterId": chaId
+            },
+            success: function (data) {
+                console.log(data.subNum);
+                console.log(data.subInfoVos);
+                if(data==null){
+                 alert("找不到题目！");
+                    return;
+                }
+                //初始化题目
+                initSubject(data.subInfoVos);
+                //生成题目数量
+                initSubNum(data.subNum);
+            }
+        });
+    }
+
+    //提交答案
+    function submitAnw(){
+         stuAnw = $("input[type=radio]:checked").val();
+        $.ajax({
+            url:"/study/check.do",
+            type:"post",
+            dataType:"json",
+            data:{
+                //subjectId全局变量
+                "subjectId":subjectId,
+                "stuAnswer":stuAnw,
+            },
+            success: function (data) {
+//              console.log(data);
+                //返回答题结果、正确答案和解析
+                $("#check").html(data.res);
+                $("#rightAnw").html("正确答案："+data.rightAnw);
+            }
+        });
+    }
+
+    //下一道题
+    function nextSub(num){
+        //清空题目
+        subEmpty();
+        $.ajax({
+            url:"/study/skip.do",
+            type:"post",
+            dataType:"json",
+            data:{
+                "subjectNum":num,
+            },
+            success:function(data){
+                initSubject(data);
+            }
+        })
+    }
+
+    //初始化题目数量下拉框
+    function initSubNum(couId){
+        //清空之前的操作
+        $("#subNum").empty();
+        //生成题目数量下拉框
+        for(var i = 1;i<=couId;i++){
+            $("#subNum").append("<option value=\""+i+"\">"+i+"</option>");
+        }
+    }
+
+    //手动跳转到某一道题
+    function selectSub(){
+        //获取下拉框选中的值
+        var subNum = $("#subNum option:checked").val();
+        //清空题目
+        subEmpty();
+        $.ajax({
+            url:"/study/skip.do",
+            type:"post",
+            dataType:"json",
+            data:{
+                "subjectNum":subNum,
+            },
+            success:function(data){
+                //初始化题目
+                initSubject(data);
+            }
+        })
+    }
+    //收藏题目
+    function collSub(){
+        //假设学生编号为1
+        var stuId = 1;
+        if(typeof stuAnw){
+            stuAnw="adsf";
+        }
+        $.ajax({
+            url:"/coll/collSub.do",
+            type:"post",
+            dataType:"json",
+            data:{
+                 "errorAnw":stuAnw,
+                 "stuId":stuId,
+                 "subId":subjectId
+            },
+            success:function(data){
+              alert(data);
+            }
+        });
+    }
+
+    //显示所有进度
+    function showTotalPro(){
+        var couId = $("#selectCou").val();
+        $.ajax({
+            url:"/study/totalPro.do",
+            type:"post",
+            dataType:"json",
+            data:{
+              "stuId":1,
+                "courseId":couId
+            },
+            success:function(data){
+                alert(data+"%");
+            }
+        });
+    }
+    function showChap(){
+        $.ajax({
+            url:"/study/ChapPro.do",
+            type:"post",
+            dataType:"json",
+            data:{
+                "stuId":1,
+                "courseId":1
+            },
+            success:function(data){
+                $.each(data,function(i,item){
+                    console.log(item+" ");
+                })
+
+            }
+        });
+    }
+    function savePro(){
+        $.ajax({
+            url:"/study/savePro.do",
+            type:"post",
+            dataType:"json",
+            data:{
+                "subNum":10,
+                "stuId":1,
+                "chapterId":1,
+                "courseId":1,
+            },
+            success:function(data){
+                alert(data);
+            }
+        })
+    }
+    function totalPro(){
+        $.ajax({
+           url:"/study/totalPro",
+            type:"post",
+            dataType:"json",
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    }
+
+    function initAllSub(){
+        $.ajax({
+            url:"/study/init.do",
+            type:"post",
+            dataType:"json",
+            data:{
+                "courseId":1,
+                "chapterId":1
+            },
+            success:function(data){
+                console.log(data);
+            }
+        })
+    }
+    //用于测试
+    function test(){
+        alert("aaa");
+//        var array = new Array("1","2","3");
+        var array = new Array("1,2,3,4");
+        $.ajax({
+            url:"/study/test.do",
+            type:"post",
+            dataType:"json",
+            data:{
+               "array":array
+            },
+            success:function(data){
+                alert(data);
+            }
+        });
+    }
+</script>
+    <select id="selectCou"></select>
+    <select id="selectCha"></select>
+        <div>请输入选择题数目：<input type="text" id="selectNum"></div>
+        <div>请输入填空题数目：<input type="text" id="blankNum"></div>
+        <div>请输入判断题数目：<input type="text" id="checkNum"></div>
+        <div>请输入解答题数目：<input type="text" id="explainNum"></div>
+        <button type="submit" onclick="initFirSubject()">初始化第一题</button>
+<div id="subName"></div>
+<div id="subQue"></div>
+<div id="subOps"></div>
+<div>
+    <input type="button" onclick="submitAnw()" value="提交答案">
+</div>
+<div id="check"></div>
+<div id="rightAnw"></div>
+<div id="subExp">解析：</div>
+<!--每进下一道题，题目数量自加一-->
+<input type="button" value="下一道题" onclick="nextSub(++number)">
+<div>
+<select id="subNum"></select>
+    <input type="button" onclick="selectSub()" value="跳转到指定题目">
+</div>
+<div>
+    <input type="button" onclick="collSub()" value="收藏该题目">
+</div>
+<div>
+    <input type="button" onclick="showColl()" value="显示所有收藏">
+</div>
+<div>
+    <input type="button" value="显示总的学习进度" onclick="showTotalPro()"/>
+</div>
+<div>
+    <input type="button" value="显示学习的章节" onclick="showChap()"/>
+</div>
+<div>
+    <input type="button" value="保存学习进度" onclick="savePro()">
+</div>
+<div>
+    <input type="button" value="查看总的学习进度" onclick="totalPro()">
+</div>
+<div>
+    <input type="button" value="初始化所有题" onclick="initAllSub()">
+</div>
+<form>
+    <input type="text" id="text1">
+    <input type="text" id="text2">
+    <button type="button"  onclick="test()">测试</button>
+</form>
+</body>
+</html>

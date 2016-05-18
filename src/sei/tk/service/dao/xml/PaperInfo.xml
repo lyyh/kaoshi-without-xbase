@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sei.tk.service.dao.mapper.PaperInfoMapper" >
+    <resultMap id="PaperInfo" type="sei.tk.service.dao.model.vo.paper.PaperInfo" >
+        <id column="testpaper_id" property="testpaperId" jdbcType="BIGINT" />
+        <result column="mkpaper_id" property="mkpaperId" jdbcType="BIGINT" />
+        <result column="course_id" property="courseId" jdbcType="SMALLINT" />
+        <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+        <result column="mkpaper_term" property="mkpaperTerm" jdbcType="VARCHAR" />
+        <result column="ppassport_id" property="ppassportId" jdbcType="BIGINT" />
+        <result column="passportName" property="teaName" jdbcType="VARCHAR" />
+        <result column="mkpaper_extime" property="mkpaperExtime" jdbcType="SMALLINT" />
+        <result column="ppassport_time" property="ppassportTime" jdbcType="TIMESTAMP" />
+        <result column="paper_name" property="paperName" jdbcType="VARCHAR" />
+        <result column="mkpaper_score" property="mkpaperScore" jdbcType="SMALLINT" />
+    </resultMap>
+
+    <resultMap id="PaperInfoUp" type="sei.tk.service.dao.model.vo.paper.PaperInfoUp" >
+        <id column="subject_id" property="subjectId" jdbcType="BIGINT" />
+        <result column="quetype_id" property="quetypeId" jdbcType="SMALLINT" />
+        <result column="subject_name" property="subjectName" jdbcType="LONGVARCHAR" />
+        <result column="subject_option" property="subjectOption" jdbcType="LONGVARCHAR" />
+        <result column="testpaper_score" property="testpaperScore" jdbcType="SMALLINT" />
+        <result column="subject_answer" property="subjectAnswer" jdbcType="VARCHAR" />
+        <result column="subject_solution" property="subjectSolution" jdbcType="LONGVARCHAR" />
+        <result column="level_id" property="levelId" jdbcType="TINYINT" />
+        <result column="course_id" property="courseId" jdbcType="SMALLINT" />
+        <result column="knopoint_id" property="knopointId" jdbcType="BIGINT" />
+        <result column="ppassport_id" property="ppassportId" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <select id="selectAllPaper" parameterType="sei.tk.service.dao.model.vo.paper.PaperInfo" resultMap="PaperInfo">
+        SELECT A.testpaper_id,B.tea_name,D.course_name,C.paper_name,C.ppassport_time,C.mkpaper_score,C.mkpaper_extime,C.mkpaper_term
+        FROM tk_testpaper A,tk_teacher B,tk_mkpaper C,tk_course D
+        WHERE A.mkpaper_id=C.mkpaper_id AND C.course_id=D.course_id AND
+         B.ppassport_id=A.ppassport_id AND A.ppassport_id=C.ppassport_id
+        <if test="ppassportId!=null">
+            and B.ppassport_id=#{ppassportId}
+        </if>
+        <if test="courseId!=null">
+            and C.course_id=#{courseId}
+        </if>
+        <if test="start!=null">
+            <if test="row!=null">
+                limit #{start},#{row}
+            </if>
+        </if>
+    </select>
+    <select id="selectById" parameterType="java.lang.Long" resultMap="PaperInfo">
+        SELECT A.testpaper_id,B.tea_name,D.course_name,C.paper_name,C.ppassport_time,C.mkpaper_score,C.mkpaper_extime,C.mkpaper_term
+        FROM tk_testpaper A,tk_teacher B,tk_mkpaper C,tk_course D
+        WHERE A.mkpaper_id=C.mkpaper_id AND C.course_id=D.course_id and
+         B.ppassport_id=A.ppassport_id AND A.ppassport_id=C.ppassport_id
+        AND A.testpaper_id=#{testpaperId,jdbcType=BIGINT}
+    </select>
+    <select id="countPaperInfo"   parameterType="sei.tk.service.dao.model.vo.paper.PaperInfo" resultType="java.lang.Integer">
+        SELECT  COUNT(A.testpaper_id)
+        FROM tk_testpaper A,tk_teacher B,tk_mkpaper C,tk_course D
+        WHERE A.mkpaper_id=C.mkpaper_id AND C.course_id=D.course_id AND
+        B.ppassport_id=A.ppassport_id AND A.ppassport_id=C.ppassport_id
+        <if test="ppassportId!=null">
+            and B.ppassport_id=#{ppassportId}
+        </if>
+        <if test="courseId!=null">
+            and C.course_id=#{courseId}
+        </if>
+    </select>
+
+    <select id="selectSubjects" parameterType="java.lang.Long"  resultMap="PaperInfoUp">
+        SELECT A.subject_id,A.subject_solution,A.knopoint_id,A.level_id,A.quetype_id,A.subject_answer,A.chapter_id,A.course_id,A.subject_name,A.subject_option, B.testpaper_score
+        FROM tk_subject A,tk_testsubject B
+        WHERE A.subject_id=B.subject_id
+          and B.testpaper_id=#{testpaperId}
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,151 @@
+html,body{
+	background: url("../../img/bg.jpg") no-repeat;
+	background-size: cover;
+	font-family: "微软雅黑";
+	overflow: hidden;
+}
+
+.totalContainer{
+	margin: 0 auto;
+	width: 1000px;
+	overflow: hidden;
+}
+
+.title{
+	margin: auto;
+	width: 400px;
+}
+.title h1{
+	padding-top: 7%;
+	color: #ffffff;
+	font-size: 35px;
+}
+
+.content{
+	margin: 70px auto;
+	width:100%;
+	overflow: hidden;
+	/*height: 400px;*/
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66ffffff,endColorstr=#66ffffff);
+	background-color: rgba(255,255,255,0.5);
+	border-radius: 10px;
+}
+
+.content .tip-content{
+	width: 45%;
+	min-height: 400px;
+	border-right: 2px solid #ffffff;
+	margin: 0 40px 0 10px;
+	overflow: hidden;
+	display: inline-block;
+	vertical-align: top;
+}
+.tip-content h2{
+	margin-top: 15px;
+	text-align: center;
+	font-size: 26px;
+}
+.tip-content ul{
+	margin: 20px auto;
+	width: 100%;
+}
+.tip-content ul li{
+	width: 90%;
+	overflow: hidden;
+	margin: 5px auto;
+	padding: 10px;
+	border-bottom: 1px dashed #eeeeee;
+}
+.tip-content ul li .tip-content-notice{
+	float: left;
+	width: 90%;
+	display:block;
+	white-space:nowrap; 
+	overflow:hidden; 
+	text-overflow:ellipsis;
+}
+.tip-content ul li .tip-content-time{
+	float: right;
+}
+.tip-content a:hover{
+	color: #ffffff;
+}
+.content .login-content{
+	margin: 0px auto;
+	width: 45%;
+	min-height: 400px;
+	overflow: hidden;
+	display: inline-block;
+	vertical-align: top;
+	/*border: 1px solid red;*/
+}
+.login-content h2{
+	margin: 15px 0 40px 0;
+	text-align: center;
+	font-size: 26px;
+}
+.login-content .login-text{
+	width: 100%;
+	margin: auto;
+	text-align: center;
+}
+.login-content .login-text input[type=text],
+.login-content .login-text input[type=password]{
+	margin: 50px auto auto 0;
+	padding: 0 20px;
+	width: 300px;
+	height: 37px;
+	font-size: 20px;
+	border-radius: 5px;
+	/*line-height: 50px;*/
+	border: none;
+	box-shadow:inset 0 0 8px #ccc;
+	-moz-box-shadow:inset 0 0 8px #ccc;
+	-webkit-box-shadow:inset 0 0 8px #ccc;
+}
+.login-content .login-text input[type=text]:focus,
+.login-content .login-text input[type=password]:focus{
+	box-shadow:0px 0px  10px #06c;
+	-moz-box-shadow:0px 0px  10px #06c;
+	-webkit-box-shadow:0px 0px  10px #06c;
+}
+.login-title{
+	margin: 50px auto auto 0;
+	font-size: 18px;
+	padding: 8px;
+	text-align: left;
+	display: inline-block;
+	vertical-align: top;
+}
+.student-num-erro,
+.password-num-erro{
+	height: 26px;
+	text-align: left;
+}
+.login-button{
+	margin:20px auto;
+	width: 100px;
+	height: 40px;
+	border: none;
+	color: #ffffff;
+	font-size: 18px;
+	background-color: #3E9BD8;
+	border-radius: 10px;
+}
+.login-button:hover{
+	cursor: pointer;
+	background-color: #2976AA;
+}
+.erro-info{
+	height: 25px;
+	color: #F31616;
+	margin-top: 5px;
+	margin-left: 30px;
+	text-align: left;
+}
+#warning-studentnum,
+#warning-passwordnum{
+	box-shadow:0px 0px  10px #FC0039;
+	-moz-box-shadow:0px 0px  10px #FC0039;
+	-webkit-box-shadow:0px 0px  10px #FC0039;
+}

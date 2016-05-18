@@ -1,0 +1,129 @@
+.totalContainer {
+    height: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    text-align: center;
+}
+
+.my-row {
+    text-align: left;
+    padding: 5px 30px;
+    height: 7%;
+    width: 100%;
+    min-width: 900px;
+    overflow: hidden;
+    background-color: #ededed;
+    border-bottom: 1px solid #c6c6c6;
+}
+
+.table-container {
+    padding: 5px 15px;
+    overflow: auto;
+    height: 93%;
+    width: 100%;
+}
+
+.my-row .btn-sm {
+    width: 87px;
+    height: 30px;
+    border-radius: 0;
+    margin-right:10px;
+    color: snow;
+    border: 1px solid transparent;
+}
+
+.my-row .btn-sm:nth-child(1){
+    background-color: #303641;
+}
+
+.my-row .btn-sm:nth-child(1):hover{
+    color: #303641;
+    border: 1px solid #303641;
+    background-color: transparent;
+}
+
+.my-row .btn-sm:nth-child(2){
+    background-color: #B1E8DD;
+}
+
+.my-row .btn-sm:nth-child(2):hover{
+    color: #B1E8DD;
+    border: 1px solid #B1E8DD;
+    background-color: transparent;
+}
+
+.my-row .btn-sm:nth-child(3){
+    background-color: #3498DB;
+}
+
+.my-row .btn-sm:nth-child(3):hover{
+    color: #3498DB;
+    border: 1px solid #3498DB;
+    background-color: transparent;
+}
+
+.my-row .btn-sm:nth-child(4){
+    background-color: #F9BF3B;
+}
+
+.my-row .btn-sm:nth-child(4):hover{
+    color: #F9BF3B;
+    border: 1px solid #F9BF3B;
+    background-color: transparent;
+}
+
+.my-row .btn-sm:nth-child(5){
+    background-color: #F22613;
+}
+
+.my-row .btn-sm:nth-child(5):hover{
+    color: #F22613;
+    border: 1px solid #F22613;
+    background-color: transparent;
+}
+
+.my-row .xz-tx {
+    float: right;
+}
+
+.xz-tx select {
+    margin-top: -2px;
+    width: 140px;
+    display: inline-block;
+}
+
+.xz-tx .search {
+    margin-top: -2px;
+    width: 233px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.xz-tx .search input {
+    display: inline-block;
+    vertical-align: top;
+    width: 200px;
+    float: right;
+    border-radius: 5px 0 0 5px;
+}
+
+.xz-tx .search div {
+    display: inline-block;
+    vertical-align: top;
+    background-color: #6DC5A3;
+    color: whitesmoke;
+    width: 28px;
+    height: 30px;
+    float: right;
+    padding: 5px;
+    border-radius: 0 5px 5px 0;
+}
+
+.table {
+    text-align: center;
+}
+
+.table th {
+    text-align: center;
+}
+

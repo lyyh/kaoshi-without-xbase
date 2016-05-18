@@ -1,0 +1,27 @@
+/*用户信息*/
+.left-block .teacher-user-info{
+    height: 170px;
+    width: 195px;
+    float: left;
+    position: relative;
+}
+
+.left-block .teacher-user-icon {
+    margin: 10px auto;
+    width: 80px;
+    height: 80px;
+    border: 2px solid #e5e5e5;
+    border-radius: 50px;
+    background: url("/tiku/img/shunping.jpg");
+    background-size: 100px 80px;
+    position: relative;
+}
+
+.left-block .teacher-user-name {
+    margin: 10px auto;
+    text-align: center;
+    width: 130px;
+    font-size: 16px;
+    color: whitesmoke;
+    position: relative;
+}

@@ -1,0 +1,139 @@
+<div name="winDataListButtons" class="toobar" style="padding: 5px 1px 5px">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refresh()">刷新</a>
+    <!--#include virtual="/system/getActions.do?module=dept"-->
+    | 所属系统：<input class="easyui-combotree" name="system_id" width="120px" data-options="required:true,url:'/system/getSystem.do',
+    method:'get',required:true,editable: false,valueField:'id',textField:'text',onLoadSuccess:function(node,data){getCurrWin().find('[textboxname=system_id]').combotree('setValue', data[0]['id']);setTimeout(function(){setParam();refresh();},0);},onSelect:function(obj){if(obj.id == '0') {$('a[name=import_public_dept]').hide();} else {$('a[name=import_public_dept]').show();}setTimeout(function(){setParam();refresh();},0);}"/>
+    部门级别：
+    <select class="easyui-combobox" name="dept_level" style="width:100px;" data-options="editable: false,onSelect:function(){setTimeout(function(){setParam();refresh();},0);}">
+        <option value="-1" selected>不限</option>
+        <option value="1">二级部门</option>
+        <option value="2">二级以下部门</option>
+    </select>
+    状态：
+    <select class="easyui-combobox" name="dept_status" style="width:100px;" data-options="editable: false,onSelect:function(){setTimeout(function(){setParam();refresh();},0);}">
+        <option value="-1" selected>不限</option>
+        <option value="1">审核通过</option>
+        <option value="2">未审核</option>
+        <option value="3">审核不通过</option>
+    </select>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="searchShow(this)">更多查询..</a>
+</div>
+
+<table name="winDataList" style="width:100%; height:100%" class="treegrid" data-options="cache:false,autoRowHeight:false,fitColumns:true,pagePosition:'bottom',treeField:'text',idField:'id',striped:true,rownumbers:true,singleSelect:true,method:'get',
+onLoadSuccess: function (row) {$(this).treegrid('enableDnd', row ? row.id : null);},   //启动treegrid的拖拽功能
+onBeforeDrop: function (targetRow, sourceRow, point) {
+                var system_id = getObj(this,'system_id').val();
+                if (system_id && system_id != '0') {
+                    if (targetRow.is_common_dept == sourceRow.is_common_dept && targetRow.is_common_dept == '0') {
+                        $.messager.alert('提示', '两个公有部门在非公共系统中不能进行拖动！');
+                        return false;
+                    }
+                }
+                if((','+sourceRow['pid']+',').indexOf(','+targetRow['id']+',')!=-1){
+                    $.messager.alert('提示', '不能将自己拖动到自己的目录下！');
+                    return false;
+                }
+                if (confirm('是否确认拖动 ' + sourceRow.text + ' 到 ' + targetRow.text + ' 下')) {
+                    var param = {};
+                    param['dept_id'] = sourceRow['id'];
+                    param['system_id'] = system_id;
+                    param['dept_parent'] = targetRow['id'];
+                    param['option_type'] = 'edit';
+                    loadData('/system/dept/save.do', function (ret) {retMessage(ret, function () {refresh();}, true);}, {data:param});
+                }
+                return false;
+            }
+">
+    <thead><tr>
+        <th data-options="field:'ck',checkbox:true"></th>
+        <th data-options="field:'text',align:'left',width:120">部门名称</th>
+        <!--<th data-options="field:'is_common_dept',align:'center',width:100,formatter: function (value, row, index) {if (value == '1') {return '私有部门'} else {return '公有部门';}}">部门类型</th>-->
+        <th data-options="field:'dept_code',halign: 'left', align:'left',width:60">部门代码</th>
+        <th data-options="field:'dept_status',align:'center',width:40,formatter:formatProgress">状态</th>
+        <th data-options="field:'dept_linkman',width:100">联系人</th>
+        <th data-options="field:'dept_tel',width:100">联系电话</th>
+        <th data-options="field:'dept_addr',width:200">地址</th>
+        <th data-options="field:'dept_memo',width:200">备注</th>
+    </tr></thead>
+</table>
+
+<textarea name="winEditHtml" style="display: none;">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'center'" style="padding: 12px 12px 0 12px;">
+            <form name="obj" method="post" class="c-form">
+
+                <!--隐藏域-->
+                <input type="hidden" name="dept_parent" value="0"/>
+                <input type="hidden" name="dept_id">
+                <input type="hidden" name="system_id">
+                <input type="hidden" name="option_type" value="add">
+
+                <table class="table">
+                    <tr>
+                        <td class="label">所属系统:</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" name="system_name" data-options="editable:false,required:true,missingMessage:'请选择一个系统',buttonIcon:'icon-search',onClickButton:function(){ChoiceBaseDialog('/system/getSystem.do',false,true,getObj(this,'system_id'),getObj(this,'system_name','textboxname'));}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">上级部门：</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox"  name="dparent_name" value="默认根节点" data-options="editable:false,required:true,missingMessage:'请选择一个上级部门',buttonIcon:'icon-search',onClickButton:function(){var system_id=getObj(this,'system_id').val();if(system_id==''){$.messager.alert('提示', '请先选择所属系统后才能继续！');return;}ChoiceBaseDialog('/system/dept/list.do?system_id='+system_id,false,false,getObj(this,'dept_parent'),getObj(this,'dparent_name','textboxname'));}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">部门名称：</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" data-options="required:true,missingMessage:'请填写部门名称',validType:'length[2,30]'" type="text" name="dept_name" /></td>
+                    </tr>
+                    <tr>
+                        <td class="label">部门编码：</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" type="text" name="dept_code" data-options="validType:'maxLength[10]'"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">状态：</td>
+                        <td class="value"><select name="dept_status" class="easyui-combobox easyui-validatebox" data-options="required:true,editable:false,missingMessage:'请选择部门状态'" name="dept" ><option value="1">开启</option><option value="2">未审核</option><option value="3">审核不通过</option><option value="0">关闭</option></select></td>
+                    </tr>
+                    <tr>
+                        <td class="label">联系人：</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" type="text" name="dept_linkman" data-options="validType:'maxLength[50]'"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">联系电话：</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" type="text" name="dept_tel" data-options="validType:'maxLength[60]'"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">详细地址：</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" type="text" name="dept_addr" data-options="validType:'maxLength[60]'"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label" style="height:80px">备注信息：</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" type="text" name="dept_memo" maxlength="100" data-options="multiline:true,validType:'maxLength[60]'" style="height:80px"/></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="c-w-t" data-options="region:'south'">
+            <#buttons/>
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-close',plain:true" onclick="closeCurrWin()">关闭</a>
+        </div>
+    </div>
+</textarea>
+<script>
+    !function(){
+        listBind({
+            windowWidth:400,
+            windowHeight:440,
+            keyField:'id',
+            audit:{//审核模块
+                system_id:1,//系统编号
+                moduleCode:'dept'//模块名称
+            },
+            save:"/system/dept/save.do",
+            show:"/system/dept/show.do",
+            del: "/system/dept/del.do",
+            search: [
+                {field: 'dept_linkman', title: '联系人', c_dataType: 'string'},
+                {field: 'dept_name', title: '部门名称', c_dataType: 'string'},
+                {field: 'dept_memo', title: '备注', c_dataType: 'string'}
+            ],
+            listUrl:"/system/dept/list.do",
+            param:{}
+        },false);
+    }();   console.log();
+</script>

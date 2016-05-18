@@ -1,0 +1,103 @@
+<link rel="stylesheet" href="/tiku/css/base/page.css">
+<body>
+<div class="totalContainer">
+    <div class="my-row">
+        <button type="button" class="btn btn-primary btn-sm teacher-recordQuestion" style="margin-left: 0">
+            <span class="glyphicon glyphicon-plus"></span> 新增
+        </button>
+        <button type="button" class="btn btn-danger btn-sm btn-delete">
+            <span class="glyphicon glyphicon-minus"></span> 删除
+        </button>
+        <button type="button" class="btn btn-info btn-sm btn-show">
+            <span class="glyphicon glyphicon-th"></span> 查看
+        </button>
+        <button type="button" class="btn btn-warning btn-sm btn-edit">
+            <span class="glyphicon glyphicon-pencil"></span> 修改
+        </button>
+        <div class="xz-tx">
+            选择题型:
+            <select id="luti-op" class="form-control input-sm" style="display: inline-block">
+                <option value="0">全部</option>
+            </select>
+
+            <!--出题人:-->
+            <!--<select id="teacher-op" class="form-control input-sm" style="display: inline-block">-->
+            <!--<option value="0">韩顺平</option>-->
+            <!--<option value="1">马士兵</option>-->
+            <!--<option value="2">毕向东</option>-->
+            <!--</select>-->
+
+            <div class="search">
+                <div><span id="search-btn" class="glyphicon glyphicon-search" style="cursor:pointer;"></span></div>
+                <input type="text" placeholder="在这里根据题干进行查找" class="form-control input-sm">
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="table-container">
+        <table id="table-luti" class="table table-hover table-bordered">
+            <thead>
+            <tr class="danger">
+                <th width="3%"><input type="checkbox" class="checkall"></th>
+                <th width="10%">题目编号</th>
+                <th width="37%">题干</th>
+                <th width="10%">出题人</th>
+                <th width="20%">知识点</th>
+                <th width="10%">难度</th>
+                <th width="10%">出题时间</th>
+            </tr>
+            </thead>
+            <tbody id="neirong">
+            <tr>
+                <td><input type="checkbox" name="checkname"></td>
+                <td>加载中...</td>
+                <td>
+                    <div class="neirong-title">加载中...</div>
+                </td>
+                <td>加载中...</td>
+                <td>加载中...</td>
+                <td>加载中...</td>
+                <td>加载中...</td>
+            </tr>
+            </tbody>
+        </table>
+        <ul class="pagination">
+        </ul>
+    </div>
+
+    <!--查看题目的模态框-->
+    <div class="modal fade" id="show-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" style="width: 67%;min-width: 850px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        查看题目
+                    </h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn sure" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/tiku/js/page-function/page.js"></script>
+<script type="text/javascript" src="/tiku/js/page-function/teacher-question-manage.js"></script>
+<script>
+    $(".back").click(function () {
+        $(".back").unbind("click");
+        $(".location").html("系统主页");
+        $(".main-block").html("<div class='myJava'></div>")
+    });
+</script>
+</body>

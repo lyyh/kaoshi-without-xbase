@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sei.tk.service.dao.mapper.TestpaperInfoMapper" >
+       <resultMap id="TestpaperInfoVo" type="sei.tk.service.dao.model.vo.test.TestpaperInfVo" >
+              <id column="testpaper_id" property="testpaperId" jdbcType="BIGINT" />
+              <result column="course_name" property="course" jdbcType="VARCHAR" />
+              <result column="mkpaper_term" property="term" jdbcType="VARCHAR" />
+              <result column="mkpaper_extime" property="totalTime" jdbcType="SMALLINT" />
+              <result column="mkpaper_score" property="totalScore" jdbcType="SMALLINT" />
+
+       </resultMap>
+       <resultMap id="TkSubject" type="sei.tk.service.dao.model.TkSubject" >
+              <id column="subject_id" property="subjectId" jdbcType="BIGINT" />
+              <result column="course_id" property="courseId" jdbcType="SMALLINT" />
+              <result column="knopoint_id" property="knopointId" jdbcType="BIGINT" />
+              <result column="quetype_id" property="quetypeId" jdbcType="SMALLINT" />
+              <result column="chapter_id" property="chapterId" jdbcType="TINYINT" />
+              <result column="level_id" property="levelId" jdbcType="TINYINT" />
+              <result column="subject_answer" property="subjectAnswer" jdbcType="VARCHAR" />
+              <result column="ppassport_id" property="ppassportId" jdbcType="BIGINT" />
+              <result column="ppassport_time" property="ppassportTime" jdbcType="TIMESTAMP" />
+       </resultMap>
+       <resultMap id="TkSubjectWithBlobs" type="sei.tk.service.dao.model.TkSubjectWithBLOBs" extends="TkSubject" >
+              <result column="subject_name" property="subjectName" jdbcType="LONGVARCHAR" />
+              <result column="subject_option" property="subjectOption" jdbcType="LONGVARCHAR" />
+              <result column="subject_solution" property="subjectSolution" jdbcType="LONGVARCHAR" />
+       </resultMap>
+       <resultMap id="TypeAmount" type="sei.tk.service.dao.model.vo.test.TypeAmount">
+              <id column="quetype_id" property="type" jdbcType="SMALLINT"/>
+       </resultMap>
+       <select id="selectTestpaperInfoById" parameterType="java.lang.Long" resultMap="TestpaperInfoVo">
+              SELECT COUNT(C.subject_id) AS totalSubAmount, A.testpaper_id,D.course_name,B.mkpaper_term,B.mkpaper_extime,B.mkpaper_score
+              FROM tk_testpaper A, tk_mkpaper B, tk_testsubject C, tk_course D
+              WHERE A.mkpaper_id = B.mkpaper_id AND A.testpaper_id=C.testpaper_id AND B.course_id=D.course_id
+              AND A.testpaper_id=#{testpaperId,jdbcType=BIGINT}
+       </select>
+
+       <select id="selectTestpaperSubAmountById" parameterType="java.lang.Long" resultMap="TypeAmount">
+              SELECT B.quetype_id, COUNT(B.quetype_id) AS 'amount' FROM tk_testsubject A, tk_quetype B, tk_subject C
+              WHERE A.subject_id=C.subject_id AND B.quetype_id=C.quetype_id
+              AND A.testpaper_id=#{testpaperId,jdbcType=BIGINT} GROUP BY B.quetype_id
+       </select>
+
+       <select id="selectSubjectsFromTestpaper" parameterType="java.lang.Long" resultMap="TkSubjectWithBlobs">
+              SELECT A.subject_id, course_id, knopoint_id, quetype_id, chapter_id, level_id, subject_answer, ppassport_id, ppassport_time, subject_name, subject_option, subject_solution
+              FROM tk_subject A, tk_testsubject B
+              WHERE A.subject_id=B.subject_id AND
+              B.testpaper_id=#{testpaperId,jdbcType=BIGINT} ORDER BY quetype_id
+       </select>
+</mapper>

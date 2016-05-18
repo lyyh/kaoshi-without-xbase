@@ -1,0 +1,168 @@
+/*定义所有模态框的通用*/
+.modal-dialog {
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.modal-content {
+    margin: 0 auto;
+    border: 1px solid transparent;
+    position: relative;
+}
+
+.modal-header, .modal-footer {
+    padding: 5px;
+    background-color: #3499DB;
+    text-align: center;
+}
+
+.modal-body {
+    padding: 10px;
+    width: 100%;
+    overflow: auto;
+    background-color: #f1f2ed;
+}
+
+.modal-body table {
+    margin: 5px;
+}
+
+.modal-title {
+    display: inline-block;
+    color: #fff;
+}
+
+.modal-body table{
+    border: 1px solid #DDDDDB;
+    text-align: left;
+}
+
+.modal-body table td{
+    padding: 5px;
+    border: 2px solid #EFEFED;
+    background-color: #F7F7F7;
+    text-align: center;
+}
+
+.modal-body table .my-th {
+    background-color: #E3E3E1;
+    width: 25%;
+}
+
+.modal-body table tr .td-title{
+    background-color:#B8DEF5;
+    text-align: left;
+}
+
+.modal-footer span{
+    float: left
+}
+
+.sure{
+    border: 2px solid snow;
+    border-radius: 5px;
+    background-color: transparent;
+    color: snow;
+}
+
+.sure:hover{
+    text-decoration: none;
+    color: snow;
+}
+/*设置查看模态框通用*/
+
+#show-info .modal-body {
+    height: 400px;
+}
+
+#show-info tr:nth-child(6) td, #show-info tr:nth-child(8) td, #show-info tr:nth-child(10) td {
+    height: 100px;
+    text-align: left;
+}
+
+#show-info p {
+    display: inline-block;
+}
+
+.neirong-title {
+    margin: auto;
+    width: 250px;
+    word-break: keep-all;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/*定义提示模态框的通用*/
+#delete .modal-dialog,
+#tip .modal-dialog {
+    width: 260px;
+    min-width: 260px;
+}
+
+#delete .modal-content,
+#tip .modal-content {
+    width: 100%;
+    border: none;
+}
+
+#delete .modal-body,
+#tip .modal-body {
+    font-size: 17px;
+    height: 67px;
+    text-align: center;
+    padding-top: 22px;
+}
+
+#delete .modal-header {
+    color: #ffffff;
+    background-color: #d9534f;
+}
+
+#tip .modal-header {
+    color: #ffffff;
+    background-color: #337ab7;
+}
+#tip .modal-footer,#delete .modal-footer{
+    color: #ffffff;
+    background-color: #F1F2ED;
+}
+
+.modal-footer .btn-delete-modal {
+    background-color: #d9534f;
+    color: #ffffff;
+}
+
+/*定义所有表格的通用*/
+table th {
+    font-size: 14px;
+    color: #262626;
+    font-weight: 500;
+}
+
+table td {
+    font-size: 13px;
+    color: #262626;
+}
+/*特殊情境的板块（比如网络错误、数据加载）*/
+.wrong404 {
+    width: 100%;
+    height: 100%;
+    background: url("/tiku/img/404.jpg");
+    background-size: 100% 100%;
+}
+
+.myJava {
+    width: 100%;
+    height: 100%;
+    background: url("/tiku/img/myJava.png") no-repeat 50% 40%;
+    background-size: 300px 200px;
+}
+
+.loading {
+    width: 100%;
+    height: 100%;
+    background: url("/tiku/img/loading.gif") no-repeat 50% 40%;
+    background-size: 300px 200px;
+}

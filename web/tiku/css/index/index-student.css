@@ -1,0 +1,33 @@
+.left-block .student-user-info{
+    height: 170px;
+    width: 195px;
+    float: left;
+    position: relative;
+}
+
+.left-block .student-user-icon-container {
+    margin: 10px auto;
+    width: 80px;
+    height: 80px;
+    border: 2px solid #e5e5e5;
+    border-radius: 50px;
+    background-size: 100px 80px;
+    position: relative;
+    text-align: center;
+}
+
+.left-block .student-user-icon{
+    margin: 5px auto;
+    font-size: 50px;
+    color: whitesmoke;
+    position: relative;
+}
+
+.left-block .student-user-name {
+    margin: 10px auto;
+    text-align: center;
+    width: 130px;
+    font-size: 15px;
+    color: whitesmoke;
+    position: relative;
+}

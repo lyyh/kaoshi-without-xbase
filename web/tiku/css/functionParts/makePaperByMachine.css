@@ -1,0 +1,222 @@
+.totalContainer {
+    width: 1080px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 20px 40px 20px 40px;
+}
+
+.fontPart {
+    height: 375px;
+    width: 570px;
+    padding: 20px 40px 10px 40px;
+    border: 1px solid #6DC5A3;
+    margin-right: 120px;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+
+.fontPart > input {
+    width: 85%;
+    margin-top: 30px;
+    display: inline;
+}
+
+.header .paperTip {
+    margin-top: 90px;
+}
+
+.fontPart span {
+    margin-bottom: 30px;
+    font-size: 18px;
+    font-family: "Microsoft YaHei";
+}
+
+.semesterYear {
+    width: 54%;
+    margin-top: 30px;
+    display: inline;
+}
+
+.semesterTerm {
+    width: 30%;
+    margin-top: 30px;
+    display: inline;
+}
+
+.duration {
+    width: 77%;
+    position: absolute;
+    left: 16%;
+    top: 238px;
+}
+
+.duration input {
+    border: 1px solid #6DC5A3
+}
+
+.duration .input-group-addon {
+    border-top: 1px solid #6DC5A3;
+    border-right: 1px solid #6DC5A3;
+    border-bottom: 1px solid #6DC5A3;
+    color: #6DC5A3;
+}
+
+.durationTip {
+    position: absolute;
+    top: 245px;
+}
+
+/*制卷规则板块*/
+.rule {
+    width: 300px;
+    height: 350px;
+    border: 1px solid #6DC5A3;
+    border-radius: 10px;
+    /*float: right;*/
+    display: inline-block;
+    vertical-align: top;
+    font-family: "Microsoft YaHei";
+    overflow: hidden;
+}
+
+.myTitle {
+    padding-left: 5px;
+    border-radius: 8px 8px 0 0;
+    color: white;
+    font-size: 19px;
+    display: block;
+    background-color: #6DC5A3;
+}
+
+.ruleContent {
+    font-size: 15px;
+    padding: 5px 10px 5px 10px;
+    line-height: 26px;
+}
+
+/*制卷小工具*/
+.toolbar {
+    margin: 15px 0 15px 2px;
+    border-radius: 8px;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#909090, direction=120, strength=3); /*ie*/
+    -moz-box-shadow: 2px 2px 10px #909090; /*firefox*/
+    -webkit-box-shadow: 2px 2px 10px #909090; /*safari或chrome*/
+    box-shadow: 2px 2px 10px #909090; /*opera或ie9*/
+}
+
+/*试卷预览板块*/
+.myPaper {
+    border: 1px solid #DDDDDD;
+}
+
+.myPaper th:first-child {
+    width: 40px;
+}
+
+.myPaper th {
+    border: 1px solid #DDDDDD;
+    text-align: center;
+    vertical-align: middle;
+    font-family: "Microsoft YaHei";
+    font-size: 17px;
+    font-weight: 400;
+    background-color: #F9F9F9;
+}
+
+.myPaper td {
+    padding: 8px 0 8px 0;
+    border: 1px solid #DDDDDD;
+    text-align: center;
+    vertical-align: middle;
+    font-family: "Microsoft YaHei";
+    font-size: 15px;
+}
+
+.myPaper button {
+    border: 1px solid transparent;
+    background-color: transparent;
+}
+
+/*制卷规则的模态框*/
+#editRuleModal .modal-body,#newRuleModal .modal-body{
+    padding: 10px 100px 10px 100px;
+}
+
+#knowledgePoint, #knowledgePointFC {
+    width: 92%;
+    border: 1px solid #5f76ff;
+    border-radius: 5px 0 0 5px;
+    display: inline-block;
+}
+
+.modal-body .knowledgePoint {
+    text-overflow: ellipsis;
+}
+
+.modal-body .checkKnowledgePoint{
+    width: 8%;
+    height: 34px;
+    border: 1px solid #00a2d4;
+    border-radius: 0 5px 5px 0;
+    margin: 0 0 0 -6px;
+    background-color: #00a2d4;
+    display: inline-block;
+    position: relative;
+    top: 2px;
+}
+
+.modal-body .form-group{
+    margin-bottom: 0;
+}
+
+/*选择知识点的模态框*/
+.myKnowledgePoint {
+    padding: 5px 10px 10px 5px;
+    text-align: center;
+}
+
+#myKnowledgePoint td {
+    padding: 2px 5px 0 5px;
+    border: 1px solid #DDDDDD;
+    font-size: 15px;
+    text-align: center;
+}
+
+#myKnowledgePoint th {
+    padding: 2px 5px 2px 3px;
+    border: 1px solid #DDDDDD;
+    text-align: center;
+    font-size: 16px;
+}
+
+.myKnowledgePoint input {
+    height: 15px;
+    width: 15px;
+    margin: 5px 0 0 0;
+}
+
+.knowledgePointFH {
+    display: none;
+}
+
+/*定义按钮图标颜色*/
+.totalContainer .glyphicon-pencil {
+    color: #8c0800;
+}
+
+.totalContainer .glyphicon-search {
+    color: whitesmoke;
+}
+
+.totalContainer .glyphicon-plus {
+    color: #008200;
+}
+
+.totalContainer .glyphicon-minus {
+    color: #ff0000;
+}
+
+
+
+

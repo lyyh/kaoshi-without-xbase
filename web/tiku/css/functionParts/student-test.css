@@ -1,0 +1,109 @@
+/*考试模块*/
+.row{
+	width: 100%;
+	text-align: center;
+}
+.test-user-info{
+	float: right;
+	margin-top: -8px;
+	height: 40px;
+	overflow: hidden;
+}
+.test-user-info ul li{
+	height: 40px;
+	width: 180px;
+	margin-left: 10px;
+	font-size: 16px;
+	text-align: center;
+	float: left;
+}
+.test-user-info ul li span{
+	line-height: 48px;
+}
+.test-user-info ul .test-time{
+	font-size: 30px;
+	font-weight: bold;
+}
+.test-question{
+	float: left;
+	width: 300px;
+	height: 100%;
+	overflow: auto;
+	overflow-x: hidden;
+}
+.test-question-content{
+	margin: auto;
+	width: 280px;
+}
+.btn-title-num{
+	float: left;
+	width: 40px;
+	padding: 8px;
+	border-radius: 0px;
+}
+.btn-on{
+	background-color: #e6e6e6;
+}
+.test-question-sign ul{
+	width: 100%;
+	padding-top: 20px;
+	overflow: hidden;
+}
+.test-question-sign ul li{
+	margin-left: 30px;
+	float: left;
+    text-align: center;
+}
+.btn-sign{
+	width: 60px;
+}
+.test-question-sign ul li:hover .btn-primary{
+	background-color: #337AB7;
+}
+.test-question-sign ul li:hover .btn-default{
+	background-color: #ffffff;
+}
+.test-question-sign ul li p{
+	margin-top: 10px;
+}
+.test-small-title{
+	padding: 5px;
+	width: 100%;
+	overflow: hidden;
+}
+.test-question-info{
+	margin-left: 300px;
+	text-align: left;
+	word-break: break-all;
+}
+.test-question-topic{
+	margin: auto;
+	width: 80%;
+}
+.test-page-kongzhi{
+	margin: auto;
+	margin-top: 50px;
+	width: 80%;
+	text-align: center;
+}
+.test-page-kongzhi button{
+	display: inline-block;
+	margin-left: 120px;
+}
+.toppic-radio{
+	float: left;
+	margin-right: 10px !important;
+	margin-top: -10px;
+}
+.test-question-topic p{
+	line-height: 24px;
+}
+.test-question-topic ul{
+	margin-top: 20px;
+}
+.test-question-topic ul li{
+	margin-top: 16px;
+}
+.test-question-topic ul li p{
+	line-height: 24px;
+}

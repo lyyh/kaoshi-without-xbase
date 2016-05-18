@@ -1,0 +1,219 @@
+<style>
+    .totalContainer {
+        height: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .my-row {
+        text-align: left;
+        padding: 5px 20px;
+        min-width: 1075px;
+        overflow: hidden;
+        background-color: #ededed;
+        border-bottom: 1px solid #c6c6c6;
+    }
+
+    .table-container {
+        padding: 5px 20px;
+        overflow: auto;
+        height: 93%;
+        min-width: 1075px;
+    }
+    .list-content td{
+        position: relative;
+    }
+    .my-row .xz-tx {
+        float: left;
+    }
+    .student-id,.student-name{
+        margin-left: 108px;
+    }
+    .xz-tx select {
+        margin-top: -2px;
+        width: 80px;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .search {
+        margin-top: -2px;
+        width: 121px;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .search input {
+        display: inline-block;
+        vertical-align: top;
+        width: 93px;
+        float: right;
+        border-radius: 5px 0 0 5px;
+    }
+
+    .xz-tx .search div {
+        display: inline-block;
+        vertical-align: top;
+        background-color: #6DC5A3;
+        color: whitesmoke;
+        width: 28px;
+        height: 30px;
+        float: right;
+        padding: 5px;
+        border-radius: 0 5px 5px 0;
+    }
+
+    .student-id select{
+        width: 100px; !important;
+    }
+
+    .search-stu-id{
+        width: 128px;
+    }
+    .search-stu-id input{
+        width: 100px; !important;
+    }
+
+    .search-stu-name input{
+        width: 93px; !important;
+    }
+    .table {
+        text-align: center;
+    }
+    .table th {
+        text-align: center;
+    }
+    .neirong tr:hover td{
+        background-color: #93ceee;
+    }
+    .neirong:hover{
+        cursor: pointer;
+    }
+    .analysis-tip{
+        display: none;
+        position: absolute;
+        background-color: #FFFFFF;
+    }
+</style>
+<body>
+<div class="totalContainer">
+    <div class="my-row">
+        <div class="xz-tx">
+            班级编号
+            <select id="luti-op" class="form-control input-sm" style="display: inline-block">
+                <option value="0">全部</option>
+                <option value="1301401">1301401</option>
+                <option value="1301402">1301402</option>
+                <option value="1301403">1301403</option>
+            </select>
+            <div class="search">
+                <div><span class="glyphicon glyphicon-search"></span></div>
+                <input type="text" placeholder="输入班级编号" class="form-control input-sm">
+            </div>
+        </div>
+        <div class="xz-tx student-id">
+            学生学号
+            <select id="stu-id" class="form-control input-sm" style="display: inline-block">
+                <option value="0">全部</option>
+                <option value="1301401">2014213886</option>
+                <option value="1301402">2014213886</option>
+                <option value="1301403">2014213886</option>
+            </select>
+            <div class="search search-stu-id">
+                <div><span class="glyphicon glyphicon-search"></span></div>
+                <input type="text" placeholder="输入学生学号" class="form-control input-sm">
+            </div>
+        </div>
+        <div class="xz-tx student-name">
+            学生姓名
+            <select id="stu-name" class="form-control input-sm" style="display: inline-block">
+                <option value="0">全部</option>
+                <option value="1301401">达芬奇</option>
+                <option value="1301402">达芬奇</option>
+                <option value="1301403">达芬奇</option>
+            </select>
+            <div class="search search-stu-name">
+                <div><span class="glyphicon glyphicon-search"></span></div>
+                <input type="text" placeholder="输入学生姓名" class="form-control input-sm">
+            </div>
+        </div>
+    </div>
+    <div class="table-container">
+        <span class="analysis-tip">点击后查看考试分析</span>
+        <table id="table-luti" class="table table-hover table-bordered">
+            <thead>
+            <tr class="normal">
+                <th width="10%">科目</th>
+                <th width="10%">班级</th>
+                <th width="20%">学号</th>
+                <th width="20%">学生姓名</th>
+                <th width="10%">总分</th>
+                <th width="10%">是否补考</th>
+            </tr>
+            </thead>
+            <tbody class="neirong">
+            <tr value="2014213000">
+                <td>JAVA</td>
+                <td>1301401</td>
+                <td>2014213000</td>
+                <td>达芬奇</td>
+                <td>100</td>
+                <td>否</td>
+            </tr>
+            <tr value="2014213000">
+                <td>JAVA</td>
+                <td>1301401</td>
+                <td>2014213000</td>
+                <td>达芬奇</td>
+                <td>100</td>
+                <td>否</td>
+            </tr>
+            <tr value="2014213000">
+                <td>JAVA</td>
+                <td>1301401</td>
+                <td>2014213000</td>
+                <td>达芬奇</td>
+                <td>100</td>
+                <td>否</td>
+            </tr>
+            </tbody>
+        </table>
+        <ul class="pagination">
+        </ul>
+    </div>
+
+    <!--查看题目的模态框-->
+    <div class="modal fade" id="show-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" style="width: 55%;margin-top: 90px">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #93ceee;">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        考试分析
+                    </h4>
+                </div>
+                <div class="modal-body" style="background-color: #FFFFFF">
+
+                </div>
+                <div class="modal-footer" style="background-color: #93ceee;">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/tiku/js/page-function/page.js"></script>
+<script type="text/javascript" src="/tiku/js/page-function/teacher-analyse-page.js"></script>
+<script>
+    $(".back").click(function () {
+        $(".back").unbind("click");
+        $(".location").html("系统主页");
+        $(".main-block").html("<div class='myJava'></div>")
+    });
+</script>
+</body>

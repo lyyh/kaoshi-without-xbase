@@ -1,0 +1,213 @@
+<!-- 个人信息修改 -->
+<form id="userProfileForm" method="post" class="c-form" style="height: 100%;">
+    <input type="hidden" name="user_subject"><input type="hidden" name="user_duty"><input type="hidden" name="user_type">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'center'">
+            <div class="easyui-tabs" style="width: 100%;" data-options="fit:true">
+                <div title="基础信息">
+                    <table class="table" style="width: 99%">
+                        <tr>
+                            <td class="label-2">账号：</td>
+                            <td class="value-2"><input class="easyui-textbox" name="user_id"  data-options="editable:false"></td>
+                            <td class="label-2">工作单位：</td>
+                            <td class="value-2"><input class="easyui-textbox easyui-validatebox" name="dept_name" data-options="editable:false"/></td>
+                        </tr>
+                        <tr>
+                            <td class="label-2">姓名：</td>
+                            <td class="value-2"><input class="easyui-textbox" name="user_realName" ></td>
+                            <td class="label-2">用户角色：</td>
+                            <td class="value-2"><input class="easyui-textbox" data-options="editable:false" name="user_type_name"></td>
+                        </tr>
+                        <tr>
+                            <td class="label-2"><font color="red">* </font>证件类型：</td>
+                            <td class="value-2"><select class="easyui-combobox" data-options="editable:false" name="user_cred_type"><option value="1">身份证</option><option value="2">军官证</option></select></td>
+                            <td class="label-2"><font color="red">* </font>证件号码：</td>
+                            <td class="value-2"><input class="easyui-textbox easyui-validatebox" name="user_cred_code" data-options="required:true,missingMessage:'该输入项为必输项',validType:['userTypeInput','checkSfzJgzCorrect','sfzJgzUniqueAjax']"><input type="hidden" name="sfz_holder"></td>
+                        </tr>
+                        <tr>
+                            <td class="label-2"><font color="red">* </font>出生年月：</td>
+                            <td class="value-2"><input class="easyui-validatebox easyui-textbox easyui-datebox" data-options="editable:false" name="user_birthday"></td>
+                            <td class="label-2"><font color="red">* </font>移动电话：</td>
+                            <td class="value-2"><input class="easyui-textbox easyui-validatebox" name="user_mobilephone" data-options="required:true,missingMessage:'该输入项为必输项',validType:'maxLength[40]'"></td>
+                        </tr>
+                        <tr>
+                            <td class="label-2"><font color="red">* </font>职称：</td>
+                            <td class="value-2"><input class="easyui-textbox easyui-validatebox" name="user_duty_name" data-options="editable:false,required:true,missingMessage:'请选择一个职称',buttonIcon:'icon-search',onClickButton:function(){ChoiceBaseDialog('/system/base/list.do?system_name=1&base_type=duty',false,true,getObj(this,'user_duty'),getObj(this,'user_duty_name','textboxname'));}"/></td>
+                            <td class="label-2"><font color="red">* </font>行政职务：</td>
+                            <td class="value-2">
+                                <select class="easyui-combobox" name="user_xzzw" data-options="editable:false,required:true">
+                                    <option value="无" selected>无</option>
+                                    <option value="科员">科员</option>
+                                    <option value="副科级">副科级</option>
+                                    <option value="正科级">正科级</option>
+                                    <option value="副处级">副处级</option>
+                                    <option value="正处级">正处级</option>
+                                    <option value="副厅级">副厅级</option>
+                                    <option value="正厅级">正厅级</option>
+                                    <option value="厅级以上">厅级以上</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-2"><font color="red">* </font>学科：</td>
+                            <td class="value-2"><input class="easyui-textbox easyui-validatebox" name="user_subject_name" data-options="editable:false,required:true,missingMessage:'请选择一个学科',buttonIcon:'icon-search',onClickButton:function(){ChoiceBaseDialog('/system/base/list.do?system_name=1&base_type=subject',false,true,getObj(this,'user_subject'),getObj(this,'user_subject_name','textboxname'));}"/></td>
+                            <td class="label-2"><font color="red">* </font>电子邮箱：</td>
+                            <td class="value-2"><input class="easyui-textbox easyui-validatebox" name="user_email" data-options="required:true,missingMessage:'该输入项为必输项',validType:'maxLength[60]'"></td>
+                        </tr>
+                    </table>
+                    <!--</div>-->
+                    <!--<div title="详细信息">-->
+                    <table class="table">
+                        <tr>
+                            <td colspan="4"><h3 style="padding: 0;margin: 0">详细信息</h3></td>
+                        </tr>
+                        <!--<tr>-->
+                        <!--<td class="label-2">担任导师：</td>-->
+                        <!--<td class="value-2"><select class="easyui-combobox" data-options="editable:false" name="user_istutor"><option value="0">不是</option><option value="1">是</option></select></td>-->
+                        <!--<td class="label-2">是否专家：</td>-->
+                        <!--<td class="value-2"><select class="easyui-combobox" data-options="editable:false" name="user_isexpert" disabled><option value="0">不是</option><option value="1">是</option></select></td>-->
+                        <!--</tr>-->
+                        <tr>
+                            <td class="label-2">邮政编码：</td>
+                            <td class="value-2"><input class="easyui-textbox easyui-validatebox" name="user_postcode" data-options="validType:'maxLength[10]'"></td>
+                            <td class="label-2">性别：</td>
+                            <td class="value-2"><select class="easyui-combobox" data-options="editable:false" name="user_sex"><option value="男">男</option><option value="女">女</option></select></td>
+                        </tr>
+                        <tr>
+                            <td class="label-2">固定电话：</td>
+                            <td class="value-2"><input class="easyui-textbox easyui-validatebox" name="user_tel" data-options="validType:'maxLength[40]'"></td>
+                            <td class="label-2">民族：</td>
+                            <td class="value-2">
+                                <select class="easyui-combobox" name="user_mz" data-options="editable:false">
+                                    <option value="汉族">汉族</option>
+                                    <option value="蒙古族">蒙古族</option>
+                                    <option value="回族">回族</option>
+                                    <option value="藏族">藏族</option>
+                                    <option value="维吾尔族">维吾尔族</option>
+                                    <option value="苗族">苗族</option>
+                                    <option value="彝族">彝族</option>
+                                    <option value="壮族">壮族</option>
+                                    <option value="布依族">布依族</option>
+                                    <option value="朝鲜族">朝鲜族</option>
+                                    <option value="满族">满族</option>
+                                    <option value="侗族">侗族</option>
+                                    <option value="瑶族">瑶族</option>
+                                    <option value="白族">白族</option>
+                                    <option value="土家族">土家族</option>
+                                    <option value="哈尼族">哈尼族</option>
+                                    <option value="哈萨克族">哈萨克族</option>
+                                    <option value="傣族">傣族</option>
+                                    <option value="黎族">黎族</option>
+                                    <option value="傈僳族">傈僳族</option>
+                                    <option value="佤族">佤族</option>
+                                    <option value="畲族">畲族</option>
+                                    <option value="高山族">高山族</option>
+                                    <option value="拉祜族">拉祜族</option>
+                                    <option value="水族">水族</option>
+                                    <option value="东乡族">东乡族</option>
+                                    <option value="纳西族">纳西族</option>
+                                    <option value="景颇族">景颇族</option>
+                                    <option value="柯尔克孜族">柯尔克孜族</option>
+                                    <option value="土族">土族</option>
+                                    <option value="达斡尔族">达斡尔族</option>
+                                    <option value="仫佬族">仫佬族</option>
+                                    <option value="羌族">羌族</option>
+                                    <option value="布朗族">布朗族</option>
+                                    <option value="撒拉族">撒拉族</option>
+                                    <option value="毛南族">毛南族</option>
+                                    <option value="仡佬族">仡佬族</option>
+                                    <option value="锡伯族">锡伯族</option>
+                                    <option value="阿昌族">阿昌族</option>
+                                    <option value="普米族">普米族</option>
+                                    <option value="塔吉克族">塔吉克族</option>
+                                    <option value="怒族">怒族</option>
+                                    <option value="乌孜别克族">乌孜别克族</option>
+                                    <option value="俄罗斯族">俄罗斯族</option>
+                                    <option value="鄂温克族">鄂温克族</option>
+                                    <option value="德昂族">德昂族</option>
+                                    <option value="保安族">保安族</option>
+                                    <option value="裕固族">裕固族</option>
+                                    <option value="京族">京族</option>
+                                    <option value="塔塔尔族">塔塔尔族</option>
+                                    <option value="独龙族">独龙族</option>
+                                    <option value="鄂伦春族">鄂伦春族</option>
+                                    <option value="赫哲族">赫哲族</option>
+                                    <option value="门巴族">门巴族</option>
+                                    <option value="珞巴族">珞巴族</option>
+                                    <option value="基诺族">基诺族</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-2">通讯地址：</td>
+                            <td class="value-2"><input type="text" class="easyui-textbox easyui-validatebox" name="user_address" data-options="validType:'maxLength[100]'"></td>
+                            <td class="label-2">研究专长：</td>
+                            <td class="value-2"><input type="text" class="easyui-textbox easyui-validatebox" name="user_special" data-options="validType:'maxLength[100]'"></td>
+                        </tr>
+                        <tr>
+                            <td class="label-2">最后学历：</td>
+                            <td class="value-2">
+                                <select class="easyui-combobox" data-options="editable:false" name="user_schooling"><option value="小学">小学</option><option value="初中">初中</option><option value="高中">高中</option><option value="专科">专科</option><option value="本科" selected="selected">本科</option><option value="硕士研究生">硕士研究生</option><option value="博士研究生">博士研究生</option></select>
+                            </td>
+                            <td class="label-2">最后学位：</td>
+                            <td class="value-2">
+                                <select class="easyui-combobox" data-options="editable:false" name="user_degree"><option value="无">无</option><option value="学士学位" selected="selected">学士学位</option><option value="硕士学位">硕士学位</option><option value="博士学位">博士学位</option></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="label-2">博士学校：</td>
+                            <td class="value-2"><input type="text" class="easyui-textbox easyui-validatebox" name="user_BoshiSchool" data-options="validType:'maxLength[50]'"></td>
+                            <td class="label-2">博士毕业时间：</td>
+                            <td class="value-2"><input type="text" class="easyui-textbox easyui-validatebox easyui-datebox" name="user_BoshiDate" data-options="editable:false"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="c-w-t" data-options="region:'south'">
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="saveProfile()">保存</a>
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-close',plain:true" onclick="closeCurrWin()">关闭</a>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(function(){
+        $("#userProfileForm input[name=user_type]").val($("#currUserType").val());
+        loadData("/system/user/userInfo.do",function(result){if(retMessage(result))$("#userProfileForm").form("load", result.obj);});
+    });
+    //提交个人资料
+    function saveProfile() {
+        var user_form = $("#userProfileForm");
+        user_form.form("submit", {
+            url:"/system/user/saveUserInfo.do",
+            type:"post",
+            onSubmit: function(){
+                //检查生日是否与身份证中的生日一致
+                var user_cred_type = user_form.find("input[name=user_cred_type]").val();
+                var user_birthday = user_form.find("input[name=user_birthday]").val();
+                if(user_cred_type=="1") {//如果是身份证的时候，才检验
+                    var user_cred_code = user_form.find("input[name=user_cred_code]").val();
+                    if(user_birthday!=getUserBirthdayFromCredCode(user_cred_code)) {
+                        if(confirm("出生日期必须身份证的日期一致，是否修改为身份证中的日期？")) {
+                            user_form.find("input[textboxname=user_birthday]").textbox('setValue', user_birthday);
+                            user_form.find("input[name=user_birthday]").val(user_birthday);
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+                var val_result = user_form.form("validate");
+                if(!val_result) {
+                    $.messager.alert("提示", "数据没有输入完整，请输入完后再保存!");
+                }
+                return val_result;
+            },
+            success:function(data){
+                if(retMessage(data,null,true)){
+                    closeCurrWin();
+                }
+            }
+        });
+    }
+</script>

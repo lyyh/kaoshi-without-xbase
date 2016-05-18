@@ -1,0 +1,94 @@
+<link rel="stylesheet" href="/tiku/css/base/page.css">
+<body>
+<div class="totalContainer">
+    <div class="my-row">
+        <button type="button" class="btn-sm teacher-makePaperByMan" style="margin-left: 0px;">
+            <span class="glyphicon glyphicon-hand-up"></span> 人工制卷
+        </button>
+        <button type="button" class="btn-sm teacher-makePaperByMachine" style="margin-left: 0px;">
+            <span class="glyphicon glyphicon-wrench"></span> 机器制卷
+        </button>
+        <button type="button" class="btn-sm btn-delete">
+            <span class="glyphicon glyphicon-minus"></span> 删除
+        </button>
+        <button type="button" class="btn-sm btn-show">
+            <span class="glyphicon glyphicon-th"></span> 查看
+        </button>
+        <button type="button" class="btn-sm btn-edit">
+            <span class="glyphicon glyphicon-pencil"></span> 修改
+        </button>
+        <div class="xz-tx">
+            科目:
+            <select id="luti-op" class="form-control"></select>
+            <div class="search">
+                <div><span class="glyphicon glyphicon-search"></span></div>
+                <input type="text" placeholder="在这里根据试卷内容进行查找" class="form-control input-sm">
+            </div>
+        </div>
+    </div>
+    <div class="table-container">
+        <table id="table-luti" class="table table-hover table-bordered">
+            <thead>
+            <tr class="success">
+                <th width="5%"><input type="checkbox" class="checkall"></th>
+                <th width="15%">试卷编号</th>
+                <th width="15%">出卷人</th>
+                <th width="15%">考试学期</th>
+                <th width="10%">总分</th>
+                <th width="20%">制卷时间</th>
+                <th width="20%">备注</th>
+            </tr>
+            </thead>
+            <tbody id="neirong">
+            </tbody>
+        </table>
+        <ul class="pagination">
+        </ul>
+    </div>
+</div>
+<div class="modal fade" id="show-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                    查看
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="content">
+                    <table class="table" id="datatables">
+
+                    </table>
+                    <div id="SubList">
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>备注</label>
+
+                        <div id="datamemo">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/tiku/js/page-function/page.js"></script>
+<script type="text/javascript" src="/tiku/js/page-function/teacher-paper-manage.js"></script>
+<script>
+    $(".back").click(function () {
+        $(".back").unbind("click");
+        $(".location").html("系统主页");
+        $(".main-block").html("<div class='myJava'></div>")
+    });
+</script>
+</body>

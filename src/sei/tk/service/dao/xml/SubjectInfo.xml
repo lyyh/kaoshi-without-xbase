@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sei.tk.service.dao.mapper.SubjectInfoMapper" >
+       <resultMap id="SubjectInfo" type="sei.tk.service.dao.model.vo.subject.SubjectInfo" >
+              <id column="subject_id" property="subjectId" jdbcType="BIGINT" />
+              <result column="subject_name" property="subjectName" jdbcType="LONGVARCHAR" />
+              <result column="subject_option" property="options" jdbcType="LONGVARCHAR" />
+              <result column="subject_solution" property="subjectSolution" jdbcType="LONGVARCHAR" />
+              <result column="quetype_id" property="type" jdbcType="SMALLINT" />
+              <result column="subject_answer" property="answer" jdbcType="VARCHAR" />
+              <result column="course_name" property="course" jdbcType="VARCHAR" />
+              <result column="knopoint_name" property="knopoint" jdbcType="VARCHAR" />
+              <result column="chapter_id" property="chapterId" jdbcType="TINYINT" />
+              <result column="tea_name" property="passportName" jdbcType="VARCHAR" />
+              <result column="ppassport_time" property="createTime" jdbcType="TIMESTAMP" />
+              <result column="level_id" property="levelId" jdbcType="TINYINT" />
+              <result column="course_id" property="courseId" jdbcType="SMALLINT" />
+              <result column="knopoint_id" property="knopointId" jdbcType="BIGINT" />
+              <result column="ppassport_id" property="passportId" jdbcType="BIGINT"/>
+       </resultMap>
+
+       <select id="selectSubjectInfoById" parameterType="java.lang.Long" resultMap="SubjectInfo">
+              SELECT A.subject_id,A.subject_name,A.subject_option,
+              A.subject_solution,A.subject_answer,A.chapter_id,A.ppassport_id,
+              A.ppassport_time,A.quetype_id,A.level_id,A.course_id,A.knopoint_id,
+              C.tea_name,E.course_name,D.knopoint_name
+              FROM tk_subject A,tk_teacher C,tk_knopoint D,tk_course E
+              WHERE A.ppassport_id=C.ppassport_id AND A.knopoint_id=D.knopoint_id AND A.course_id=E.course_id
+              AND A.subject_id=#{subjectId,jdbcType=BIGINT}
+       </select>
+
+       <select id="selectSubjectInfosByPage" parameterType="sei.tk.service.dao.model.vo.subject.SubjectInfo" resultMap="SubjectInfo">
+              SELECT A.subject_id,A.subject_name,A.subject_option,
+              A.subject_solution,A.subject_answer,A.chapter_id,A.ppassport_id,
+              A.ppassport_time,A.quetype_id,A.level_id,A.course_id,A.knopoint_id,
+              B.tea_name,E.course_name,D.knopoint_name
+              FROM tk_subject A,tk_teacher B,tk_knopoint D,tk_course E
+              WHERE A.ppassport_id=B.ppassport_id AND A.knopoint_id=D.knopoint_id AND A.course_id=E.course_id
+              <if test="subjectName!=null">
+                     AND A.subject_name LIKE ${'"%'+subjectName+'%"'}
+              </if>
+              <if test="subjectId!=null">
+                     and A.subject_id=#{subjectId}
+              </if>
+              <if test="chapterId!=null">
+                     and A.chapter_id=#{chapterId}
+              </if>
+              <if test="type!=null">
+                     and A.quetype_id=#{type}
+              </if>
+              <if test="levelId!=null">
+                     and A.level_id=#{levelId}
+              </if>
+              <if test="courseId!=null">
+                     and A.course_id=#{courseId}
+              </if>
+              <if test="passportId!=null">
+                     and A.ppassport_id=#{passportId}
+              </if>
+              ORDER BY A.subject_id DESC
+              <if test="start!=null">
+                     <if test="row!=null">
+                            limit #{start},#{row}
+                     </if>
+              </if>
+       </select>
+       <select id="countSubjectInfo" parameterType="sei.tk.service.dao.model.vo.subject.SubjectInfo" resultType="java.lang.Integer">
+              SELECT COUNT(A.subject_id)
+              FROM tk_subject A,tk_teacher B,tk_knopoint D,tk_course E
+              WHERE A.ppassport_id=B.ppassport_id AND A.knopoint_id=D.knopoint_id AND A.course_id=E.course_id
+              <if test="subjectName!=null">
+                     AND A.subject_name LIKE ${'"%'+subjectName+'%"'}
+              </if>
+              <if test="subjectId!=null">
+                     and A.subject_id=#{subjectId}
+              </if>
+              <if test="chapterId!=null">
+                     and A.chapter_id=#{chapterId}
+              </if>
+              <if test="type!=null">
+                     and A.quetype_id=#{type}
+              </if>
+              <if test="levelId!=null">
+                     and A.level_id=#{levelId}
+              </if>
+              <if test="courseId!=null">
+                     and A.course_id=#{courseId}
+              </if>
+              <if test="passportId!=null">
+                     and A.ppassport_id=#{passportId}
+              </if>
+              ORDER BY A.subject_id DESC
+       </select>
+</mapper>

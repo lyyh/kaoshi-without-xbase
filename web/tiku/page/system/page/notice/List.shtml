@@ -1,0 +1,139 @@
+<div name="winDataListButtons" class="toobar" style="padding: 5px 1px 5px">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refresh()">刷新</a>
+    <!--#include virtual="/system/getActions.do?module=notice"-->
+    | 所属系统：<input class="easyui-combotree" name="system_id" width="120px" data-options="required:true,url:'/system/getSystem.do',onLoadSuccess:function(node,data){getCurrWin().find('[textboxname=system_id]').combotree('setValue', data[0]['id']);setTimeout(function(){setParam();refresh();},0);},method:'get',editable: false,valueField:'id',textField:'text',onSelect:function(){setTimeout(function(){setParam();refresh();},0);}"/>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="searchShow(this)">更多查询..</a>
+</div>
+
+<table name="winDataList" class="datagrid" style="height: 100%;width: 100%" data-options="cache:false,autoRowHeight:false,pageSize:20,fitColumns:true,pagePosition:'bottom',striped:true,rownumbers:true,singleSelect:true,pagination:true,method:'get'">
+    <thead>
+    <tr>
+        <th data-options="field:'ck',checkbox:true"></th>
+        <th data-options="field:'system_name',align:'center',width:110">所属系统</th>
+        <th data-options="field:'notice_title',align:'left',width:280">通知标题</th>
+        <th data-options="field:'puser_time',align:'center',width:120">发布时间</th>
+        <th data-options="field:'pdept_name',align:'center',width:110">发布部门</th>
+    </tr>
+    </thead>
+</table>
+
+<textarea name="winEditHtml" style="display: none;">
+    <script type="text/javascript" src="/system/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/system/ueditor/ueditor.all.min.js"></script>
+    <script type="text/javascript" src="/system/ueditor/lang/zh-cn/zh-cn.js"></script>
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'center'" style="padding: 12px 12px 0 12px;">
+            <form name="obj" method="post" class="c-form">
+                <input type="hidden" name="notice_id">
+                <input type="hidden" name="system_id" id="system_id">
+                <input type="hidden" name="module_id" value="8">
+                <input type="hidden" name="pdept_id">
+                <input type="hidden" name="notice_body" id="notice_body"/>
+
+                <input type="hidden" id="option_type" name="option_type" value="add"><!--判断类型 必须包含-->
+
+                <table class="table">
+                    <tr>
+                        <td class="label-2">发布人：</td>
+                        <td class="value-2"><input type="hidden" name="puser_name"></td>
+                        <td class="label-2">发布时间：</td>
+                        <td class="value-2"><input type="hidden"  name="puser_time" ></td>
+                    </tr>
+                    <tr>
+                        <td class="label-2">所属系统：</td>
+                        <td class="value-2"><input type="hidden" name="system_name"></td>
+                        <td class="label-2">发布部门：</td>
+                        <td class="value-2"><input class="easyui-textbox easyui-validatebox" name="pdept_name" data-options="editable:false,required:true,missingMessage:'该输入项为必输项',buttonIcon:'icon-search',onClickButton:function(){ChoiceBaseDialog('/system/notice/getDept.do?system_id='+getCurrWin().find('[name=system_id]').val(),false,true,getObj(this,'pdept_id'),getObj(this,'pdept_name','textboxname'));}"></td>
+                    </tr>
+                    <tr>
+                        <td class="label-2">标题：</td>
+                        <td colspan="3" class="value-2" ><input class="easyui-validatebox easyui-textbox" name="notice_title" data-options="required:true,missingMessage:'该输入项为必输项',validType:'length[2,100]'" style="width: 100%"/></td>
+                    </tr>
+                    <tr>
+                        <td class="value" colspan="4"><script id="container" name="notice_body" type="text/plain"></script></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="c-w-t" data-options="region:'south'">
+            <#buttons/>
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-close',plain:true" onclick="closeCurrWin()">关闭</a>
+        </div>
+    </div>
+    <script>
+        !function(){
+            var ue = UE.getEditor("container");
+            ue.ready(function() {
+                if($("#option_type").val() == "show"){
+                    ue.setDisabled();
+                }
+                ue.setContent($("#notice_body").val());
+                $("#notice_body").remove();
+            });
+        }();
+        function showEdit(obj){
+            var ue = UE.getEditor("container");
+            ue.setEnabled();
+            setVal(getObj(obj, "option_type", null), "edit");
+            var pp = $(obj).parent();
+            $(obj).parent().empty();
+            pp.append($("<a name=\"button_save\" class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-save',plain:true\" onclick=\"save()\">保存</a>")).append("<a class=\"easyui-linkbutton\" data-options=\"iconCls:'icon-close',plain:true\" onclick=\"closeCurrWin()\">关闭</a>");
+            $.parser.parse(pp);
+            $("form td p").remove();
+            $("form").removeClass("hide");
+
+            if(getParentQuery().afterEdit){
+                getParentQuery().afterEdit();
+            }
+        }
+    </script>
+</textarea>
+<script>
+    !function(){
+        listBind({
+            windowWidth:800,
+            windowHeight:600,
+            keyField:'notice_id',
+            save:"/system/notice/save.do",
+            show:"/system/notice/show.do",
+            del: "/system/notice/del.do",
+            search:[{field:'notice_title',title:'通知标题',c_dataType:'string'},//c_range: ['测试值', '测试值2', '测试值3']
+                {field:'notice_body',title:'通知内容',c_dataType: 'string'},
+                {field:'pdept_name',title:'发布部门',c_dataType: 'string'},
+                {field:'puser_time',title:'发布时间',c_dataType: 'date'}
+            ],
+            listUrl: "/system/notice/list.do",
+            param:{},
+            afterAdd:function(){
+                $.ajax({
+                    url:"/system/getUserName.do",
+                    dataType:"json",
+                    success:function(data){
+                        var win=getCurrWin();
+                        win.find('[name=puser_name]').val(data.puser_name);
+                        win.find('[name=system_name]').val(data.system_name);
+                        win.find('[name=system_id]').val(data.system_id);
+                        win.find('[name=puser_name]').parent().append("<p>"+data.puser_name+"</p>");
+                        win.find('[name=puser_time]').parent().append("<p>"+data.puser_time+"</p>");
+                        win.find('[name=system_name]').parent().append("<p>"+data.system_name+"</p>");
+                    }
+                });
+            },
+            afterEdit:function(){
+                $.ajax({
+                    url:"/system/getUserName.do",
+                    dataType:"json",
+                    success:function(data){
+                        var win=getCurrWin();
+                        win.find('[name=puser_name]').val(data.puser_name);
+                        win.find('[name=system_name]').val(data.system_name);
+                        win.find('[name=system_id]').val(data.system_id);
+                        win.find('[name=puser_name]').parent().append("<p>"+data.puser_name+"</p>");
+                        win.find('[name=puser_time]').parent().append("<p>"+data.puser_time+"</p>");
+                        win.find('[name=system_name]').parent().append("<p>"+data.system_name+"</p>");
+                    }
+                });
+            }
+        },true);
+    }();
+</script>

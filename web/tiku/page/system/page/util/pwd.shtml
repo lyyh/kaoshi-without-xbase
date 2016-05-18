@@ -1,0 +1,54 @@
+<div class="easyui-layout" data-options="fit:true">
+    <div data-options="region:'center'">
+        <form id="user_password_form" style="margin: 3px">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td class="label">旧的密码：</td>
+                    <td class="value"><input name="old_pwd" type="password" class="easyui-validatebox easyui-textbox" data-options="required:true,missingMessage:'该输入项为必输项'"></td>
+                </tr>
+                <tr>
+                    <td class="label">新的密码：</td>
+                    <td class="value"><input id="passport_pwd" name="passport_pwd" type="password" class="easyui-validatebox easyui-textbox" data-options="required:true,missingMessage:'该输入项为必输项', validType:'length[6,20]'"></td>
+                </tr>
+                <tr>
+                    <td class="label">确认密码：</td>
+                    <td class="value"><input id="rpassport_pwd" name="rpassport_pwd" type="password" class="easyui-validatebox easyui-textbox" data-options="required:true,missingMessage:'该输入项为必输项'" validType="same['passport_pwd']"></td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+
+    </div>
+    <div class="c-w-t" data-options="region:'south'">
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="updateUserPassword()">保存</a>
+        <a class="easyui-linkbutton" data-options="iconCls:'icon-close',plain:true" onclick="closeCurrWin()">关闭</a>
+    </div>
+</div>
+
+<script>
+    function updateUserPassword() {
+        if($('#passport_pwd').val()!=$('#rpassport_pwd').val()){
+            $.messager.alert('提示', '两次密码不一致！');
+            return;
+        }
+        $('#user_password_form').form("submit", {
+            url: "/system/login/savePwd.do",
+            type:"post",
+            onSubmit: function () {
+                return $(this).form("validate");
+            },
+            success: function (data) {
+                if(typeof(data)=="string") {
+                    data = eval("("+data+")");
+                }
+                $.messager.alert('提示', data.msg);
+                if (data.status == returnStatus.success) {
+                     closeCurrWin();
+                }else if(data.status==returnStatus.noLoin){
+                    window.top.location.href = '/';
+                }
+            }
+        });
+    }
+</script>

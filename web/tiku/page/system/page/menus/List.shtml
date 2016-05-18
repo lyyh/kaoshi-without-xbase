@@ -1,0 +1,68 @@
+<div name="winDataListButtons" class="toobar" style="padding: 5px 1px 5px">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refresh()">刷新</a>
+    <!--#include virtual="/system/getActions.do?module=menuGroup"-->
+    | 所属系统：<input class="easyui-combotree" name="system_id" width="120px" data-options="required:true,url:'/system/getSystem.do',method:'get',required:true,editable: false,valueField:'id',textField:'text',onSelect:function(){setTimeout(function(){setParam();refresh();},0);}"/>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="searchShow(this)">更多查询..</a>
+</div>
+
+<table name="winDataList" class="datagrid" style="height: 100%;width: 100%" data-options="cache:false,autoRowHeight:false,pageSize:20,fitColumns:true,pagePosition:'bottom',striped:true,rownumbers:true,singleSelect:true,pagination:true,method:'get'">
+    <thead>
+    <tr>
+        <th data-options="field:'ck',checkbox:true"></th>
+        <th data-options="field:'menugroup_name',align:'left',width:140">菜单组名称</th>
+        <th data-options="field:'menugroup_id',align:'center',width:50">菜单编号</th>
+        <th data-options="field:'system_name',align:'center',width:100">系统名称</th>
+        <th data-options="field:'menugroup_memo',align:'left',width:200">备注</th>
+    </tr>
+    </thead>
+</table>
+
+<textarea name="winEditHtml" style="display: none;">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'center'" style="padding: 12px 12px 0 12px;">
+            <form name="obj" method="post" class="c-form">
+                <input type="hidden" name="menugroup_id">
+                <input type="hidden" name="system_id">
+                <input type="hidden" name="option_type" value="add"><!--判断类型 必须包含-->
+
+                <table class="table">
+                    <tr>
+                        <td class="label">系统:</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" name="system_name" data-options="editable:false,required:true,buttonIcon:'icon-search',onClickButton:function(){ChoiceBaseDialog('/system/getSystem.do',false,true,getObj(this,'system_id'),getObj(this,'system_name','textboxname'));}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">菜单名称:</td>
+                        <td class="value"><input class="easyui-validatebox easyui-textbox" type="text" name="menugroup_name" data-options="required:true,validType:'length[2,30]'"/></td></tr>
+                    <tr>
+                        <td class="label" style="height:80px">备注：</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" type="text" name="menugroup_memo" maxlength="100" data-options="multiline:true,validType:'maxLength[200]'" style="height:80px"/></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="c-w-t" data-options="region:'south'">
+            <#buttons/>
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-close',plain:true" onclick="closeCurrWin()">关闭</a>
+        </div>
+    </div>
+</textarea>
+<script>
+    !function () {
+        listBind({
+            windowWidth: 400,
+            windowHeight: 250,
+            keyField: "menugroup_id",
+            save: "/system/menus/groups/save.do",
+            show: "/system/menus/groups/show.do",
+            common: "/system/menus/groups/editMenus.do",
+            del: "/system/menus/groups/del.do",
+            search: [
+                {field: 'menugroup_id', title: '菜单编号', c_dataType: 'number', c_regexp: /\d+/},//date
+                {field: 'menugroup_name', title: '菜单名称', c_dataType: 'string'},
+                {field: 'menugroup_memo', title: '备注', c_dataType: 'string'}
+            ],
+            param:{},
+            listUrl:"/system/menus/groups/list.do"
+        },true);
+    }();
+</script>

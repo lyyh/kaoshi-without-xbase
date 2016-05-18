@@ -1,0 +1,110 @@
+<div name="winDataListButtons" style="padding: 5px 1px 5px">
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-refresh',plain:true" onclick="refresh()">刷新</a>
+    <!--#include virtual="/system/getActions.do?module=privilege"-->
+    | 所属系统：<input class="easyui-combotree" name="system_id" width="120px" data-options="required:true,url:'/system/getSystem.do',method:'get',required:true,editable: false,valueField:'id',textField:'text',onSelect:function(rec){clearDataGrid();$(getObj(this,'role_id','comboname')).combotree('reload', '/system/getRole.do?system_id='+rec.id);}"/>
+    角色名称：<input class="easyui-combotree" name="role_id" width="120px" data-options="required:true,method:'get',required:true,editable: false,valueField:'id',textField:'text',onSelect:function(rec){setTimeout(function(){setParam();refresh();},0);}"/>
+    <a class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true" onclick="searchShow(this)">更多查询</a>
+</div>
+
+<table name="winDataList" class="treegrid" style="width:100%; height:100%" data-options="cache:false,autoRowHeight:false,animate:true,fitColumns:true,striped:true,rownumbers:true,singleSelect:true,treeField:'text',idField:'id',method:'get'">
+    <thead><tr>
+        <th data-options="field:'ck',checkbox:true"></th>
+        <th data-options="field:'id',hidden:true,width:0">模块编号</th>
+        <th data-options="field:'text',align:'left',width:150">模块名称</th>
+        <!--<th data-options="field:'menus_status',align:'center',width:30">状态</th>-->
+        <th data-options="field:'menus_status',align:'center',width:30,formatter:formatProgress">状态</th>
+        <th data-options="field:'menus_memo',width:200,align:'left'">备注</th>
+    </tr></thead>
+</table>
+<textarea name="winEditHtml" style="display: none;">
+    <div class="easyui-layout" data-options="fit:true">
+        <div data-options="region:'center'" style="padding: 12px 12px 0 12px;">
+            <form name="obj" method="post" class="c-form">
+                <input type="hidden" name="pvmd_id">
+                <input type="hidden" name="role_id">
+                <input type="hidden" name="module_id">
+                <input type="hidden" name="option_type" value="add">
+                <input type="hidden" name="pid" value="0">
+                <table class="table">
+                    <tr>
+                        <td class="label">所属位置:</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" name="pid_name" data-options="editable:false,required:true,buttonIcon:'icon-search',onClickButton:function(){ChoiceBaseDialog('/system/privileges/list.do?role_id='+getParentQuery().param.role_id,false,false,getObj(this,'pid'),getObj(this,'pid_name','textboxname'));}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">模块名称:</td>
+                        <td class="value"><input class="easyui-textbox easyui-validatebox" name="menus_name" data-options="buttonIcon:'icon-search',onClickButton:function(){ChoiceBaseDialog('/system/privileges/choiceModule.do?system_id='+getParentQuery().param.system_id,false,true,getObj(this,'module_id'),getObj(this,'menus_name','textboxname'));}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="label">模块状态:</td>
+                        <td class="value"><select class="easyui-combobox" data-options="editable:false" name="menus_status"><option value="1">可用</option><option value="0">不可用</option></select></td>
+                    </tr>
+                    <tr>
+                        <td class="label">模块排序:</td>
+                        <td class="value"><input class="easyui-numberbox easyui-validatebox" name="menus_sort" data-options="required:true,min:0,max:999"></td>
+                    </tr>
+                    <#privlegeAction/>
+                    <tr>
+                        <td class="label" style="height:80px">备注：</td>
+                        <td class="value" ><input class="easyui-textbox easyui-validatebox" type="text" name="menus_memo" data-options="multiline:true,validType:'maxLength[200]'" style="height:80px;width:97%"/></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div class="c-w-t" data-options="region:'south'">
+            <#buttons/>
+            <a class="easyui-linkbutton" data-options="iconCls:'icon-close',plain:true" onclick="closeCurrWin()">关闭</a>
+        </div>
+    </div>
+</textarea>
+<script>
+    !function(){
+        listBind({
+            windowWidth:450,
+            windowHeight:500,
+            keyField:'id',
+            save:'/system/privileges/save.do',
+            show: "/system/privileges/show.do",
+            del: "/system/privileges/del.do",
+            listUrl:"/system/privileges/list.do",
+            search: [
+                {field: 'module_id', title: '模块编号', c_dataType: 'number'},
+                {field: 'module_name', title: '模块名称', c_dataType: 'string'},
+                {field: 'module_memo', title: '备注', c_dataType: 'string'}
+            ],
+            param:{},
+            beforeSave:function(){
+                if(getCurrWin().find('[name=option_type]').val()=='add'){
+                    if(getCurrWin().find('[name=module_id]').val()==''){
+                        return false;
+                    }
+                }
+                return true;
+            },
+            beforAdd:function(txt){
+                if(!getParentQuery().param['system_id'] || !getParentQuery().param['role_id']){
+                    $.messager.alert("提示", "请先选择系统和角色！");
+                    return null;
+                }
+                return txt.replace("<#privlegeAction/>","");
+            },
+            afterAdd:function(){
+                getCurrWin().find('[name=role_id]').val(getParentQuery().param.role_id);
+            },
+            beforShow:function(type,txt,data){
+                var pp=["不能操作数据","只能操作自己的数据","能操作本部门的数据","能操作本部门及下属部门的数据","能操作指定人员的数据","能操作指定部门的数据","能操作本系统的数据","能操作所有的数据","能操作下属部门的数据"];
+                var actions=data.obj.actions;
+                var temp='',tt='',pv='';
+                for(var i in actions){
+                    tt="";
+                    pv=actions[i]['privtype_id'];
+                    var aa=actions[i]['privtype_ids'].split(',');
+                    for(var j in aa){
+                        tt+="<option value="+aa[j]+((pv==aa[j])?" selected":"")+">"+pp[aa[j]]+"</option>";
+                    }
+                    temp+="<tr><td class='label'>"+actions[i]['action_name']+"功能:<input type='hidden' name='dept_passport_id' value=\""+actions[i]['dept_passport_id']+" \"><input type='hidden' name='pvac_id' value='"+actions[i]['pvac_id']+"'><input type='hidden' name='action_id' value='"+actions[i]['action_id']+"'></td><td class='value'><p>"+((type=="show")?pp[pv]:"")+"</p><select class='easyui-combobox' data-options=\"editable:false\" name='privtype_id'>"+tt+"</select></td></tr>";
+                }
+                return txt.replace("<#privlegeAction/>",temp);
+            }
+        },true);
+    }();
+</script>

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>人工制卷</title>
+    <link href="../../css/frame-work/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../css/functionParts/makePaperByMan.css" rel="stylesheet"/>
+    <script src="../../js/frame-work/jquery-1.12.0.min.js"></script>
+    <script src="../../js/frame-work/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <form class="form-group form-group-sm">
+        <h4>科目：</h4>
+        <select class="form-control" id="subject">
+            <option>JAVA</option>
+            <option disabled>C++</option>
+            <option disabled>.NET</option>
+        </select>
+
+        <h4>命题人：</h4>
+        <input type="text" class="form-control" id="teacherName">
+
+        <h4>考试学期：</h4>
+        <input type="text" class="form-control" id="semester">
+
+        <h4>考试时长：</h4>
+        <input type="text" class="form-control" id="duration">
+
+        <button class="btn btn-primary" style="margin-top: 10px" id="searchQue" type="button">
+            题目检索
+        </button>
+
+        <button class="btn btn-success" style="margin-top: 10px;margin-left: 30px;display: none" id="search"
+                type="button">
+            查找题目
+        </button>
+
+        <!--辅助load()方法的div，无实际意义-->
+        <div id="helpAjax" style="display:none"></div>
+
+    </form>
+
+    <!--题目检索树-->
+    <div class="treeArea">
+
+        <!--章-->
+        <ul class="list-group chapter" id="chapter">
+            <!--从数据库读到的章-->
+        </ul>
+
+        <!--知识点（节）-->
+        <ul class="list-group knowledgePoint" id="knowledgePoint">
+            <!--根据从数据库根据章节产生的知识点（节）-->
+        </ul>
+
+        <!--题目类型-->
+        <ul class="list-group questionType" id="questionType">
+            <a class="list-group-item list-group-item-warning">1.选择题
+                <span class="badge">3</span>
+            </a>
+
+            <a class=" list-group-item list-group-item-warning">2.判断题
+                <span class="badge">3</span>
+            </a>
+
+            <a class=" list-group-item list-group-item-warning">3.填空题
+                <span class="badge">3</span>
+            </a>
+
+            <a class=" list-group-item list-group-item-warning">4.简答题
+                <span class="badge">3</span>
+            </a>
+        </ul>
+
+        <!--题目难度-->
+        <ul class="list-group questionLevel" id="questionLevel">
+            <a class="list-group-item list-group-item-danger">1.简单题
+                <span class="badge">395</span>
+            </a>
+
+            <a class=" list-group-item list-group-item-danger">2.中等题
+                <span class="badge">237</span>
+            </a>
+
+            <a class=" list-group-item list-group-item-danger">3.难题
+                <span class="badge">127</span>
+            </a>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row">
+        <h3>题目分数</h3>
+
+        <!--根据题目类型设置题目分数-->
+        <div class="form-group form-horizontal form-group-lg" id="questionTypeForScore">
+
+            <div class="input-group col-md-2 has-success" data-toggle="tooltip" data-placement="left"
+                 title="您可以通过修改这里来设置下面所有选择题的分数">
+                <div class="input-group-addon">选择题</div>
+                <input type="text" class="form-control" value="1" id="choiceQue" name="1">
+
+                <div class="input-group-addon">分</div>
+            </div>
+
+            <div class="input-group col-md-2 has-default" data-toggle="tooltip" data-placement="left"
+                 title="您可以通过修改这里来设置下面所有判断题的分数">
+                <div class="input-group-addon">判断题</div>
+                <input type="text" class="form-control" value="1" id="judgementQue" name="2">
+
+                <div class="input-group-addon">分</div>
+            </div>
+
+            <div class="input-group col-md-2 has-error" data-toggle="tooltip" data-placement="left"
+                 title="您可以通过修改这里来设置下面所有填空题的分数">
+                <div class="input-group-addon">填空题</div>
+                <input type="text" class="form-control" value="1" id="blankQue" name="3">
+
+                <div class="input-group-addon">分</div>
+            </div>
+
+            <div class="input-group col-md-2 has-warning" data-toggle="tooltip" data-placement="left"
+                 title="您可以通过修改这里来设置下面所有简答题的分数">
+                <div class="input-group-addon">简答题</div>
+                <input type="text" class="form-control" value="1" id="answerQue" name="4">
+
+                <div class="input-group-addon">分</div>
+            </div>
+        </div>
+    </div>
+
+    <!--通过索引匹配到的题目的面板-->
+    <div class="panel panel-primary questionArea">
+
+        <div class="panel-heading">
+            <h3 class="panel-title">匹配到的题目</h3>
+        </div>
+
+        <div class="panel-body questionContainer" id="questionContainer">
+            <ul style="list-style: none;padding: 0">
+                <!--题目出自数据库-->
+                <p style="color: #999999">　　请您点击【题目检索】，选择条件后，点击【查找题目】，即可匹配到满足条件的题目。例如：如果您选择了第1章作为
+                    检索条件，系统将会为您匹配第1章的所有题目；如果您选择了第一章、第一个知识点作为检索条件，系统将会为你匹配到有关第1章、第一个知识点的所有题目。
+                </p>
+            </ul>
+        </div>
+
+        <div class="panel-footer">
+            题目出自题库
+        </div>
+    </div>
+
+    <!--预览试卷的模态框-->
+    <div class="modal fade" id="previewPaper" tabindex="-1">
+        <div class="modal-dialog modal-lg" style="position: relative;top:-10px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="margin-left: 45%">
+                        试卷预览
+                        <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                    </h4>
+                </div>
+
+                <div class="modal-body" id="paperBody">
+                    <ul></ul>
+                </div>
+
+                <div class="modal-footer">
+                    <span style="float: left;color:#999999">在这个窗口上修改的内容将会被保存到最终的试卷中，而不会保存在这个窗口之外的出题页面</span>
+
+                    <div><span id="totalScore" class="totalScore"></span><span class="scoreTip">分</span></div>
+
+                    <button class="btn btn-primary" data-dismiss="modal" id="submitPaper">提交试卷</button>
+                    <button class="btn btn-success" data-dismiss="modal">返回修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-primary" data-toggle="modal" data-target="#previewPaper">
+        预览试卷
+    </button>
+
+
+</div>
+
+<script>
+    //初始化提示框
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+
+    //显示和隐藏题目检索板块
+    $("#searchQue").click(open);
+
+    function open() {
+        $(".treeArea").show(300);
+        $("#search").show(300);
+        $("#searchQue").text("关闭检索窗口").unbind("click").click(close);
+    }
+
+    function close() {
+        $(".treeArea").hide(300);
+        $("#search").hide(300);
+        refresh();
+        $("#searchQue").text("检索题目").unbind("click").click(open);
+    }
+
+    function refresh() {
+        $("ul a").removeClass("active");
+        $("#chapter").css("width", "100%");
+        $("#knowledgePoint").css("width", "75%").hide();
+        $("#questionType").css("width", "50%").hide();
+        $("#questionLevel").css("width", "25%").hide();
+    }
+
+    //从数据库取出的初始化章节信息
+    var info = "";
+    var knowledgePointForChapter = "";
+
+    //树
+    //发送给后台的数据
+    var chapterInfo = "";
+    var knowledgePointInfo = "";
+    var questionTypeInfo = "";
+    var questionLevelInfo = "";
+
+    $(function () {
+                $.ajax({
+                            url: "initialChapterData",
+                            async: false,
+                            success: function (data) {
+                                info = eval("(" + data + ")");
+                            }
+                        }
+                );
+
+                $.ajax({
+                            url: "initialKnowledgePointData",
+                            async: false,
+                            success: function (data) {
+                                knowledgePointForChapter = eval("(" + data + ")");
+                            }
+                        }
+                );
+
+                //存储章节信息节点的数组
+                var $chapter = [];
+                //存储知识点信息节点的数组
+                var $knowledgePoint = [];
+
+                //创造章节节点
+                for (var i = 0; i < info.chapterAmount; i++) {
+                    $chapter[i] = $("<a class='list-group-item list-group-item-info'>第" + (i + 1) + "章<span class='badge'>" + info["knowledgePointAmountForChapter" + (i + 1)] + "</span> </a>");
+
+                    $("#chapter").append($chapter[i]);
+
+                    $chapter[i].click(function () {
+                        $("#knowledgePoint").empty();
+
+                        $("#knowledgePoint,#questionType,#questionLevel").hide(100);
+                        $("#knowledgePoint a,#questionType a,#questionLevel a").removeClass("active");
+
+                        $(".chapter :not(this)").removeClass("active");
+                        $(this).addClass("active");
+
+                        $("#chapter").animate(
+                                {width: "25%"}, 100
+                        );
+
+                        var index = this.innerHTML.substring(2, 1);
+
+                        var knowledgePointAmountForChapterX = "knowledgePointAmountForChapter" + index;
+
+                        knowledgePointAmountForChapterX = info[knowledgePointAmountForChapterX];
+
+                        chapterInfo = index;
+                        knowledgePointInfo = "";
+                        questionTypeInfo = "";
+                        questionLevelInfo = "";
+
+                        //创造知识点节点
+                        for (var j = 0; j < knowledgePointAmountForChapterX; j++) {
+
+                            $knowledgePoint[j] = $("<a class=' list-group-item list-group-item-success'>" + (j + 1) + "." + knowledgePointForChapter["chapter" + index][j].name + "<span class='badge'>4</span> </a>");
+
+                            $("#knowledgePoint").append($knowledgePoint[j]);
+
+                            $knowledgePoint[j].click(function () {
+
+                                knowledgePointInfo = this.innerHTML.substring(0, 1);
+                                questionTypeInfo = "";
+                                questionLevelInfo = "";
+
+                                $("#questionType,#questionLevel").hide(100);
+
+                                $("#questionType a,#questionLevel a").removeClass("active");
+
+                                $(".knowledgePoint :not(this)").removeClass("active");
+
+                                $(this).addClass("active");
+
+                                $("#knowledgePoint").animate(
+                                        {width: "25%"}, 100
+                                );
+
+                                $("#questionType").show(300);
+                            });
+                        }
+
+                        $("#knowledgePoint").show(300);
+                    });
+                }
+            }
+    );
+
+    $(".questionType .list-group-item-warning").click(function () {
+
+        questionTypeInfo = this.innerHTML.substring(0, 1);
+        questionLevelInfo = "";
+
+        $("#questionLevel").hide(300);
+        $("#questionLevel a").removeClass("active");
+
+        $(".questionType :not(this)").removeClass("active");
+        $(this).addClass("active");
+
+        $("#questionType").animate(
+                {width: "25%"}, 100
+        );
+
+        $("#questionLevel").show(500);
+    });
+
+    $(".questionLevel .list-group-item-danger").click(function () {
+
+        questionLevelInfo = this.innerHTML.substring(0, 1);
+
+
+        $(".questionLevel :not(this)").removeClass("active");
+        $(this).addClass("active");
+    });
+
+    //向后台发送检索条件并获得题目
+    var questionInfo="";
+    var totalScore=0;
+
+    function updateTotalScore(){
+        totalScore=0;
+
+        $("#paperBody ul li :input:checked").each(function () {
+            var questionScore = $(this).parent().children().children().eq(0).val();
+            questionScore = parseInt(questionScore);
+            totalScore += questionScore;
+
+            $("#totalScore").html(totalScore);
+
+        });
+    }
+
+    $("#search").click(function () {
+//            var subjectId = $("#subject :selected").html();
+                var subjectId = 1;
+
+        $.ajax({
+           url:"/coll/showSub.do",
+           type:"post",
+            dataType:"json",
+            data:{
+                "courseId":1,
+                "stuId":1,
+            },
+            success:function(data){
+                console.log(data);
+            }
+        });
+//        val()
+//        var indexingInfo = {
+//            chapter: chapterInfo,
+//            knowledgePoint: knowledgePointInfo,
+//            questionType: questionTypeInfo,
+//            questionLevel: questionLevelInfo
+//        };
+//        $("#helpAjax").load("receiveQuesInfoAndSendBackQue", indexingInfo, function (data) {
+//            questionInfo = eval("(" + data + ")");
+//
+//            var $question = [];
+//
+//            $("#questionContainer ul").empty();
+//
+//            $(questionInfo).each(function (i) {
+//
+//                //判等的参数
+//                var equalOrNot = 1;
+//                var queNum = this.queNum;
+//                var queContent = this.queContent;
+//                var queType = this.queType;
+//                var queOption = this.queOption;
+//
+//
+//                $("#paperBody ul li :input:checked").each(function () {
+//                            if (this.value == queNum) {
+//                                equalOrNot = 0;
+//                                return false;
+//                            } else
+//                                equalOrNot = 1;
+//                        }
+//                );
+//
+//                if (equalOrNot == 1)
+//                    $question[i] = $("<li><input type='checkbox' name='" + queType + "' style='float:left;margin-right:20px' value='" + queNum + "'>【题目编号" + queNum + "】" + queContent +
+//                            "<div class='input-group col-md-1 has-default' style='float: right'> <input type='text' value='" + $("#choiceQue").val() + "' class='form-control' name='" + queType + "' id='" + queNum + "'><div class='input-group-addon'>分</div></div><br>" + queOption + "</li>");
+//                else
+//                    $question[i] = $("<li><input type='checkbox' name='" + queType + "' style='float:left;margin-right:20px' checked value='" + queNum + "'>【题目编号" + queNum + "】" + queContent +
+//                            "<div class='input-group col-md-1 has-default' style='float: right'> <input type='text' value='" + $("#choiceQue").val() + "' class='form-control' name='" + queType + "' id='" + queNum + "'><div class='input-group-addon'>分</div></div><br>" + queOption + "</li>");
+//
+//                equalOrNot = 0;
+//
+//                $("#questionContainer ul").append($question[i]);
+//            });
+//        });
+    });
+
+    // 为修改分数的文本框绑定事件，使得文本框中的分数与下面每题的分数根据题型保持一致
+    $("#choiceQue").change(
+            function () {
+                $("#questionContainer ul li div input[name='1']").val(this.value);
+                $("#paperBody ul li input[name='1']").parent().children().children().val(this.value);
+                updateTotalScore();
+            }
+    );
+
+    $("#judgementQue").change(
+            function () {
+                $("#questionContainer ul li div input[name='2']").val(this.val);
+                $("#paperBody ul li input[name='2']").parent().children().children().val(this.value);
+                updateTotalScore();
+            }
+    );
+
+    $("#blankQue").change(
+            function () {
+                $("#questionContainer ul li div input[name='3']").val(this.val);
+                $("#paperBody ul li input[name='3']").parent().children().children().val(this.value);
+                updateTotalScore();
+            }
+    );
+
+    $("#answerQue").change(
+            function () {
+                $("#questionContainer ul li div input[name='4']").val(this.val);
+                $("#paperBody ul li input[name='4']").parent().children().children().val(this.value);
+                updateTotalScore();
+            }
+    );
+
+    //当题目区域的题目分数改变后，试卷上对应的分数也要改变
+    $("#questionContainer").on("change", ":text", function () {
+        var scoreValue = $(this).parent().parent().children().eq(0).val();
+        $("#paperBody ul li input[value='" + scoreValue + "']").parent().children().children().eq(0).val(this.value);
+
+        updateTotalScore();
+    });
+
+    //当题目前的复选框被选中时，该题目被添加到试卷的浏览模式中。当题目前的复选框由选中状态转为未选中状态时
+    //该题目从试卷的浏览模式下移除
+    $("#questionContainer").on("change", ":checkbox", function () {
+        if (this.checked) {
+            $(this).parent().clone(true).appendTo($("#paperBody ul"));
+            $("#paperBody ul li div input").css("width", "60px")
+        } else {
+            $("#paperBody ul li :input[value='" + this.value + "']").parent().remove();
+        }
+        updateTotalScore();
+    });
+
+    $("#paperBody ul").on("change", ":checkbox",function(){
+        updateTotalScore();
+    });
+
+    $("#paperBody ul").on("change", ":text",function(){
+        updateTotalScore();
+    });
+
+    //试卷提交
+    $("#submitPaper").click(
+            function () {
+                if (confirm("确定要提交试卷吗？")) {
+                    var questionsAndScores = "";
+
+                    $("#paperBody ul li :input:checked").each(function (i) {
+                        var questionScore = $(this).parent().children().children().eq(0).val();
+                        var questionId = this.value;
+                        questionsAndScores += "{\'questionId\':\'" + questionId + "\',\'score\':\'" + questionScore + "\'},";
+                    });
+
+                    questionsAndScores = "[" + questionsAndScores;
+                    questionsAndScores = questionsAndScores.substring(0, questionsAndScores.length - 1);
+                    questionsAndScores = questionsAndScores + "]";
+
+                    $.post("receivePaperInfo.do",
+                            {
+                                'subject': $("#subject :selected").html(),
+                                'teacherName': $("#teacherName").val(),
+                                'semester': $("#semester").val(),
+                                'duration': $("#duration").val(),
+                                'questionsAndScores': questionsAndScores,
+                                'totalScore': totalScore
+                            }
+                            ,
+                            function () {
+                                alert("生成试卷成功");
+                            }
+                    );
+                }
+            }
+    );
+    function test(){
+//        var subIds = [3,4];
+        var subIds = "{}"
+        $.ajax({
+            url:"/coll/batDelColl.do",
+            type:"post",
+            dataType:"json",
+            data:{
+                "subId":subIds
+            },
+            success:function(data){
+                alert(data);
+            }
+        })
+    }
+</script>
+<div>
+    <input type="button" onclick="test()" value="测试">
+</div>
+</body>
+</html>
