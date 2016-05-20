@@ -1,6 +1,6 @@
 package sei.tk.service.paper;
 
-import sei.system.common.Page;
+import sei.tk.util.Page;
 
 import sei.tk.service.dao.model.TkMkpaper;
 import sei.tk.service.dao.model.TkTestpaper;

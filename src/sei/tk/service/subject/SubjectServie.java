@@ -1,6 +1,6 @@
 package sei.tk.service.subject;
 
-import sei.system.common.Page;
+import sei.tk.util.Page;
 import sei.tk.service.dao.model.TkSubject;
 import sei.tk.service.dao.model.TkSubjectWithBLOBs;
 import sei.tk.service.dao.model.vo.subject.SubjectInfo;

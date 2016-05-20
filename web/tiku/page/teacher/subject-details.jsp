@@ -33,7 +33,7 @@
     <td class="my-th">出题人</td>
     <td>&nbsp;&nbsp;${subject.passportName}</td>
   </tr>
-  <tr><td class="td-title" colspan="4">题目内容</tr>
+  <tr><td class="td-title" colspan="4">题目内容</td></tr>
   <tr>
     <td colspan="4">
       ${subject.subjectName}<br>

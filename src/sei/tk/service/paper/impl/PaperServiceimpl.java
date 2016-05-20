@@ -1,7 +1,7 @@
 package sei.tk.service.paper.impl;
 
 import org.springframework.stereotype.Service;
-import sei.system.common.Page;
+import sei.tk.util.Page;
 import sei.tk.service.dao.mapper.*;
 import sei.tk.service.dao.model.*;
 import sei.tk.service.dao.model.vo.paper.PaperInfo;

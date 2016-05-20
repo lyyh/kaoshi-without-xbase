@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+       <!-- 引入jedis配置文件 -->
+       <context:property-placeholder location="/WEB-INF/jedis.properties"
+                                     ignore-unresolvable="true" />
+       <!--连接池的配置-->
+       <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+              <property name="maxTotal">
+                     <value>${redis.pool.maxActive}</value>
+              </property>
+              <property name="maxIdle">
+                     <value>${redis.pool.maxIdle}</value>
+              </property>
+              <property name="testOnBorrow" value="true"/>
+              <property name="testOnReturn" value="true"/>
+       </bean>
+       <!--连接池的bean-->
+       <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool"  scope="singleton">
+              <constructor-arg index="0" ref="jedisPoolConfig" />
+              <constructor-arg index="1">
+                     <list>
+                            <bean class="redis.clients.jedis.JedisShardInfo">
+                                   <constructor-arg name="host" value="${redis.uri}" />
+                            </bean>
+                     </list>
+              </constructor-arg>
+       </bean>
+</beans>

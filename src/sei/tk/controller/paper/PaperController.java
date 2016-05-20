@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sei.system.common.Page;
+import sei.tk.util.Page;
 import sei.tk.controller.common.TkBaseController;
 import sei.tk.service.dao.model.TkMkpaper;
 import sei.tk.service.dao.model.TkTestpaper;

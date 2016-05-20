@@ -2,8 +2,6 @@ package sei.tk.util;
 
 import redis.clients.jedis.*;
 
-import sei.system.service.aop.SpringContextUtil;
-
 /**
  * Created by liuruijie on 2016/4/8.
  */
@@ -12,7 +10,7 @@ public class JedisUtil  {
     public static ShardedJedisPool getJedisPoole(){
         if(shardedJedisPool==null) {
             //获取连接池实例
-            shardedJedisPool= (ShardedJedisPool) SpringContextUtil
+            shardedJedisPool= (ShardedJedisPool) SpringUtil
                     .getApplicationContext().getBean("shardedJedisPool");
         }
         return shardedJedisPool;
