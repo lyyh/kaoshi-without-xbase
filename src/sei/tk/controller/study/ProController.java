@@ -14,6 +14,7 @@ import java.util.List;
  */
 @RequestMapping(value = "/pro")
 @Controller
+
 public class ProController {
     @Resource
     ProService proService;
@@ -39,6 +40,7 @@ public class ProController {
      */
     @RequestMapping(value = "/chapPro")
     @ResponseBody
+
     public List<Integer> showChapPro(Long stuId,Short courseId){
         List<Integer> integers = proService.showChapPro(stuId,courseId);
         return integers;
@@ -53,7 +55,10 @@ public class ProController {
      * @return
      */
     @RequestMapping(value = "/savePro")
+
+
     @ResponseBody
+
     public String savePro(int subNum,Long stuId,Byte chapterId,Short courseId){
         String str = proService.saveChapSch(subNum,stuId,chapterId,courseId);
         return str;

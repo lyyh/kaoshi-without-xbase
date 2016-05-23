@@ -20,7 +20,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/robot")
-public class RobotMkController {
+public class RobotMkController  {
     @Resource
     RobotService robotService;
 
@@ -31,7 +31,7 @@ public class RobotMkController {
     **/
    @RequestMapping("/robotMkpaper.do")
    @ResponseBody
-   public boolean robotMkpaper(@RequestBody Robotmk robotmk){
+   public Object _saverobotMkpaper(@RequestBody Robotmk robotmk){
        TkMkpaper tkMkpaper =robotmk.getTkMkpaper();
        TkMkpaperrule [] Mkpaperrules=robotmk.getTkMkpaperrules();
        List<TkMkpaperrule> tkMkpaperrules=new ArrayList<TkMkpaperrule>();
@@ -67,7 +67,6 @@ public class RobotMkController {
            for(TkTestsubject tkTestsubject: tkTestsubjects) {
                robotService.insertTkTestsubject(tkTestsubject);
            }
-
            return  true;
        }
 

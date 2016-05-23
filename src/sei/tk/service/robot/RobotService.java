@@ -1,6 +1,9 @@
 package sei.tk.service.robot;
 
-import sei.tk.service.dao.model.*;
+import sei.tk.service.dao.model.TkMkpaper;
+import sei.tk.service.dao.model.TkMkpaperrule;
+import sei.tk.service.dao.model.TkSubject;
+import sei.tk.service.dao.model.TkTestsubject;
 import sei.tk.service.dao.model.vo.robot.Question;
 import sei.tk.service.dao.model.vo.robot.SubNum;
 

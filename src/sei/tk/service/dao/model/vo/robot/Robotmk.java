@@ -4,13 +4,12 @@ import sei.tk.service.dao.model.TkMkpaper;
 import sei.tk.service.dao.model.TkMkpaperrule;
 
 
-
 /**
  * Created by Administrator on 2016/4/22.
  */
 public class Robotmk {
     private TkMkpaper tkMkpaper;
-    private TkMkpaperrule [] Mkpaperrules;
+    private TkMkpaperrule[] Mkpaperrules;
 
     public TkMkpaper getTkMkpaper() {
         return tkMkpaper;
