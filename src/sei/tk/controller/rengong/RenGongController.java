@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import sei.tk.service.dao.model.TkCourse;
 import sei.tk.service.dao.model.TkKnopoint;
 import sei.tk.service.dao.model.TkSubjectWithBLOBs;
-import sei.tk.service.dao.model.vo.passport.SessionPassport;
+import sei.tk.service.dao.model.SessionPassport;
 import sei.tk.service.rengong.RenGongService;
 
 
@@ -71,7 +71,7 @@ public class RenGongController {
           if(sessionPassport==null){
               return "未命名";
           }
-        return sessionPassport.getPassportName();
+        return sessionPassport.getUserName();
     }
 
 

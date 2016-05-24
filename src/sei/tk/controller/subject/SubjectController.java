@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sei.tk.controller.common.TkBaseController;
 import sei.tk.service.dao.mapper.TkKnopointMapper;
-import sei.tk.service.dao.model.vo.passport.SessionPassport;
+import sei.tk.service.dao.model.SessionPassport;
 import sei.tk.service.dao.model.vo.subject.SubjectInfo;
 import sei.tk.service.subject.SubjectServie;
 import sei.tk.util.LittleUtil;
@@ -34,8 +34,8 @@ public class SubjectController extends TkBaseController{
     @NeedLogin(TkConfig.ROLE_TEACHER)
     public Object addSubject(HttpSession session,@RequestBody SubjectInfo subjectInfo) {   //提交所出的题目
 //        removeP(subjectInfo);
-        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionTeacher");
-        subjectInfo.setPassportId(sessionPassport.getPpassportId());
+        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
+        subjectInfo.setPassportId(sessionPassport.getPassportId());
         subjectService.addSubject(subjectInfo);
         return LittleUtil.constructResponse(TkConfig.SUCCESS,"添加题目成功",null);
     }

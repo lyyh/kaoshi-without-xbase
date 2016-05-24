@@ -4,18 +4,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sei.tk.util.Page;
+import sei.tk.service.dao.model.SessionPassport;
 import sei.tk.controller.common.TkBaseController;
-import sei.tk.service.dao.model.TkMkpaper;
-import sei.tk.service.dao.model.TkTestpaper;
-import sei.tk.service.dao.model.TkTestsubject;
 import sei.tk.service.dao.model.vo.paper.PaperInfo;
 import sei.tk.service.dao.model.vo.paper.PaperUp;
-import sei.tk.service.dao.model.vo.passport.SessionPassport;
 import sei.tk.service.dao.model.vo.passport.TeacherInfoVo;
-import sei.tk.service.labour.LabourDelete;
 import sei.tk.service.paper.PaperService;
-import sei.tk.service.passport.UserInfoService;
+import sei.tk.service.passportO.UserInfoService;
 import sei.tk.util.LittleUtil;
 import sei.tk.util.TkConfig;
 
@@ -63,8 +58,8 @@ public class PaperController extends TkBaseController{
     public Object selectallpaper(PaperInfo paperInfo, Integer page, Integer rows, HttpSession session){  //这里 分页
         TeacherInfoVo teacherInfoVo=null;
         SessionPassport sessionPassport = (SessionPassport) session.getAttribute("sessionTeacher");
-        teacherInfoVo=userInfoService.getInfoTeacher(sessionPassport.getPpassportId());
-         paperInfo.setPpassportId(teacherInfoVo.getPpassportId());
+        teacherInfoVo=userInfoService.getInfoTeacher(sessionPassport.getPassportId());
+         paperInfo.setPpassportId(teacherInfoVo.getPassportId());
 
         return LittleUtil.constructResponse(TkConfig.SUCCESS,"",paperService.selectAllpaper(paperInfo,page,rows));
     }

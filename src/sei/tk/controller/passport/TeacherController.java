@@ -3,9 +3,9 @@ package sei.tk.controller.passport;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sei.tk.service.dao.model.vo.passport.SessionPassport;
+import sei.tk.service.dao.model.SessionPassport;
 import sei.tk.service.dao.model.vo.passport.TeacherInfoVo;
-import sei.tk.service.passport.UserInfoService;
+import sei.tk.service.passportO.UserInfoService;
 import sei.tk.util.LittleUtil;
 import sei.tk.util.TkConfig;
 import sei.tk.util.annotation.NeedLogin;
@@ -28,7 +28,7 @@ public class TeacherController {
     @NeedLogin(TkConfig.ROLE_TEACHER)
     public Object selfInfo(HttpSession session){
         SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionTeacher");
-        TeacherInfoVo teacherInfoVo=userInfoService.getInfoTeacher(sessionPassport.getPpassportId());
+        TeacherInfoVo teacherInfoVo=userInfoService.getInfoTeacher(sessionPassport.getPassportId());
         return LittleUtil.constructResponse(TkConfig.SUCCESS,"",teacherInfoVo);
     }
 
@@ -46,7 +46,7 @@ public class TeacherController {
     @NeedLogin(TkConfig.ROLE_ADMIN)
     public Object updateInfo(HttpSession session,TeacherInfoVo teacherInfoVo){//更新教师信息
         SessionPassport sessionPassport = (SessionPassport) session.getAttribute("sessionTeacher");
-        teacherInfoVo.setPpassportId(sessionPassport.getPpassportId());
+        teacherInfoVo.setPassportId(sessionPassport.getPassportId());
         userInfoService.updateTeacher(teacherInfoVo);
         return LittleUtil.constructResponse(TkConfig.SUCCESS,"修改信息成功",null);
     }

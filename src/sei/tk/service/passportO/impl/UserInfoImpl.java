@@ -1,4 +1,4 @@
-package sei.tk.service.passport.impl;
+package sei.tk.service.passportO.impl;
 
 import org.springframework.stereotype.Service;
 import sei.tk.service.dao.mapper.TkStudentMapper;
@@ -7,7 +7,7 @@ import sei.tk.service.dao.model.TkStudent;
 import sei.tk.service.dao.model.TkTeacher;
 import sei.tk.service.dao.model.vo.passport.StudentInfoVo;
 import sei.tk.service.dao.model.vo.passport.TeacherInfoVo;
-import sei.tk.service.passport.UserInfoService;
+import sei.tk.service.passportO.UserInfoService;
 import sei.tk.util.TkConfig;
 import sei.tk.util.exception.TKException;
 
@@ -29,9 +29,9 @@ public class UserInfoImpl implements UserInfoService{
         TkTeacher tkTeacher=tkTeacherMapper.selectByPrimaryKey(passportId);
         //查出来的教师信息保留基本信息
         TeacherInfoVo teacherInfoVo=new TeacherInfoVo();
-        teacherInfoVo.setPassportCode(tkTeacher.getTeaCode());
-        teacherInfoVo.setPassportName(tkTeacher.getTeaName());
-        teacherInfoVo.setPpassportId(tkTeacher.getPpassportId());
+        teacherInfoVo.setUserId(tkTeacher.getTeaCode());
+        teacherInfoVo.setUserName(tkTeacher.getTeaName());
+        teacherInfoVo.setPassportId(tkTeacher.getPpassportId());
         teacherInfoVo.setTeaEmail(tkTeacher.getTeaEmail());
         teacherInfoVo.setTeaGender(tkTeacher.getTeaGender());
         teacherInfoVo.setTeaInstitute(tkTeacher.getTeaInstitute());
@@ -48,9 +48,9 @@ public class UserInfoImpl implements UserInfoService{
         TkStudent tkStudent=tkStudentMapper.selectByPrimaryKey(passportId);
         //仅保留基本信息
         StudentInfoVo studentInfoVo=new StudentInfoVo();
-        studentInfoVo.setPassportName(tkStudent.getStuName());
-        studentInfoVo.setPpassportId(tkStudent.getPpassportId());
-        studentInfoVo.setPassportCode(tkStudent.getStuCode());
+        studentInfoVo.setUserName(tkStudent.getStuName());
+        studentInfoVo.setPassportId(tkStudent.getPpassportId());
+        studentInfoVo.setUserId(tkStudent.getStuCode());
         studentInfoVo.setStuClassId(tkStudent.getStuClassId());
         studentInfoVo.setStuEmail(tkStudent.getStuEmail());
         studentInfoVo.setStuGender(tkStudent.getStuGender());
@@ -66,12 +66,12 @@ public class UserInfoImpl implements UserInfoService{
         if(teacherInfoVo==null||teacherInfoVo.getTeaTel()==null||teacherInfoVo.getTeaEmail()==null)throw new TKException(TkConfig.INVALID_ACTION,"参数不合法");
         TkTeacher tkTeacher=new TkTeacher();
         //设置修改信息
-        tkTeacher.setPpassportId(teacherInfoVo.getPpassportId());
+        tkTeacher.setPpassportId(teacherInfoVo.getPassportId());
         tkTeacher.setTeaEmail(teacherInfoVo.getTeaEmail());
         tkTeacher.setTeaTel(teacherInfoVo.getTeaTel());
 
         if(0==tkTeacherMapper.updateByPrimaryKeySelective(tkTeacher)){
-            throw new TKException(TkConfig.DATABASE_ERROR,"修改无效");
+            throw new TKException(TkConfig.INVALID_ACTION,"修改无效");
         }
     }
 
@@ -81,12 +81,12 @@ public class UserInfoImpl implements UserInfoService{
             throw new TKException(TkConfig.INVALID_ACTION,"参数不合法");
         TkStudent tkStudent=new TkStudent();
         //设置修改信息
-        tkStudent.setPpassportId(studentInfoVo.getPpassportId());
+        tkStudent.setPpassportId(studentInfoVo.getPassportId());
         tkStudent.setStuEmail(studentInfoVo.getStuEmail());
         tkStudent.setStuTel(studentInfoVo.getStuTel());
 
         if(0==tkStudentMapper.updateByPrimaryKeySelective(tkStudent)){
-            throw new TKException(TkConfig.DATABASE_ERROR,"修改无效");
+            throw new TKException(TkConfig.INVALID_ACTION,"修改无效");
         }
     }
 }

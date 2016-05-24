@@ -3,7 +3,7 @@ package sei.tk.controller.testSchedule;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sei.tk.service.dao.model.vo.passport.SessionPassport;
+import sei.tk.service.dao.model.SessionPassport;
 import sei.tk.service.dao.model.vo.testSchedule.Mkpaper;
 import sei.tk.service.testSchedule.TestDisService;
 import sei.tk.util.DateFormat;
@@ -26,7 +26,7 @@ public class TestDisController {
     @ResponseBody
     @RequestMapping("/getMkpaperInfo") //根据当前老师id得到其所选课程的所有制卷信息
     public List<Mkpaper> getMkpaperInfo(HttpSession session) {
-        return testDisService.getMkpaperInfo(((SessionPassport) session.getAttribute("sessionPassport")).getPpassportId());
+        return testDisService.getMkpaperInfo(((SessionPassport) session.getAttribute("sessionPassport")).getPassportId());
     }
 
     @ResponseBody
@@ -34,7 +34,7 @@ public class TestDisController {
     public int disTestpaper(HttpSession session,Long mkpaperId, String testStarttime, String testEndtime) {
         Date start= DateFormat.StringToDate(testStarttime, "yyyy-MM-dd hh:mm:ss");
         Date end=DateFormat.StringToDate(testEndtime,"yyyy-MM-dd hh:mm:ss");
-        Long ppassportId=((SessionPassport) session.getAttribute("sessionTeacher")).getPpassportId();
+        Long ppassportId=((SessionPassport) session.getAttribute("sessionTeacher")).getPassportId();
         return testDisService.disTestpaper(ppassportId,mkpaperId,start,end);
     }
 }

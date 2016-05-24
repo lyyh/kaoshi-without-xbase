@@ -40,7 +40,7 @@ public class FormalPaperProvider implements PaperProvider {
     public TestpaperInfVo obtainTestPaper(long testpaperId) {
         TestpaperInfVo testpaperInfVo=testpaperInfoMapper.selectTestpaperInfoById(testpaperId);
         if(testpaperInfVo==null) {
-            throw new TKException(TkConfig.DATABASE_ERROR, "未找到相应试卷");
+            throw new TKException(TkConfig.INVALID_ACTION, "未找到相应试卷");
         }
         testpaperInfVo.setSubAmount(testpaperInfoMapper.selectTestpaperSubAmountById(testpaperId));
 
