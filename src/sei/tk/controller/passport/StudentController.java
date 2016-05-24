@@ -4,11 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sei.tk.controller.common.TkBaseController;
-import sei.tk.service.dao.model.TkStudent;
-import sei.tk.service.dao.model.vo.common.ResultVo;
-import sei.tk.service.dao.model.vo.passport.SessionPassport;
+import sei.tk.service.dao.model.SessionPassport;
 import sei.tk.service.dao.model.vo.passport.StudentInfoVo;
-import sei.tk.service.passport.UserInfoService;
+import sei.tk.service.passportO.UserInfoService;
 import sei.tk.util.LittleUtil;
 import sei.tk.util.TkConfig;
 import sei.tk.util.annotation.NeedLogin;
@@ -31,7 +29,7 @@ public class StudentController extends TkBaseController{
     @NeedLogin(TkConfig.ROLE_STUDENT)
     public Object selfInfo(HttpSession session){
         SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionStudent");
-        StudentInfoVo studentInfoVo=userInfoService.getInfoStudent(sessionPassport.getPpassportId());
+        StudentInfoVo studentInfoVo=userInfoService.getInfoStudent(sessionPassport.getPassportId());
         return LittleUtil.constructResponse(TkConfig.SUCCESS,"",studentInfoVo);
     }
 
@@ -48,7 +46,7 @@ public class StudentController extends TkBaseController{
     @NeedLogin({TkConfig.ROLE_ADMIN,TkConfig.ROLE_TEACHER})
     public Object updateInfo(HttpSession session,StudentInfoVo studentInfoVo){//更新学生信息
         SessionPassport sessionPassport = (SessionPassport) session.getAttribute("sessionStudent");
-        if(sessionPassport!=null)studentInfoVo.setPpassportId(sessionPassport.getPpassportId());
+        if(sessionPassport!=null)studentInfoVo.setPassportId(sessionPassport.getPassportId());
         userInfoService.updateStudent(studentInfoVo);
         return LittleUtil.constructResponse(TkConfig.SUCCESS,"更新信息成功",null);
     }

@@ -29,14 +29,15 @@ var table = {
             dataType: "json",
             data:this.config.pagedata,
             success: function (result) {
-                if(result.code==-1){
+                if(result.code=='2001'){
                     alert(result.msg);
                     window.location.href="/tiku/page/util/login.html";
                     return;
-                }else if(result.code!=1){
+                }else if(result.code!='1001'){
                     alert(result.msg);
                     return;
                 }
+                curentPage=table.config.pagedata.page;
                 allNum = result.data.total;                    //总条数
                 allPage = Math.ceil(allNum / pageNum);  //总页数
                 ul.html("<li class='up-all'><a href='#'>&lt;&lt;</a></li><li class='up'><a href='#'>&lt;</a> </li>" +

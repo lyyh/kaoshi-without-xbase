@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sei.tk.service.dao.mapper.PassportMapper" >
+       <resultMap id="SessionPassport" type="sei.tk.service.dao.model.SessionPassport" >
+              <id column="passport_id" property="passportId" jdbcType="BIGINT" />
+              <result column="user_id" property="userId" jdbcType="VARCHAR" />
+              <result column="user_name" property="userName" jdbcType="VARCHAR" />
+              <result column="group_id" property="groupId" jdbcType="INTEGER"/>
+              <result column="role_id" property="roleId" jdbcType="INTEGER"/>
+       </resultMap>
+
+       <resultMap id="Passport" type="sei.tk.service.dao.model.Passport" >
+              <id column="passport_id" property="id" jdbcType="BIGINT" />
+              <result column="user_name" property="name" jdbcType="VARCHAR"/>
+              <result column="passport_psw" property="passportPsw" jdbcType="VARCHAR" />
+              <result column="login_count" property="loginCount" jdbcType="INTEGER" />
+              <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+              <result column="last_login_ip" property="lastLoginIp" jdbcType="VARCHAR" />
+              <result column="regist_time" property="createTime" jdbcType="TIMESTAMP" />
+              <result column="limit_ip" property="limitIp" jdbcType="VARCHAR" />
+              <result column="is_online" property="isOnline" jdbcType="TINYINT"/>
+              <result column="passport_status" property="status" jdbcType="TINYINT" />
+       </resultMap>
+       <sql id="Base_Column_List" >
+              passport_id, login_count, last_login_time, last_login_ip, regist_time,
+              limit_ip, is_online, passport_status
+       </sql>
+
+       <select id="changePsw" resultType="string">
+              SELECT changePsw(#{id},#{oldPsw},#{newPsw})
+       </select>
+       <select id="doLogin" parameterType="sei.tk.service.passport.vo.LoginForm" resultType="string">
+           SELECT doLogin(#{username},#{password},#{ip}) AS result
+       </select>
+
+       <update id="doLogout" parameterType="long">
+          UPDATE sys_passport SET is_online=0 WHERE passport_id=#{passportId};
+       </update>
+
+       <select id="selectByPrimaryKey" resultMap="Passport" parameterType="java.lang.Integer" >
+              select
+              <include refid="Base_Column_List"/>
+              from sys_passport
+              where passport_id = #{id,jdbcType=INTEGER}
+       </select>
+
+       <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+              delete from sys_passport
+              where passport_id = #{id,jdbcType=INTEGER}
+       </delete>
+
+       <insert id="insertSelective" parameterType="sei.tk.service.dao.model.Passport" >
+              insert into sys_passport
+              <trim prefix="(" suffix=")" suffixOverrides="," >
+                     <if test="id != null" >
+                            passport_id,
+                     </if>
+                     <if test="passportPsw != null" >
+                            passport_psw,
+                     </if>
+                     <if test="loginCount != null" >
+                            login_count,
+                     </if>
+                     <if test="lastLoginTime != null" >
+                            last_login_time,
+                     </if>
+                     <if test="lastLoginIp != null" >
+                            last_login_ip,
+                     </if>
+                     <if test="createTime != null" >
+                            regist_time,
+                     </if>
+                     <if test="limitIp != null" >
+                            limit_ip,
+                     </if>
+                     <if test="status != null" >
+                            passport_status,
+                     </if>
+              </trim>
+              <trim prefix="values (" suffix=")" suffixOverrides="," >
+                     <if test="passportId != null" >
+                            #{passportId,jdbcType=INTEGER},
+                     </if>
+                     <if test="passportPsw != null" >
+                            #{passportPsw,jdbcType=VARCHAR},
+                     </if>
+                     <if test="loginCount != null" >
+                            #{loginCount,jdbcType=INTEGER},
+                     </if>
+                     <if test="lastLoginTime != null" >
+                            #{lastLoginTime,jdbcType=TIMESTAMP},
+                     </if>
+                     <if test="lastLoginIp != null" >
+                            #{lastLoginIp,jdbcType=VARCHAR},
+                     </if>
+                     <if test="registTime != null" >
+                            #{registTime,jdbcType=TIMESTAMP},
+                     </if>
+                     <if test="limitIp != null" >
+                            #{limitIp,jdbcType=VARCHAR},
+                     </if>
+                     <if test="isOnline != null" >
+                            #{isOnline,jdbcType=TINYINT},
+                     </if>
+                     <if test="status != null" >
+                            #{status,jdbcType=TINYINT},
+                     </if>
+              </trim>
+       </insert>
+       <update id="updateByPrimaryKeySelective" parameterType="sei.tk.service.dao.model.Passport" >
+              update sys_passport
+              <set >
+                     <if test="passportPsw != null" >
+                            passport_psw = #{passportPsw,jdbcType=VARCHAR},
+                     </if>
+                     <if test="loginCount != null" >
+                            login_count = #{loginCount,jdbcType=INTEGER},
+                     </if>
+                     <if test="lastLoginTime != null" >
+                            last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+                     </if>
+                     <if test="lastLoginIp != null" >
+                            last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+                     </if>
+                     <if test="createTime != null" >
+                            regist_time = #{createTime,jdbcType=TIMESTAMP},
+                     </if>
+                     <if test="limitIp != null" >
+                            limit_ip = #{limitIp,jdbcType=VARCHAR},
+                     </if>
+                     <if test="isOnline != null" >
+                            is_online = #{isOnline,jdbcType=TINYINT},
+                     </if>
+                     <if test="status != null" >
+                            passport_status = #{status,jdbcType=TINYINT},
+                     </if>
+              </set>
+              where passport_id = #{id,jdbcType=INTEGER}
+       </update>
+       <select id="selectByPage" resultMap="Passport" parameterType="sei.tk.service.dao.model.Passport">
+              SELECT A.passport_id, A.login_count, A.last_login_time, A.last_login_ip, A.regist_time,
+              A.limit_ip, A.is_online, A.passport_status, B.user_name
+              FROM sys_passport A, sys_user B
+              WHERE A.passport_id=B.passport_id
+              <if test="id!=null">
+                     AND A.passport_id=#{id}
+              </if>
+              <if test="loginCount != null" >
+                     AND A.login_count = #{loginCount,jdbcType=INTEGER}
+              </if>
+              <if test="lastLoginTime != null" >
+                     AND A.last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP}
+              </if>
+              <if test="lastLoginIp != null" >
+                     AND A.last_login_ip = #{lastLoginIp,jdbcType=VARCHAR}
+              </if>
+              <if test="createTime != null" >
+                     AND A.regist_time = #{createTime,jdbcType=TIMESTAMP}
+              </if>
+              <if test="limitIp != null" >
+                     AND A.limit_ip = #{limitIp,jdbcType=VARCHAR}
+              </if>
+              <if test="isOnline != null" >
+                     AND A.is_online = #{isOnline,jdbcType=TINYINT}
+              </if>
+              <if test="status != null" >
+                     AND A.passport_status = #{status,jdbcType=TINYINT}
+              </if>
+              <if test="name!=null">
+                     AND B.user_name=#{name}
+              </if>
+              ORDER BY A.passport_id
+              <if test="start!=null and rows!=null">
+                     limit #{start},#{rows}
+              </if>
+       </select>
+       <select id="countForPage" resultType="int" parameterType="sei.tk.service.dao.model.Passport">
+              SELECT count(A.passport_id)
+              FROM sys_passport A, sys_user B
+              WHERE A.passport_id=B.passport_id
+              <if test="id!=null">
+                     AND A.passport_id=#{id}
+              </if>
+              <if test="loginCount != null" >
+                     AND A.login_count = #{loginCount,jdbcType=INTEGER}
+              </if>
+              <if test="lastLoginTime != null" >
+                     AND A.last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP}
+              </if>
+              <if test="lastLoginIp != null" >
+                     AND A.last_login_ip = #{lastLoginIp,jdbcType=VARCHAR}
+              </if>
+              <if test="createTime != null" >
+                     AND A.regist_time = #{createTime,jdbcType=TIMESTAMP}
+              </if>
+              <if test="limitIp != null" >
+                     AND A.limit_ip = #{limitIp,jdbcType=VARCHAR}
+              </if>
+              <if test="isOnline != null" >
+                     AND A.is_online = #{isOnline,jdbcType=TINYINT}
+              </if>
+              <if test="status != null" >
+                     AND A.passport_status = #{status,jdbcType=TINYINT}
+              </if>
+              <if test="name!=null">
+                     AND B.user_name=#{name}
+              </if>
+       </select>
+</mapper>

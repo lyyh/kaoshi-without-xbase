@@ -1,9 +1,11 @@
 package sei.tk.service.dao.model.vo.passport;
 
+import sei.tk.service.dao.model.SessionPassport;
+
 /**
  * Created by liuruijie on 2016/3/25.
  */
-public class StudentInfoVo extends SessionPassport{
+public class StudentInfoVo extends SessionPassport {
     private String stuGender;
     private String stuInstitute;
     private String stuMajor;

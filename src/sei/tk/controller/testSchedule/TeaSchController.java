@@ -5,19 +5,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sei.tk.controller.common.TkBaseController;
-import sei.tk.service.dao.model.vo.passport.SessionPassport;
+import sei.tk.service.dao.model.SessionPassport;
 import sei.tk.service.dao.model.vo.testSchedule.TestInfo;
-import sei.tk.service.testSchedule.ExamInfoService;
 import sei.tk.service.testSchedule.TeaSchService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Created by ·çÖÐÄÐ×Ó on 2016-04-22.
- * ÀÏÊ¦Ôö¼Ó¡¢É¾³ý¡¢ÐÞ¸Ä°²ÅÅ¿¼ÊÔ
+ * Created by ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ on 2016-04-22.
+ * ï¿½ï¿½Ê¦ï¿½ï¿½ï¿½Ó¡ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Ä°ï¿½ï¿½Å¿ï¿½ï¿½ï¿½
  */
 @Controller
 @RequestMapping("/TeaSch")
@@ -27,36 +23,36 @@ public class TeaSchController extends TkBaseController {
 
     @ResponseBody
     @RequestMapping("/addExamSch")
-    public Integer addExamSch(HttpSession session, @RequestBody TestInfo testInfo) { //ÀÏÊ¦Ìí¼Ó¿¼ÊÔ°²ÅÅ£¨ÔÝ¸øËùÓÐÑ§Éú·¢ËÍ°²ÅÅ£©
+    public Integer addExamSch(HttpSession session, @RequestBody TestInfo testInfo) { //ï¿½ï¿½Ê¦ï¿½ï¿½Ó¿ï¿½ï¿½Ô°ï¿½ï¿½Å£ï¿½ï¿½Ý¸ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ï¿½Å£ï¿½
         Long sessionPassport = null;
         if ((session.getAttribute("sessionStudent")) == null) {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionTeacher")).getPpassportId();
+            sessionPassport = ((SessionPassport) session.getAttribute("sessionTeacher")).getPassportId();
         }else {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionStudent")).getPpassportId();
+            sessionPassport = ((SessionPassport) session.getAttribute("sessionStudent")).getPassportId();
         }
         return teaSchService.addExamSch(sessionPassport,testInfo);
     }
 
     @ResponseBody
     @RequestMapping("/delExamSch")
-    public Integer delExamSch(HttpSession session, Long testscheduleId) {  //ÀÏÊ¦É¾³ý¿¼ÊÔ°²ÅÅ£¨¸ù¾Ý°²ÅÅ±àºÅ¶ÔÓ¦µÄ°²ÅÅÊ±¼ä£©
+    public Integer delExamSch(HttpSession session, Long testscheduleId) {  //ï¿½ï¿½Ê¦É¾ï¿½ï¿½ï¿½ï¿½ï¿½Ô°ï¿½ï¿½Å£ï¿½ï¿½ï¿½ï¿½Ý°ï¿½ï¿½Å±ï¿½Å¶ï¿½Ó¦ï¿½Ä°ï¿½ï¿½ï¿½Ê±ï¿½ä£©
         Long sessionPassport = null;
         if ((session.getAttribute("sessionStudent")) == null) {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionTeacher")).getPpassportId();
+            sessionPassport = ((SessionPassport) session.getAttribute("sessionTeacher")).getPassportId();
         }else {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionStudent")).getPpassportId();
+            sessionPassport = ((SessionPassport) session.getAttribute("sessionStudent")).getPassportId();
         }
         return teaSchService.delExamSch(sessionPassport,testscheduleId);
     }
 
     @ResponseBody
     @RequestMapping("/editExamSch")
-    public Integer editExamSch(HttpSession session,@RequestBody  TestInfo testInfo) {  //ÀÏÊ¦ÐÞ¸Ä¿¼ÊÔ°²ÅÅ£¨¸ù¾Ý°²ÅÅ±àºÅ¶ÔÓ¦µÄ°²ÅÅÊ±¼ä£©
+    public Integer editExamSch(HttpSession session,@RequestBody  TestInfo testInfo) {  //ï¿½ï¿½Ê¦ï¿½Þ¸Ä¿ï¿½ï¿½Ô°ï¿½ï¿½Å£ï¿½ï¿½ï¿½ï¿½Ý°ï¿½ï¿½Å±ï¿½Å¶ï¿½Ó¦ï¿½Ä°ï¿½ï¿½ï¿½Ê±ï¿½ä£©
         Long sessionPassport = null;
         if ((session.getAttribute("sessionStudent")) == null) {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionTeacher")).getPpassportId();
+            sessionPassport = ((SessionPassport) session.getAttribute("sessionTeacher")).getPassportId();
         }else {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionStudent")).getPpassportId();
+            sessionPassport = ((SessionPassport) session.getAttribute("sessionStudent")).getPassportId();
         }
         return teaSchService.editExamSch(sessionPassport, testInfo);
     }

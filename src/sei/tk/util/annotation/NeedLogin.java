@@ -16,5 +16,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface NeedLogin {
     //调用方法所需的角色，值在TkConfig类中获取
-    String[] value();
+    int[] value();
 }

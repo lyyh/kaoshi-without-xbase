@@ -16,10 +16,12 @@ $("document").ready(function () {
     });
     $("#luti-op").change(function () {
         var type = $("#luti-op option:selected").val();
+        var subjectName=$(".search input").val();
         table.page({
             pageurl: "/subject/list.do",
             pagedata: {
                 type: type,
+                subjectName: subjectName,
                 page: 1,
                 rows: 15,
             }
@@ -27,11 +29,13 @@ $("document").ready(function () {
     });
     $("#search-btn").click(function(){
         var subjectName=$(".search input").val();
+        var type = $("#luti-op option:selected").val();
         if(subjectName=='')subjectName=null;
         table.page({
             pageurl: "/subject/list.do",
             pagedata: {
                 subjectName: subjectName,
+                type:type,
                 page: 1,
                 rows: 15,
             }
@@ -66,14 +70,11 @@ $("document").ready(function () {
                     data: {
                         subjectId: ids
                     },
-                    error: function () {
-                        alert("请登录！");
-                    },
-                    success: function (data) {
+                    success: function (result) {
                         var a = $("#tip").find(".modal-body");
-                        if (data == null) {
+                        if (result.code == '2001') {
                             alert("请登录！");
-                        } else {
+                        } else if(result.code=='1001') {
                             a.html("<p>删除成功</p>");
                             $('#delete').modal("hide");
                             $('#tip').modal({backdrop: 'static', keyboard: false});
@@ -93,6 +94,8 @@ $("document").ready(function () {
                                     }
                                 })
                             })
+                        }else{
+                            alert(result.msg);
                         }
                         $('.btn-delete-modal').unbind();
                     },
@@ -129,13 +132,13 @@ $("document").ready(function () {
                 data: {
                     subjectId: check.val()
                 },
-                success: function (data) {
-                    if (data == null) {
+                success: function (result) {
+                    if (result == null) {
                         alert("请登录！");
                         return;
                     }
                     $("#show-info .modal-body").html("");
-                    $("#show-info .modal-body").append(data);
+                    $("#show-info .modal-body").append(result);
                 }
             });
             $('#show-info').modal({backdrop: 'static', keyboard: false});
@@ -226,7 +229,7 @@ $("document").ready(function () {
         type: "get",
         dataType: "json",
         success: function (result) {
-            if (result.code != 1) {
+            if (result.code != '1001') {
                 alert(result.msg);
             }
             $("#luti-op").html("<option value='-1'>全部</option>");

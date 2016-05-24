@@ -452,7 +452,7 @@
             contentType: "application/json",
             data: JSON.stringify(a),
             success: function (result) {
-                if (result.code != 1) {
+                if (result.code != '1001') {
                     alert(result.msg);
                     return;
                 } else {

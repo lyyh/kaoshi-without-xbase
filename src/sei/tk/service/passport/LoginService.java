@@ -1,12 +1,12 @@
 package sei.tk.service.passport;
 
-import sei.tk.service.dao.model.vo.passport.Passport;
-import sei.tk.service.dao.model.vo.passport.SessionPassport;
+import sei.tk.service.dao.model.SessionPassport;
+import sei.tk.service.passport.vo.LoginForm;
 
 /**
- * Created by liuruijie on 2016/3/25.
+ * Created by liuruijie on 2016/5/16.
  */
 public interface LoginService {
-    SessionPassport doLoginStudent(Passport passport);
-    SessionPassport doLoginTeacher(Passport passport);
+    SessionPassport doLogin(LoginForm loginForm);
+    void doLogout(long passportId);
 }

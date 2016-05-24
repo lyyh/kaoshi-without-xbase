@@ -49,7 +49,7 @@ public class FormalExamRecorder implements ExamRecorder{
         tkTestschedule.setStuScore((short) score);
         tkTestschedule.setStuBasescore((short) score);
         if(0==tkTestscheduleMapper.updateByPrimaryKeySelective(tkTestschedule)){
-            throw new TKException(TkConfig.DATABASE_ERROR,"考试分数记录失败");
+            throw new TKException(TkConfig.INVALID_ACTION,"考试分数记录失败");
         }
     }
 
@@ -71,7 +71,7 @@ public class FormalExamRecorder implements ExamRecorder{
         tkTest.setPassportId(stuAnswerVo.getStuId());
         tkTest.setTestIp(ip);
         if(tkTestMapper.insertSelective(tkTest)==0){
-            throw new TKException(TkConfig.DATABASE_ERROR,"考试信息记录失败");
+            throw new TKException(TkConfig.INVALID_ACTION,"考试信息记录失败");
         }
     }
 
@@ -107,7 +107,7 @@ public class FormalExamRecorder implements ExamRecorder{
         }
         //批量插入记录
         if(0==tkTestanswerMapper.insertBatchSelective(tkTestanswerList)){
-            throw new TKException(TkConfig.DATABASE_ERROR,"答卷信息记录失败");
+            throw new TKException(TkConfig.INVALID_ACTION,"答卷信息记录失败");
         }
     }
 }

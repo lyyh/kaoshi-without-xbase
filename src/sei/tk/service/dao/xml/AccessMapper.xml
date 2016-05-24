@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sei.tk.service.dao.mapper.AccessMapper" >
+       <resultMap id="Access" type="sei.tk.service.dao.model.Access" >
+
+              <id column="access_id" property="id" jdbcType="INTEGER"/>
+              <result column="create_passport_id" property="passportId" jdbcType="INTEGER"/>
+              <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+              <result column="user_name" property="passportName" jdbcType="VARCHAR"/>
+
+              <result column="master_type" property="masterType" jdbcType="VARCHAR" />
+              <result column="master_id" property="masterId" jdbcType="INTEGER" />
+              <result column="target_type" property="targetType" jdbcType="VARCHAR" />
+              <result column="target_id" property="targetId" jdbcType="INTEGER" />
+              <result column="privilege_ids" property="privilegeIds" jdbcType="VARCHAR" />
+       </resultMap>
+       <sql id="Base_Column_List" >
+              access_id, master_type, master_id, target_type, target_id, privilege_ids, create_passport_id,
+              create_time
+       </sql>
+
+       <select id="getPrivileges" resultType="string">
+              SELECT getPrivilegeIds(#{moduleId},#{actionId},#{roleId},#{groupId},#{passportId},#{type})
+       </select>
+
+       <select id="getPrivilegeRequire" resultType="string">
+              SELECT getPrivilegeRequire(#{moduleId},#{resourceId},#{passportId})
+       </select>
+
+       <select id="selectByPrimaryKey" resultMap="Access" parameterType="java.lang.Integer" >
+              select
+              <include refid="Base_Column_List" />
+              from sys_access
+              where access_id = #{id,jdbcType=INTEGER}
+       </select>
+
+       <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+              delete from sys_access
+              where access_id = #{id,jdbcType=INTEGER}
+       </delete>
+
+       <insert id="insertSelective" parameterType="sei.tk.service.dao.model.Access" >
+              insert into sys_access
+              <trim prefix="(" suffix=")" suffixOverrides="," >
+                     <if test="id != null" >
+                            access_id,
+                     </if>
+                     <if test="masterType != null" >
+                            master_type,
+                     </if>
+                     <if test="masterId != null" >
+                            master_id,
+                     </if>
+                     <if test="targetType != null" >
+                            target_type,
+                     </if>
+                     <if test="targetId != null" >
+                            target_id,
+                     </if>
+                     <if test="privilegeIds != null" >
+                            privilege_ids,
+                     </if>
+                     <if test="passportId != null" >
+                            create_passport_id,
+                     </if>
+                     <if test="createTime != null" >
+                            create_time,
+                     </if>
+              </trim>
+              <trim prefix="values (" suffix=")" suffixOverrides="," >
+                     <if test="id != null" >
+                            #{id,jdbcType=INTEGER},
+                     </if>
+                     <if test="masterType != null" >
+                            #{masterType,jdbcType=VARCHAR},
+                     </if>
+                     <if test="masterId != null" >
+                            #{masterId,jdbcType=INTEGER},
+                     </if>
+                     <if test="targetType != null" >
+                            #{targetType,jdbcType=VARCHAR},
+                     </if>
+                     <if test="targetId != null" >
+                            #{targetId,jdbcType=INTEGER},
+                     </if>
+                     <if test="privilegeIds != null" >
+                            #{privilegeIds,jdbcType=VARCHAR},
+                     </if>
+                     <if test="passportId != null" >
+                            #{passportId,jdbcType=INTEGER},
+                     </if>
+                     <if test="createTime != null" >
+                            #{createTime,jdbcType=TIMESTAMP},
+                     </if>
+              </trim>
+       </insert>
+
+       <update id="updateByPrimaryKeySelective" parameterType="sei.tk.service.dao.model.Access" >
+              update sys_access
+              <set >
+                     <if test="masterType != null" >
+                            master_type = #{masterType,jdbcType=VARCHAR},
+                     </if>
+                     <if test="masterId != null" >
+                            master_id = #{masterId,jdbcType=INTEGER},
+                     </if>
+                     <if test="targetType != null" >
+                            target_type = #{targetType,jdbcType=VARCHAR},
+                     </if>
+                     <if test="targetId != null" >
+                            target_id = #{targetId,jdbcType=INTEGER},
+                     </if>
+                     <if test="privilegeIds != null" >
+                            privilege_ids = #{privilegeIds,jdbcType=VARCHAR},
+                     </if>
+                     <if test="passportId != null" >
+                            create_passport_id = #{passportId,jdbcType=INTEGER},
+                     </if>
+                     <if test="createTime != null" >
+                            create_time = #{createTime,jdbcType=TIMESTAMP},
+                     </if>
+              </set>
+              where access_id = #{id,jdbcType=INTEGER}
+       </update>
+
+       <select id="selectByPage" parameterType="sei.tk.service.dao.model.Access" resultMap="Access">
+          SELECT A.access_id, A.master_type, A.master_type, A.master_id,
+           A.target_type, A.target_id, A.privilege_ids,
+          A.create_passport_id,A.create_time,B.user_name
+            <if test="masterType=='role'">
+                   ,C.role_name AS masterName
+            </if>
+              <if test="masterType=='group'">
+                   ,C.group_name AS masterName
+              </if>
+              <if test="masterType=='user'">
+                     ,C.user_name AS masterName
+              </if>
+              <if test="targetType=='button'">
+                     ,D.module_id AS targetModuleId, D.module_name AS targetModuleName,E.action_id AS targetActionId,E.action_name AS targetActionName
+              </if>
+          FROM sys_access A, sys_user B
+              <if test="masterType=='role'">
+                     ,sys_role C
+              </if>
+              <if test="masterType=='group'">
+                     , sys_group C
+              </if>
+              <if test="masterType=='user'">
+                     ,sys_user C
+              </if>
+
+              <if test="targetType=='button'">
+                     ,sys_module D,sys_action E,sys_module_action F
+              </if>
+          WHERE A.create_passport_id=B.passport_id
+              <if test="masterType=='role'">
+                     AND A.master_id=C.role_id
+              </if>
+              <if test="masterType=='group'">
+                     AND A.master_id=C.group_id
+              </if>
+              <if test="masterType=='user'">
+                     AND A.master_id=C.passport_id
+              </if>
+
+              <if test="targetType=='button'">
+                     AND D.module_id=F.module_id AND E.action_id=F.action_id
+                     AND F.module_action_uuid=A.target_id
+                  <if test="targetModuleId!=null and targetActionId!=null">
+                      AND D.module_id=#{targetModuleId} AND E.action_id=#{targetActionId}
+                  </if>
+              </if>
+
+              <if test="id!=null">
+                     AND A.access_id=#{id}
+              </if>
+              <if test="masterType != null" >
+                     AND master_type = #{masterType,jdbcType=VARCHAR}
+              </if>
+              <if test="masterId != null" >
+                     AND master_id = #{masterId,jdbcType=INTEGER}
+              </if>
+              <if test="targetType != null" >
+                     AND target_type = #{targetType,jdbcType=VARCHAR}
+              </if>
+              <if test="targetId != null" >
+                     AND target_id = #{targetId,jdbcType=INTEGER}
+              </if>
+              <if test="passportId != null" >
+                     AND create_passport_id = #{passportId,jdbcType=INTEGER}
+              </if>
+              ORDER BY A.master_id, A.target_id
+              <if test="start!=null and rows!=null">
+                     limit #{start},#{rows}
+              </if>
+       </select>
+
+       <select id="countForPage" parameterType="sei.tk.service.dao.model.Access" resultType="int">
+              SELECT COUNT(A.access_id)
+           FROM sys_access A, sys_user B
+           <if test="masterType=='role'">
+               ,sys_role C
+           </if>
+           <if test="masterType=='group'">
+               , sys_group C
+           </if>
+           <if test="masterType=='user'">
+               ,sys_user C
+           </if>
+
+           <if test="targetType=='button'">
+               ,sys_module D,sys_action E,sys_module_action F
+           </if>
+           WHERE A.create_passport_id=B.passport_id
+           <if test="masterType=='role'">
+               AND A.master_id=C.role_id
+           </if>
+           <if test="masterType=='group'">
+               AND A.master_id=C.group_id
+           </if>
+           <if test="masterType=='user'">
+               AND A.master_id=C.passport_id
+           </if>
+
+           <if test="targetType=='button'">
+               AND D.module_id=F.module_id AND E.action_id=F.action_id
+               AND F.module_action_uuid=A.target_id
+               <if test="targetModuleId!=null and targetActionId!=null">
+                    AND D.module_id=#{targetModuleId} AND E.action_id=#{targetActionId}
+               </if>
+           </if>
+
+           <if test="id!=null">
+               AND A.access_id=#{id}
+           </if>
+           <if test="masterType != null" >
+               AND master_type = #{masterType,jdbcType=VARCHAR}
+           </if>
+           <if test="masterId != null" >
+               AND master_id = #{masterId,jdbcType=INTEGER}
+           </if>
+           <if test="targetType != null" >
+               AND target_type = #{targetType,jdbcType=VARCHAR}
+           </if>
+           <if test="targetId != null" >
+               AND target_id = #{targetId,jdbcType=INTEGER}
+           </if>
+           <if test="passportId != null" >
+               AND create_passport_id = #{passportId,jdbcType=INTEGER}
+           </if>
+       </select>
+</mapper>

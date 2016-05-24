@@ -3,13 +3,10 @@ package sei.tk.service.test.impl;
 import org.springframework.stereotype.Service;
 import sei.tk.service.dao.mapper.*;
 import sei.tk.service.dao.model.*;
-import sei.tk.service.dao.model.vo.passport.SessionPassport;
 import sei.tk.service.dao.model.vo.test.StuAnswerVo;
 import sei.tk.service.dao.model.vo.test.SubjectInfoVo;
 import sei.tk.service.dao.model.vo.test.TestpaperInfVo;
-import sei.tk.service.dao.model.vo.testSchedule.TestInfo;
 import sei.tk.service.test.ExamService;
-import sei.tk.util.RandomUtil;
 import sei.tk.util.TkClassifyUtil;
 
 import javax.annotation.Resource;
@@ -45,7 +42,7 @@ public class ExamImpl implements ExamService {
         //检验testpaperId是否有效，防止恶意在前端修改testpaperId
         TkTestscheduleExample tkTestscheduleExample = new TkTestscheduleExample();
         TkTestscheduleExample.Criteria criteria = tkTestscheduleExample.createCriteria();
-        criteria.andPpassportIdEqualTo(((SessionPassport) session.getAttribute("sessionStudent")).getPpassportId());
+        criteria.andPpassportIdEqualTo(((SessionPassport) session.getAttribute("sessionStudent")).getPassportId());
         criteria.andTestpaperIdEqualTo(testpaperId);
         List<TkTestschedule> tkTestscheduleList = tkTestscheduleMapper.selectByExample(tkTestscheduleExample); //查询考试安排表中的相关信息
         boolean flag=true;

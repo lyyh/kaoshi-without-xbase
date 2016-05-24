@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import sei.tk.controller.common.TkBaseController;
 import sei.tk.service.dao.model.TkMkpaper;
-import sei.tk.service.dao.model.vo.passport.SessionPassport;
+import sei.tk.service.dao.model.SessionPassport;
 import sei.tk.service.labour.*;
 import sei.tk.service.rengong.RenGongService;
 import sei.tk.util.HasValueUtil;
@@ -78,7 +78,7 @@ public class LabourMkController extends TkBaseController{
         //将课程名称改成课程id
         tkMkpaper.setCourseId(renGongService.getTkCourse(courseName).getCourseId());
         tkMkpaper.setMkpaperExtime(Short.parseShort(duration));
-        tkMkpaper.setPpassportId(sessionPassport.getPpassportId());
+        tkMkpaper.setPpassportId(sessionPassport.getPassportId());
         tkMkpaper.setMkpaperScore(Short.parseShort(score));
         tkMkpaper.setMkpaperTerm(semesterTerm);
         tkMkpaper.setPaperName(note);

@@ -1,4 +1,4 @@
-package sei.tk.service.passport;
+package sei.tk.service.passportO;
 
 import sei.tk.service.dao.model.TkStudent;
 import sei.tk.service.dao.model.TkTeacher;

@@ -16,7 +16,7 @@
               <result column="level_id" property="levelId" jdbcType="TINYINT" />
               <result column="course_id" property="courseId" jdbcType="SMALLINT" />
               <result column="knopoint_id" property="knopointId" jdbcType="BIGINT" />
-              <result column="ppassport_id" property="passportId" jdbcType="BIGINT"/>
+              <result column="passport_id" property="passportId" jdbcType="BIGINT"/>
        </resultMap>
 
        <select id="selectSubjectInfoById" parameterType="java.lang.Long" resultMap="SubjectInfo">
@@ -25,7 +25,7 @@
               A.ppassport_time,A.quetype_id,A.level_id,A.course_id,A.knopoint_id,
               C.tea_name,E.course_name,D.knopoint_name
               FROM tk_subject A,tk_teacher C,tk_knopoint D,tk_course E
-              WHERE A.ppassport_id=C.ppassport_id AND A.knopoint_id=D.knopoint_id AND A.course_id=E.course_id
+              WHERE A.ppassport_id=C.passport_id AND A.knopoint_id=D.knopoint_id AND A.course_id=E.course_id
               AND A.subject_id=#{subjectId,jdbcType=BIGINT}
        </select>
 
@@ -35,7 +35,7 @@
               A.ppassport_time,A.quetype_id,A.level_id,A.course_id,A.knopoint_id,
               B.tea_name,E.course_name,D.knopoint_name
               FROM tk_subject A,tk_teacher B,tk_knopoint D,tk_course E
-              WHERE A.ppassport_id=B.ppassport_id AND A.knopoint_id=D.knopoint_id AND A.course_id=E.course_id
+              WHERE A.ppassport_id=B.passport_id AND A.knopoint_id=D.knopoint_id AND A.course_id=E.course_id
               <if test="subjectName!=null">
                      AND A.subject_name LIKE ${'"%'+subjectName+'%"'}
               </if>
@@ -67,7 +67,7 @@
        <select id="countSubjectInfo" parameterType="sei.tk.service.dao.model.vo.subject.SubjectInfo" resultType="java.lang.Integer">
               SELECT COUNT(A.subject_id)
               FROM tk_subject A,tk_teacher B,tk_knopoint D,tk_course E
-              WHERE A.ppassport_id=B.ppassport_id AND A.knopoint_id=D.knopoint_id AND A.course_id=E.course_id
+              WHERE A.ppassport_id=B.passport_id AND A.knopoint_id=D.knopoint_id AND A.course_id=E.course_id
               <if test="subjectName!=null">
                      AND A.subject_name LIKE ${'"%'+subjectName+'%"'}
               </if>

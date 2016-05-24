@@ -14,7 +14,7 @@ public class LittleUtil {
      * @param data 数据
      * @return 返回的json对象
      */
-    public static JSONObject constructResponse(int code, String msg, Object data) {
+    public static JSONObject constructResponse(String code, String msg, Object data) {
         JSONObject jo = new JSONObject();
         jo.put("code", code);
         jo.put("msg", msg);

@@ -87,7 +87,7 @@ public class SubjectImpl implements SubjectServie{
         tkSubjectWithBLOBs.setPpassportTimeString(DateFormat.DateToString(tkSubjectWithBLOBs.getPpassportTime(),"yyyy-MM-dd hh-mm-ss"));
         //查询录题人的姓名
         TkTeacher tkTeacher=tkTeacherMapper.selectByPrimaryKey(tkSubjectWithBLOBs.getPpassportId());
-        if(tkTeacher==null||tkTeacher.getTeaName()==null)throw new TKException(TkConfig.DATABASE_ERROR,"查询异常");
+        if(tkTeacher==null||tkTeacher.getTeaName()==null)throw new TKException(TkConfig.INVALID_ACTION,"查询异常");
         if(tkTeacher!=null)tkSubjectWithBLOBs.setPpassportName(tkTeacher.getTeaName());
 
         return tkSubjectWithBLOBs;
