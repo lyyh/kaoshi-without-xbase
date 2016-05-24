@@ -58,7 +58,7 @@ public class TestDisServiceImpl implements TestDisService {
                 mkpaper.setPpassportTime(tkMkpaper.getPpassportTime());
 
                 mkpaper.setCourseName((tkCourseMapper.selectByPrimaryKey(tkMkpaper.getCourseId())).getCourseName());
-                mkpaper.setTeaName((tkTeacherMapper.selectByPrimaryKey(tkMkpaper.getPpassportId())).getTeaName());
+//                mkpaper.setTeaName((tkTeacherMapper.selectByPrimaryKey(tkMkpaper.getPpassportId())).getTeaName());
 
                 mkpaperList.add(mkpaper);
             }

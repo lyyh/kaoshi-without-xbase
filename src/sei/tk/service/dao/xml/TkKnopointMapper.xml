@@ -106,6 +106,9 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+    <if test="start!=null and rows!=null">
+      limit #{start},#{rows}
+    </if>
   </select>
 
   <select id="selectByCourse" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -118,7 +121,7 @@
   <select id="selectBycID" resultMap="BaseResultMap" >
     SELECT
     <include refid="Base_Column_List" />
-     from  tk_knopoint where  course_id=#{courseId,jdbcType=SMALLINT}
+     from  tk_knopoint     where  course_id=#{courseId,jdbcType=SMALLINT}
 
   </select>
 

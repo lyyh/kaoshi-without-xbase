@@ -15,8 +15,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by ·çÖÐÄÐ×Ó on 2016-04-22.
- * ÀÏÊ¦Ôö¼Ó¡¢É¾³ý¡¢ÐÞ¸Ä°²ÅÅ¿¼ÊÔ
+ * Created by ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ on 2016-04-22.
+ * ï¿½ï¿½Ê¦ï¿½ï¿½ï¿½Ó¡ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Ä°ï¿½ï¿½Å¿ï¿½ï¿½ï¿½
  */
 @Service
 public class TeaSchServiceImpl implements TeaSchService {
@@ -26,10 +26,10 @@ public class TeaSchServiceImpl implements TeaSchService {
     private TkStudentMapper tkStudentMapper;
 
     @Override
-    public Integer addExamSch(Long ppassportId, TestInfo testInfo) { //ÀÏÊ¦Ìí¼Ó¿¼ÊÔ°²ÅÅ£¨ÔÝ¸øËùÓÐÑ§Éú·¢ËÍ°²ÅÅ£©
+    public Integer addExamSch(Long ppassportId, TestInfo testInfo) { //ï¿½ï¿½Ê¦ï¿½ï¿½Ó¿ï¿½ï¿½Ô°ï¿½ï¿½Å£ï¿½ï¿½Ý¸ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ï¿½Å£ï¿½
         TkStudentExample tkStudentExample = new TkStudentExample();
         TkStudentExample.Criteria criteria = tkStudentExample.createCriteria();
-        criteria.andPpassportIdIsNotNull();
+        criteria.andPassportIdIsNotNull();
         List<TkStudent> studentList = tkStudentMapper.selectByExample(tkStudentExample);
 
         TkTestschedule tkTestschedule=new TkTestschedule();
@@ -42,14 +42,14 @@ public class TeaSchServiceImpl implements TeaSchService {
         tkTestschedule.setCreateTime(new Date());
 
         for (TkStudent tkStudent : studentList) {
-            tkTestschedule.setPpassportId(tkStudent.getPpassportId());
+            tkTestschedule.setPpassportId(tkStudent.getPassportId());
             tkTestscheduleMapper.insertSelective(tkTestschedule);
         }
-        return studentList.size();    //·µ»Ø±»Ìí¼Ó°²ÅÅµÄÑ§ÉúÈËÊý
+        return studentList.size();    //ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½Ó°ï¿½ï¿½Åµï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
     @Override
-    public Integer delExamSch(Long ppassportId, Long testscheduleId) {  //ÀÏÊ¦É¾³ý¿¼ÊÔ°²ÅÅ£¨¸ù¾Ý°²ÅÅ±àºÅ¶ÔÓ¦µÄ°²ÅÅÊ±¼ä£©
+    public Integer delExamSch(Long ppassportId, Long testscheduleId) {  //ï¿½ï¿½Ê¦É¾ï¿½ï¿½ï¿½ï¿½ï¿½Ô°ï¿½ï¿½Å£ï¿½ï¿½ï¿½ï¿½Ý°ï¿½ï¿½Å±ï¿½Å¶ï¿½Ó¦ï¿½Ä°ï¿½ï¿½ï¿½Ê±ï¿½ä£©
         TkTestscheduleExample tkTestscheduleExample=new TkTestscheduleExample();
         TkTestscheduleExample.Criteria criteria=tkTestscheduleExample.createCriteria();
         criteria.andTestscheduleIdEqualTo(testscheduleId);
@@ -58,11 +58,11 @@ public class TeaSchServiceImpl implements TeaSchService {
         TkTestscheduleExample tkTestscheduleExample1=new TkTestscheduleExample();
         TkTestscheduleExample.Criteria criteria1=tkTestscheduleExample1.createCriteria();
         criteria1.andCreateTimeEqualTo(createTime);
-        return (tkTestscheduleMapper.deleteByExample(tkTestscheduleExample1))-1;    //·µ»ØÊÜÓ°ÏìµÄÑ§ÉúÊý
+        return (tkTestscheduleMapper.deleteByExample(tkTestscheduleExample1))-1;    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½
     }
 
     @Override
-    public Integer editExamSch(Long ppassportId, TestInfo testInfo) {//ÀÏÊ¦ÐÞ¸Ä¿¼ÊÔ°²ÅÅ£¨¸ù¾Ý°²ÅÅ±àºÅ¶ÔÓ¦µÄ°²ÅÅÊ±¼ä£©
+    public Integer editExamSch(Long ppassportId, TestInfo testInfo) {//ï¿½ï¿½Ê¦ï¿½Þ¸Ä¿ï¿½ï¿½Ô°ï¿½ï¿½Å£ï¿½ï¿½ï¿½ï¿½Ý°ï¿½ï¿½Å±ï¿½Å¶ï¿½Ó¦ï¿½Ä°ï¿½ï¿½ï¿½Ê±ï¿½ä£©
         TeaGetSchId teaGetSchId=new TeaGetSchId();
         teaGetSchId.setTestpaperId(testInfo.getTestpaperId());
         teaGetSchId.setTestStarttime(DateFormat.StringToDate(testInfo.getTestStarttime(),"yyyy-MM-dd HH:mm:ss"));
@@ -79,7 +79,7 @@ public class TeaSchServiceImpl implements TeaSchService {
             criteria2.andTestscheduleIdEqualTo(schId.getTestscheduleId());
             tkTestscheduleMapper.updateByExampleSelective(tkTestschedule, tkTestscheduleExample);
         }
-        return schIds.size();    //·µ»Ø±»ÐÞ¸Ä°²ÅÅµÄÑ§ÉúÈËÊý
+        return schIds.size();    //ï¿½ï¿½ï¿½Ø±ï¿½ï¿½Þ¸Ä°ï¿½ï¿½Åµï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
 

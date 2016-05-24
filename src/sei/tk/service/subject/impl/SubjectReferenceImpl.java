@@ -7,8 +7,6 @@ import sei.tk.service.dao.mapper.TkQuetypeMapper;
 import sei.tk.service.dao.mapper.TkSubjectMapper;
 import sei.tk.service.dao.model.*;
 import sei.tk.service.subject.SubjectReference;
-import sei.tk.util.TkConfig;
-import sei.tk.util.exception.TKException;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -36,7 +34,7 @@ public class SubjectReferenceImpl implements SubjectReference {
     @Override
     public List<TkKnopoint> getKnopoint(Short courseId,Byte chapterId) {   //根据课程号得到所有知识点
         if(courseId==null||chapterId==null)
-            throw new TKException(TkConfig.INVALID_ACTION,"参数不合法");
+            throw new RuntimeException();
         TkKnopointExample tkKnopointExample = new TkKnopointExample();
         TkKnopointExample.Criteria criteria = tkKnopointExample.createCriteria();
         criteria.andCourseIdEqualTo(courseId);
@@ -53,21 +51,21 @@ public class SubjectReferenceImpl implements SubjectReference {
 
     @Override
     public List<Integer> getChapterId(Short courseId) {   //得到所有章节
-        if(courseId==null)throw new TKException(TkConfig.INVALID_ACTION,"参数不合法");
+        if(courseId==null)throw new RuntimeException();
         return tkSubjectMapper.selectChapterGroup(courseId);
     }
 
     @Override
     public void addCourse(TkCourse tkCourse) {   //添加课程
         if(tkCourse==null||tkCourse.getCourseName()==null||tkCourse.getCourseName().matches("\\s+"))
-            throw new TKException(TkConfig.INVALID_ACTION,"参数不合法");
+            throw new RuntimeException();
         tkCourseMapper.insertSelective(tkCourse);
     }
 
     @Override
     public void addKnopoint(TkKnopoint tkKnopoint) { //添加知识点
         if(tkKnopoint==null||tkKnopoint.getKnopointId()==null||tkKnopoint.getKnopointName()==null||tkKnopoint.getKnopointName().matches("\\s+"))
-            throw new TKException(TkConfig.INVALID_ACTION,"参数不合法");
+            throw new RuntimeException();
         tkKnopointMapper.insertSelective(tkKnopoint);
     }
 }
