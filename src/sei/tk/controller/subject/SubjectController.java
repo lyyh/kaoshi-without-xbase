@@ -34,7 +34,7 @@ public class SubjectController extends TkBaseController{
     @NeedLogin(TkConfig.ROLE_TEACHER)
     public Object addSubject(HttpSession session,@RequestBody SubjectInfo subjectInfo) {   //提交所出的题目
 //        removeP(subjectInfo);
-        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionTeacher");
+        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
         subjectInfo.setPassportId(sessionPassport.getPassportId());
         subjectService.addSubject(subjectInfo);
         return LittleUtil.constructResponse(TkConfig.SUCCESS, "添加题目成功", null);

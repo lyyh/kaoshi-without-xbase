@@ -4,7 +4,9 @@ import org.springframework.stereotype.Service;
 import sei.tk.service.dao.mapper.TkStudentMapper;
 import sei.tk.service.dao.mapper.TkTeacherMapper;
 import sei.tk.service.dao.model.TkStudent;
+import sei.tk.service.dao.model.TkStudentExample;
 import sei.tk.service.dao.model.TkTeacher;
+import sei.tk.service.dao.model.TkTeacherExample;
 import sei.tk.service.dao.model.vo.passport.StudentInfoVo;
 import sei.tk.service.dao.model.vo.passport.TeacherInfoVo;
 import sei.tk.service.passportO.UserInfoService;
@@ -12,6 +14,8 @@ import sei.tk.util.TkConfig;
 import sei.tk.util.exception.TKException;
 
 import javax.annotation.Resource;
+import java.util.List;
+
 /**
  * Created by liuruijie on 2016/3/25.
  */
@@ -26,41 +30,50 @@ public class UserInfoImpl implements UserInfoService{
     public TeacherInfoVo getInfoTeacher(Long passportId) {//获取教师信息
         if(passportId==null)throw new TKException(TkConfig.INVALID_ACTION,"参数不合法");
 
-//        TkTeacher tkTeacher=tkTeacherMapper.selectByPrimaryKey(passportId);
-//        //查出来的教师信息保留基本信息
-//        TeacherInfoVo teacherInfoVo=new TeacherInfoVo();
-//        teacherInfoVo.setUserId(tkTeacher.getTeaCode());
-//        teacherInfoVo.setUserName(tkTeacher.getTeaName());
-//        teacherInfoVo.setPassportId(tkTeacher.getPpassportId());
-//        teacherInfoVo.setTeaEmail(tkTeacher.getTeaEmail());
-//        teacherInfoVo.setTeaGender(tkTeacher.getTeaGender());
-//        teacherInfoVo.setTeaInstitute(tkTeacher.getTeaInstitute());
-//        teacherInfoVo.setTeaMajor(tkTeacher.getTeaMajor());
-//        teacherInfoVo.setTeaTel(tkTeacher.getTeaTel());
+        TkTeacherExample tkTeacherExample=new TkTeacherExample();
+        TkTeacherExample.Criteria criteria = tkTeacherExample.createCriteria();
+        criteria.andPassportIdEqualTo(passportId);
+        List<TkTeacher> tkTeacherList=tkTeacherMapper.selectByExample(tkTeacherExample);
+        if(tkTeacherList.size()==0){
+            return null;
+        }
+        TkTeacher tkTeacher=tkTeacherList.get(0);
+        //查出来的教师信息保留基本信息
+        TeacherInfoVo teacherInfoVo=new TeacherInfoVo();
+        teacherInfoVo.setUserId(tkTeacher.getTeacherId());
+        teacherInfoVo.setUserName(tkTeacher.getTeaName());
+        teacherInfoVo.setPassportId(tkTeacher.getPassportId());
+        teacherInfoVo.setTeaEmail(tkTeacher.getTeaEmail());
+        teacherInfoVo.setTeaGender(tkTeacher.getTeaGender());
+        teacherInfoVo.setTeaInstitute(tkTeacher.getTeaInstitute());
+        teacherInfoVo.setTeaMajor(tkTeacher.getTeaMajor());
+        teacherInfoVo.setTeaTel(tkTeacher.getTeaTel());
 
-//        return teacherInfoVo;
-        return null;
+        return teacherInfoVo;
     }
 
     @Override
     public StudentInfoVo getInfoStudent(Long passportId) {
-//        if(passportId==null)throw new TKException(TkConfig.INVALID_ACTION,"参数不合法");
-//
-//        TkStudent tkStudent=tkStudentMapper.selectByPrimaryKey(passportId);
-//        //仅保留基本信息
-//        StudentInfoVo studentInfoVo=new StudentInfoVo();
-//        studentInfoVo.setUserName(tkStudent.getStuName());
-//        studentInfoVo.setPassportId(tkStudent.getPpassportId());
-//        studentInfoVo.setUserId(tkStudent.getStuCode());
-//        studentInfoVo.setStuClassId(tkStudent.getStuClassId());
-//        studentInfoVo.setStuEmail(tkStudent.getStuEmail());
-//        studentInfoVo.setStuGender(tkStudent.getStuGender());
-//        studentInfoVo.setStuInstitute(tkStudent.getStuInstitute());
-//        studentInfoVo.setStuMajor(tkStudent.getStuMajor());
-//        studentInfoVo.setStuTel(tkStudent.getStuTel());
-//
-//        return studentInfoVo;
-        return null;
+
+        TkStudentExample tkStudentExample=new TkStudentExample();
+        TkStudentExample.Criteria criteria = tkStudentExample.createCriteria();
+        criteria.andPassportIdEqualTo(passportId);
+        List<TkStudent> tkStudentList=tkStudentMapper.selectByExample(tkStudentExample);
+        if(tkStudentList.size()==0)return null;
+
+        TkStudent tkStudent=tkStudentList.get(0);
+        //仅保留基本信息
+        StudentInfoVo studentInfoVo=new StudentInfoVo();
+        studentInfoVo.setUserName(tkStudent.getStuName());
+        studentInfoVo.setPassportId(tkStudent.getPassportId());
+        studentInfoVo.setUserId(tkStudent.getStudentId());
+        studentInfoVo.setStuClassId(tkStudent.getStuClassId());
+        studentInfoVo.setStuEmail(tkStudent.getStuEmail());
+        studentInfoVo.setStuGender(tkStudent.getStuGender());
+        studentInfoVo.setStuInstitute(tkStudent.getStuInstitute());
+        studentInfoVo.setStuMajor(tkStudent.getStuMajor());
+
+        return studentInfoVo;
     }
 
     @Override
