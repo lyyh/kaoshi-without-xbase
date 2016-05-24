@@ -2,8 +2,9 @@
 <link type="text/css" rel="stylesheet" href="/tiku/ueditor/themes/default/css/ueditor.css">
 <style>
     /*统一设置增加\修改选项和答题区间的模态框的高度*/
-    .modal-body {
-        height: 290px;
+
+    #questionChoice img{
+        width: 100px !important;
     }
 </style>
 <body>
@@ -27,17 +28,11 @@
             </select>
             <!--d.设置知识点-->
             <select id="knowledgePoint" class="form-control knowledgePoint input-sm">
-                <option>通用知识点</option>
-                <option>面向对象程序设计</option>
-                <option>static关键字</option>
-                <option>GUI JavaSwing</option>
-                <option>线程</option>
-                <option>堆空间</option>
-                <option>IO流</option>
+                <option value="0">通用知识点</option>
             </select>
             <!--c.设置章节-->
             <div class="chapter">
-                <input id="chapter" type="number" class="form-control" placeholder="0" min="0">
+                <input id="chapter" value="0" type="number" class="form-control" placeholder="0" min="0">
 
                 <div class="chapter-add">章</div>
             </div>
@@ -148,8 +143,8 @@
 <!--模态框模块-->
 <!--新增一个选择题选项的模态框-->
 <div class="modal fade" id="addNewChoice" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content" style="width: 800px;">
+    <div class="modal-dialog" style="width: 50%;min-width: 600px">
+        <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
                     增加选项<span id="choiceNum"></span>
@@ -172,8 +167,8 @@
 </div>
 <!--新增一个填空题答案的模态框-->
 <div class="modal fade" id="addNewBlankAnswer" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content" style="width: 800px;">
+    <div class="modal-dialog" style="width: 50%;min-width: 600px">
+        <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
                     增加答题区间<span id="blankNum"></span>
@@ -196,8 +191,8 @@
 </div>
 <!--修改一个选择题选项的模态框-->
 <div class="modal fade" id="changeChoice" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content" style="width: 800px">
+    <div class="modal-dialog" style="width: 50%;min-width: 600px">
+        <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
                     修改选项<span id="choiceNumForChange"></span>
@@ -220,8 +215,8 @@
 </div>
 <!--修改一个填空题答案的模态框-->
 <div class="modal fade" id="changeBlankAnswer" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content" style="width: 800px;">
+    <div class="modal-dialog" style="width: 50%;min-width: 600px">
+        <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
                     修改答题区间<span id="blankNumForChange"></span>
@@ -244,7 +239,7 @@
 </div>
 <!--题目预览的模态框-->
 <div class="modal fade" id="show-info" tabindex="-1">
-    <div class="modal-dialog" style="width: 55%;">
+    <div class="modal-dialog" style="width: 67%;min-width: 850px">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
@@ -274,6 +269,38 @@
 <script type="text/javascript" charset="utf-8" src="/tiku/ueditor/kityformula-plugin/defaultFilterFix.js"></script>
 <script src="/tiku/js/child-function/recordQuestion.js"></script>
 <script>
+    function initKnopoint(courseId,chapterId){
+        $.ajax({
+            url:"/knopoint/list.do",
+            type:"post",
+            dataType:"json",
+            data:{
+                courseId:courseId,
+                chapterId:chapterId
+            },
+            success:function(result){
+                if(result.code!='1001'){
+                    return;
+                }
+                var items=result.data.rows;
+                $("#knowledgePoint").html("");
+                for(var i=0;i<items.length;i++){
+                    if(items[i]=="${subject.knopoint}"){
+                        $("#knowledgePoint").append('<option value="'+items[i].knopointId+'" checked="checked">'+items[i].knopointName+'</option>');
+                    }else{
+                        $("#knowledgePoint").append('<option value="'+items[i].knopointId+'">'+items[i].knopointName+'</option>');
+                    }
+                }
+            }
+        })
+    }
+    $(function(){
+        initKnopoint(1,$("#chapter").val());
+        $("#chapter").change(function () {
+            var chapterId=$("#chapter").val();
+            initKnopoint(1,chapterId);
+        });
+    })
     $(".back").click(function () {
         $.ajax({
             type: "get",
@@ -372,16 +399,15 @@
         console.log(a);
 
         $.ajax({
-            url: "/subject/add.do",
+            url: "/tiku/subject/add.do",
             type: "post",
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify(a),
             success: function (result) {
-                if (result.code != '1001') {
-                    alert(result.msg);
-                    return;
-                } else {
+                if(result.code=="1001") {
+                    alert("录题成功");
+                }else{
                     alert(result.msg);
                 }
                 initial();

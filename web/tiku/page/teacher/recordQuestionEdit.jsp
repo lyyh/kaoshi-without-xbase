@@ -11,21 +11,14 @@
 <link type="text/css" rel="stylesheet" href="/tiku/ueditor/themes/default/css/ueditor.css">
 <style>
     .modal-body {
-        height: 290px;
-        width: 100%;
-        overflow: auto;
+        height: 295px;
     }
 
-    .modal-header {
-        text-align: left;
-    }
-
-    .modal-header h4 {
-        width: 100%;
-    }
-
-    #updateQuestion{
+    #updateQuestion {
         margin: 20px 0 0 3%;
+    }
+    #questionChoice img{
+        width: 100px !important;
     }
 </style>
 <div class="totalContainer">
@@ -33,7 +26,7 @@
         <div class="myTip">设置题目通用信息</div>
         <div class="setQuestionDetails">
             <!--a.设置题目类型-->
-            <select id="questionType" class="form-control">
+            <select id="questionType" class="form-control input-sm">
                 <option value="1">单项选择题</option>
                 <option value="5">多项选择题</option>
                 <option value="3">填空题</option>
@@ -41,20 +34,14 @@
                 <option value="4">简答题</option>
             </select>
             <!--b.设置题目难度-->
-            <select id="questionLevel" class="form-control questionLevel">
+            <select id="questionLevel" class="form-control questionLevel input-sm">
                 <option value="1" ${subject.levelId==1?"selected='selected'":""}>简单</option>
                 <option value="2" ${subject.levelId==2?"selected='selected'":""}>中等</option>
                 <option value="3" ${subject.levelId==3?"selected='selected'":""}>困难</option>
             </select>
             <!--d.设置知识点-->
-            <select id="knowledgePoint" class="form-control knowledgePoint">
-                <option ${subject.knopoint=="通用知识点"?"selected='selected'":""}>通用知识点</option>
-                <option ${subject.knopoint=="面向对象程序设计"?"selected='selected'":""}>面向对象程序设计</option>
-                <option ${subject.knopoint=="static关键字"?"selected='selected'":""}>static关键字</option>
-                <option ${subject.knopoint=="GUI JavaSwing"?"selected='selected'":""}>GUI JavaSwing</option>
-                <option ${subject.knopoint=="线程"?"selected='selected'":""}>线程</option>
-                <option ${subject.knopoint=="堆空间"?"selected='selected'":""}>堆空间</option>
-                <option ${subject.knopoint=="IO流"?"selected='selected'":""}>IO流</option>
+            <select id="knowledgePoint" class="form-control knowledgePoint input-sm">
+                <option value="通用知识点">通用知识点</option>
             </select>
             <!--c.设置章节-->
             <div class="chapter">
@@ -92,7 +79,7 @@
                     <th>选项</th>
                     <th>选项内容</th>
                     <th>编辑选项</th>
-                    <th>设置为正确答案</th>
+                    <th>正确答案</th>
                 </tr>
             </table>
         </div>
@@ -162,7 +149,7 @@
     </div>
 
 
-    <button id="previewQuestion" class="btn btn-success" data-toggle="modal" data-target="#previewMyQuestion">
+    <button id="previewQuestion" class="btn btn-success" data-toggle="modal" data-target="#show-info">
         预览题目
     </button>
     <button id="updateQuestion" class="btn btn-lg btn-primary">确定更新</button>
@@ -170,120 +157,120 @@
 <!--模态框模块-->
 <!--新增一个选择题选项的模态框-->
 <div class="modal fade" id="addNewChoice" tabindex="-1">
-    <div class="modal-dialog modal-lg" style="width:800px">
-        <div class="modal-content" style="width: 800px;margin-top: 50px">
+    <div class="modal-dialog" style="width: 50%;min-width: 600px">
+        <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
                     增加选项<span id="choiceNum"></span>
-                    <button class="close" data-dismiss="modal"><span>&times;</span></button>
                 </h4>
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
             </div>
 
-            <div class="modal-body" style="width: 798px">
+            <div class="modal-body">
                 <div id="newChoice">
 
                 </div>
             </div>
 
             <div class="modal-footer">
-                <span>请保持选项格式的统一性</span>
-                <button id="addNewChoiceFS" class="btn btn-warning" data-dismiss="modal">确定</button>
+                <%--<span>请保持选项格式的统一性</span>--%>
+                <button id="addNewChoiceFS" class="btn sure" data-dismiss="modal">确定</button>
             </div>
         </div>
     </div>
 </div>
 <!--新增一个填空题答案的模态框-->
 <div class="modal fade" id="addNewBlankAnswer" tabindex="-1">
-    <div class="modal-dialog modal-lg" style="width:800px">
-        <div class="modal-content" style="width: 800px;margin-top: 50px">
+    <div class="modal-dialog" style="width: 50%;min-width: 600px">
+        <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
                     增加答题区间<span id="blankNum"></span>
-                    <button class="close" data-dismiss="modal"><span>&times;</span></button>
                 </h4>
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
             </div>
 
-            <div class="modal-body" style="width: 798px">
+            <div class="modal-body">
                 <div id="newBlankAnswer">
 
                 </div>
             </div>
 
             <div class="modal-footer">
-                <span>请保持答案格式的统一性</span>
-                <button id="addNewBlankAnswerFS" class="btn btn-warning" data-dismiss="modal">确定</button>
+                <%--<span>请保持答案格式的统一性</span>--%>
+                <button id="addNewBlankAnswerFS" class="btn sure" data-dismiss="modal">确定</button>
             </div>
         </div>
     </div>
 </div>
 <!--修改一个选择题选项的模态框-->
 <div class="modal fade" id="changeChoice" tabindex="-1">
-    <div class="modal-dialog modal-lg" style="width:800px">
-        <div class="modal-content" style="width: 800px;margin-top: 50px">
+    <div class="modal-dialog" style="width: 50%;min-width: 600px">
+        <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
                     修改选项<span id="choiceNumForChange"></span>
-                    <button class="close" data-dismiss="modal"><span>&times;</span></button>
                 </h4>
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
             </div>
 
-            <div class="modal-body" style="width: 798px">
+            <div class="modal-body">
                 <div id="myChoice">
 
                 </div>
             </div>
 
             <div class="modal-footer">
-                <span>请保持选项格式的统一性</span>
-                <button id="changeChoiceFS" class="btn btn-warning" data-dismiss="modal">确定</button>
+                <%--<span>请保持选项格式的统一性</span>--%>
+                <button id="changeChoiceFS" class="btn sure" data-dismiss="modal">确定</button>
             </div>
         </div>
     </div>
 </div>
 <!--修改一个填空题答案的模态框-->
 <div class="modal fade" id="changeBlankAnswer" tabindex="-1">
-    <div class="modal-dialog modal-lg" style="width:800px">
-        <div class="modal-content" style="width: 800px;margin-top: 50px">
+    <div class="modal-dialog" style="width: 50%;min-width: 600px">
+        <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
                     修改答题区间<span id="blankNumForChange"></span>
-                    <button class="close" data-dismiss="modal"><span>&times;</span></button>
                 </h4>
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
             </div>
 
-            <div class="modal-body" style="width: 798px">
+            <div class="modal-body">
                 <div id="myBlankAnswer">
 
                 </div>
             </div>
 
             <div class="modal-footer">
-                <span>请保持选项格式的统一性</span>
-                <button id="changeBlankAnswerFS" class="btn btn-warning" data-dismiss="modal">确定</button>
+                <%--<span>请保持选项格式的统一性</span>--%>
+                <button id="changeBlankAnswerFS" class="btn sure" data-dismiss="modal">确定</button>
             </div>
         </div>
     </div>
 </div>
 <!--题目预览的模态框-->
-<div class="modal fade" id="previewMyQuestion" tabindex="-1">
-    <div class="modal-dialog modal-lg" style="width:800px">
-        <div class="modal-content" style="width: 800px;margin-top: 20px;">
+<div class="modal fade" id="show-info" tabindex="-1">
+    <div class="modal-dialog" style="width: 67%;min-width: 850px">
+        <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
                     题目预览
-                    <button class="close" data-dismiss="modal"><span>&times;</span></button>
                 </h4>
+                <button class="close" data-dismiss="modal"><span>&times;</span></button>
             </div>
 
-            <div class="modal-body myQuestion" style="height: 350px">
+            <div class="modal-body myQuestion">
                 <table id="myQuestion" class="table table-bordered">
 
                 </table>
             </div>
 
             <div class="modal-footer">
-                <span>这将是您录入题库的最终结果</span>
-                <button class="btn btn-warning" data-dismiss="modal">确定</button>
+                <%--<span>这将是您录入题库的最终结果</span>--%>
+                <button class="btn sure" data-dismiss="modal">确定</button>
             </div>
         </div>
     </div>
@@ -296,8 +283,39 @@
 <script type="text/javascript" charset="utf-8" src="/tiku/ueditor/kityformula-plugin/defaultFilterFix.js"></script>
 <script src="/tiku/js/child-function/recordQuestion.js"></script>
 <script>
-
+    function initKnopoint(courseId,chapterId){
+        $.ajax({
+            url:"/knopoint/list.do",
+            type:"post",
+            dataType:"json",
+            data:{
+                courseId:courseId,
+                chapterId:chapterId
+            },
+            success:function(result){
+                if(result!="1001"){
+                    alert(result.msg);
+                    return;
+                }
+                var items=result.rows;
+                $("#knowledgePoint").html("");
+                for(var i=0;i<items.length;i++){
+                    if(items[i]=="${subject.knopoint}"){
+                        $("#knowledgePoint").append('<option value="'+items[i].knopointName+'" checked="checked">'+items[i].knopointName+'</option>');
+                    }else{
+                        $("#knowledgePoint").append('<option value="'+items[i].knopointName+'">'+items[i].knopointName+'</option>');
+                    }
+                }
+            }
+        })
+    }
     $(function () {
+        initKnopoint(1,$("#chapter").val());
+        $("#chapter").change(function () {
+            var chapterId=$("#chapter").val();
+            initKnopoint(1,chapterId);
+        });
+
         changeType(${subject.type});
         questionContent.ready(function () {
             questionContent.setContent('${subject.subjectName}');
@@ -305,7 +323,6 @@
         questionSolution.ready(function () {
             questionSolution.setContent('${subject.subjectSolution}');
         });
-
         <c:choose>
         <c:when test="${subject.type==1}">
         //选择题
@@ -350,7 +367,18 @@
         </c:when>
         </c:choose>
 
-    })
+        $("#questionChoice tr").each(function(){
+            choiceNum++;
+        });
+
+        choiceNum--;
+
+        $("#blankAnswer tr").each(function(){
+            blankNum++;
+        });
+
+        blankNum--;
+    });
     $(".back").click(function () {
         $.ajax({
             type: "get",
@@ -446,17 +474,17 @@
         };
 
         $.ajax({
-            url: "/subject/update.do",
+            url: "/tiku/subject/add.do",
             type: "post",
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify(a),
             success: function (result) {
-                if (result.code != '1001') {
+                if (result.status != "1001") {
                     alert(result.msg);
                     return;
                 } else {
-                    alert(result.msg);
+                    alert("修改成功");
                 }
                 $.ajax({
                     type: "get",

@@ -6,6 +6,8 @@ import sei.tk.service.dao.model.TkKnopoint;
 import sei.tk.service.dao.model.TkKnopointExample;
 import sei.tk.service.subject.KnowledgePointService;
 import sei.tk.util.Page;
+import sei.tk.util.TkConfig;
+import sei.tk.util.exception.TKException;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -45,7 +47,7 @@ public class KnopointImpl implements KnowledgePointService {
     @Override
     public void updateKnopoint(TkKnopoint knopoint) {
         if(tkKnopointMapper.updateByPrimaryKeySelective(knopoint)==0){
-            throw new RuntimeException();
+            throw new TKException(TkConfig.INVALID_ACTION,"未产生更新");
         }
     }
 
@@ -62,7 +64,7 @@ public class KnopointImpl implements KnowledgePointService {
     @Override
     public void insertKnopoint(TkKnopoint knopoint) {
         if(tkKnopointMapper.insertSelective(knopoint)==0){
-            throw new RuntimeException();
+            throw new TKException(TkConfig.INVALID_ACTION,"未产生更新");
         }
     }
 }
