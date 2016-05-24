@@ -293,11 +293,11 @@
                 chapterId:chapterId
             },
             success:function(result){
-                if(result!="1001"){
+                if(result.code!='1001'){
                     alert(result.msg);
                     return;
                 }
-                var items=result.rows;
+                var items=result.data.rows;
                 $("#knowledgePoint").html("");
                 for(var i=0;i<items.length;i++){
                     if(items[i]=="${subject.knopoint}"){
@@ -474,7 +474,7 @@
         };
 
         $.ajax({
-            url: "/tiku/subject/add.do",
+            url: "/subject/add.do",
             type: "post",
             dataType: "json",
             contentType: "application/json",
