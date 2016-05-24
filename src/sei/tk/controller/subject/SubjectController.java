@@ -34,10 +34,10 @@ public class SubjectController extends TkBaseController{
     @NeedLogin(TkConfig.ROLE_TEACHER)
     public Object addSubject(HttpSession session,@RequestBody SubjectInfo subjectInfo) {   //提交所出的题目
 //        removeP(subjectInfo);
-        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
+        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionTeacher");
         subjectInfo.setPassportId(sessionPassport.getPassportId());
         subjectService.addSubject(subjectInfo);
-        return LittleUtil.constructResponse(TkConfig.SUCCESS,"添加题目成功",null);
+        return LittleUtil.constructResponse(TkConfig.SUCCESS, "添加题目成功", null);
     }
 
     @RequestMapping("/list")
@@ -67,14 +67,6 @@ public class SubjectController extends TkBaseController{
     @RequestMapping("/delete")
     @ResponseBody
     @NeedLogin(TkConfig.ROLE_TEACHER)
-    public Object deleteSubject(HttpSession session,Long subjectId){
-        subjectService.delectSubject(subjectId);
-        return LittleUtil.constructResponse(TkConfig.SUCCESS,"题目删除成功",null);
-    }
-
-    @RequestMapping("/deleteBatch")
-    @ResponseBody
-    @NeedLogin(TkConfig.ROLE_TEACHER)
     public Object deleteSubjectBatch(HttpSession session,@RequestParam("subjectId[]") Long[] subjectIds){
         subjectService.deleteSubjectBatch(subjectIds);
         return LittleUtil.constructResponse(TkConfig.SUCCESS,"删除成功，共删除"+subjectIds.length+"条记录",null);
@@ -83,7 +75,7 @@ public class SubjectController extends TkBaseController{
     @RequestMapping("/detailsPage")
     @NeedLogin(TkConfig.ROLE_TEACHER)
     public Object detailsPage(HttpSession session,Long subjectId,Model model){
-        model.addAttribute("subject",subjectService.getSubjectInfoById(subjectId));
+        model.addAttribute("subject", subjectService.getSubjectInfoById(subjectId));
         return "/tiku/page/teacher/subject-details";
     }
 

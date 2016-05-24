@@ -27,7 +27,7 @@ public class SubjectReferenceController extends TkBaseController{
     @ResponseBody
     @NeedLogin(TkConfig.ROLE_TEACHER)
     public Object getAllCourse(HttpSession session) {//得到所有课程
-        return LittleUtil.constructResponse(TkConfig.SUCCESS,"",subjectReference.getAllCourse());
+        return LittleUtil.constructResponse(TkConfig.SUCCESS, "", subjectReference.getAllCourse());
     }
 
     @RequestMapping("/getKnopoint")
@@ -35,21 +35,21 @@ public class SubjectReferenceController extends TkBaseController{
     @NeedLogin(TkConfig.ROLE_TEACHER)
     public Object getKnopoint(HttpSession session,Short courseId,Byte chapterId) { //根据课程号得到所有知识点
         if(chapterId==null)chapterId=0;
-        return LittleUtil.constructResponse(TkConfig.SUCCESS,"",subjectReference.getKnopoint(courseId, chapterId));
+        return LittleUtil.constructResponse(TkConfig.SUCCESS, "", subjectReference.getKnopoint(courseId, chapterId));
     }
 
     @RequestMapping("/getAllType")
     @ResponseBody
     @NeedLogin(TkConfig.ROLE_TEACHER)
     public Object getAllType(HttpSession session) {//得到所有题型
-        return LittleUtil.constructResponse(TkConfig.SUCCESS,"",subjectReference.getAllType());
+        return LittleUtil.constructResponse(TkConfig.SUCCESS, "", subjectReference.getAllType());
     }
 
     @RequestMapping("/getChapterId")
     @ResponseBody
     @NeedLogin(TkConfig.ROLE_TEACHER)
     public Object getChapterId(HttpSession session,Short courseId) {  //得到所有章节
-        return LittleUtil.constructResponse(TkConfig.SUCCESS,"",subjectReference.getChapterId(courseId));
+        return LittleUtil.constructResponse(TkConfig.SUCCESS, "", subjectReference.getChapterId(courseId));
     }
 
     @RequestMapping("/addCourse")
@@ -57,7 +57,7 @@ public class SubjectReferenceController extends TkBaseController{
     @NeedLogin(TkConfig.ROLE_TEACHER)
     public Object addCourse(HttpSession session,TkCourse tkCourse) {//添加课程
         subjectReference.addCourse(tkCourse);
-        return LittleUtil.constructResponse(TkConfig.SUCCESS,"课程添加成功",null);
+        return LittleUtil.constructResponse(TkConfig.SUCCESS, "课程添加成功", null);
     }
 
     @RequestMapping("addKnopoint")
@@ -65,6 +65,6 @@ public class SubjectReferenceController extends TkBaseController{
     @NeedLogin(TkConfig.ROLE_TEACHER)
     public Object addKnopoint(HttpSession session,TkKnopoint tkKnopoint) {//添加知识点
         subjectReference.addKnopoint(tkKnopoint);
-        return LittleUtil.constructResponse(TkConfig.SUCCESS,"知识点添加成功",null);
+        return LittleUtil.constructResponse(TkConfig.SUCCESS, "知识点添加成功", null);
     }
 }

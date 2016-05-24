@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface SubjectReference {
     List<TkCourse> getAllCourse();  //得到所有课程
-    List<TkKnopoint> getKnopoint(Short courseId,Byte chapterId);   //根据课程号得到所有知识点
+    List<TkKnopoint> getKnopoint(Short courseId, Byte chapterId);   //根据课程号得到所有知识点
     List<TkQuetype> getAllType();   //得到所有题型
     List<Integer> getChapterId(Short courseId);   //得到所有章节
 

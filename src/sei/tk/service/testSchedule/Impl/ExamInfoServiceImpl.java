@@ -62,7 +62,7 @@ public class ExamInfoServiceImpl implements ExamInfoService {
 
             TestInfo testInfo = new TestInfo();
             testInfo.setTestpaperId(tkTestpaper.getTestpaperId());
-            testInfo.setTeaName((tkTeacherMapper.selectByPrimaryKey(tkMkpaper.getPpassportId())).getTeaName());
+//            testInfo.setTeaName((tkTeacherMapper.selectByPrimaryKey(tkMkpaper.getPpassportId())).getTeaName());
             testInfo.setMkpaperTerm(tkMkpaper.getMkpaperTerm());
             testInfo.setMkpaperScore(tkMkpaper.getMkpaperScore());
             testInfo.setMkpaperExtime(tkMkpaper.getMkpaperExtime());
@@ -94,7 +94,7 @@ public class ExamInfoServiceImpl implements ExamInfoService {
         TkMkpaper tkMkpaper = tkMkpaperMapper.selectByPrimaryKey(tkTestpaper.getMkpaperId());
 
         testInfo.setTestpaperId(tkTestpaper.getTestpaperId());
-        testInfo.setTeaName((tkTeacherMapper.selectByPrimaryKey(tkMkpaper.getPpassportId())).getTeaName());
+//        testInfo.setTeaName((tkTeacherMapper.selectByPrimaryKey(tkMkpaper.getPpassportId())).getTeaName());
         testInfo.setMkpaperTerm(tkMkpaper.getMkpaperTerm());
         testInfo.setMkpaperScore(tkMkpaper.getMkpaperScore());
         testInfo.setMkpaperExtime(tkMkpaper.getMkpaperExtime());
@@ -142,7 +142,7 @@ public class ExamInfoServiceImpl implements ExamInfoService {
             testInfo.setMkpaperExtime(tkMkpaper.getMkpaperExtime());
             testInfo.setMkpaperScore(tkMkpaper.getMkpaperScore());
             testInfo.setCreatePpassportId(tkMkpaper.getPpassportId());
-            testInfo.setTeaName((tkTeacherMapper.selectByPrimaryKey(tkMkpaper.getPpassportId())).getTeaName());
+//            testInfo.setTeaName((tkTeacherMapper.selectByPrimaryKey(tkMkpaper.getPpassportId())).getTeaName());
             testInfoList.add(testInfo);
         }
         pageTestInfo.setRows(testInfoList);
@@ -177,7 +177,7 @@ public class ExamInfoServiceImpl implements ExamInfoService {
                 testInfo.setMkpaperExtime(tkMkpaper.getMkpaperExtime());
                 testInfo.setMkpaperScore(tkMkpaper.getMkpaperScore());
                 testInfo.setCreatePpassportId(tkMkpaper.getPpassportId());
-                testInfo.setTeaName((tkTeacherMapper.selectByPrimaryKey(tkMkpaper.getPpassportId())).getTeaName());
+//                testInfo.setTeaName((tkTeacherMapper.selectByPrimaryKey(tkMkpaper.getPpassportId())).getTeaName());
                 testInfoList.add(testInfo);
             }
         }
@@ -212,7 +212,7 @@ public class ExamInfoServiceImpl implements ExamInfoService {
                 testInfo.setMkpaperExtime(tkMkpaper.getMkpaperExtime());
                 testInfo.setMkpaperScore(tkMkpaper.getMkpaperScore());
                 testInfo.setCreatePpassportId(tkMkpaper.getPpassportId());
-                testInfo.setTeaName((tkTeacherMapper.selectByPrimaryKey(tkMkpaper.getPpassportId())).getTeaName());
+//                testInfo.setTeaName((tkTeacherMapper.selectByPrimaryKey(tkMkpaper.getPpassportId())).getTeaName());
                 testInfoList.add(testInfo);
             }
         }
@@ -250,7 +250,7 @@ public class ExamInfoServiceImpl implements ExamInfoService {
                 testInfo.setMkpaperExtime(tkMkpaper.getMkpaperExtime());
                 testInfo.setMkpaperScore(tkMkpaper.getMkpaperScore());
                 testInfo.setCreatePpassportId(tkMkpaper.getPpassportId());
-                testInfo.setTeaName((tkTeacherMapper.selectByPrimaryKey(tkMkpaper.getPpassportId())).getTeaName());
+//                testInfo.setTeaName((tkTeacherMapper.selectByPrimaryKey(tkMkpaper.getPpassportId())).getTeaName());
                 testInfoList.add(testInfo);
             }
         }
