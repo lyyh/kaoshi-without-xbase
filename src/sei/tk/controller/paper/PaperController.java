@@ -57,7 +57,7 @@ public class PaperController extends TkBaseController{
      */
     public Object selectallpaper(PaperInfo paperInfo, Integer page, Integer rows, HttpSession session){  //这里 分页
         TeacherInfoVo teacherInfoVo=null;
-        SessionPassport sessionPassport = (SessionPassport) session.getAttribute("sessionTeacher");
+        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
         teacherInfoVo=userInfoService.getInfoTeacher(sessionPassport.getPassportId());
          paperInfo.setPpassportId(teacherInfoVo.getPassportId());
 

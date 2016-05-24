@@ -3,13 +3,14 @@ package sei.tk.service.study.imp;
 import org.springframework.stereotype.Service;
 import sei.tk.service.dao.mapper.TkQuecollMapper;
 import sei.tk.service.dao.mapper.TkSubjectMapper;
-import sei.tk.service.dao.model.TkQuecoll;
-import sei.tk.service.dao.model.TkSubjectExample;
-import sei.tk.service.dao.model.TkSubjectWithBLOBs;
+import sei.tk.service.dao.model.*;
 import sei.tk.service.study.DoSubjectService;
 import sei.tk.util.Page;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -63,9 +64,26 @@ public class DoSubjectServiceImpl implements DoSubjectService {
         return new Page(tkSubjectWithBLOBses,tkSubjectMapper.countByExample(tkSubjectExample));
     }
     @Override
-    public  void collectSub(List<TkQuecoll> tkQuecolls){
-        for(TkQuecoll tkQuecoll: tkQuecolls){
-            tkQuecollMapper.insertSelective(tkQuecoll);
+    public  void collectSub(List<TkSubject> tkSubjects,HttpSession session){
+        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
+        List<Long> subjectids=new ArrayList<Long>();
+        HashMap<Long,String> answer=new HashMap<Long,String>();
+        for(TkSubject tkSubject:tkSubjects){
+            subjectids.add(tkSubject.getSubjectId());
+            answer.put(tkSubject.getSubjectId(), tkSubject.getSubjectAnswer());
+        }
+        TkSubjectExample tkSubjectExample=new TkSubjectExample();
+        TkSubjectExample.Criteria criteria=tkSubjectExample.createCriteria();
+        criteria.andSubjectIdIn(subjectids);
+        List<TkSubject> tkSubjects1=tkSubjectMapper.selectByExample(tkSubjectExample);
+        for(int i=0;i<tkSubjects1.size();i++){
+            if(answer.get(tkSubjects1.get(0).getSubjectId())!=tkSubjects1.get(0).getSubjectAnswer()) {
+                TkQuecoll tkQuecoll = new TkQuecoll();
+                tkQuecoll.setStuId(sessionPassport.getPassportId());
+                tkQuecoll.setQuecollId(tkSubjects1.get(0).getSubjectId());
+                tkQuecoll.setQuecollAnswer(answer.get(tkSubjects1.get(0).getSubjectId()));
+                tkQuecollMapper.insertSelective(tkQuecoll);
+            }
         }
     }
 }

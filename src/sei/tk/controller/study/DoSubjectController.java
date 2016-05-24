@@ -4,14 +4,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import sei.tk.service.dao.mapper.TkQuecollMapper;
+import sei.tk.service.dao.model.SessionPassport;
 import sei.tk.service.dao.model.TkQuecoll;
+import sei.tk.service.dao.model.TkSubject;
 import sei.tk.service.study.DoSubjectService;
 import sei.tk.util.LittleUtil;
 import sei.tk.util.TkConfig;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -40,7 +43,8 @@ public class DoSubjectController {
     }
     @RequestMapping("/collectsubjects")
     @ResponseBody
-    public void collectSubjects(HttpSession httpSession,@RequestBody List<TkQuecoll> tkQuecolls){
+    public void collectSubjects(HttpSession session,@RequestBody List<TkSubject> tkSubjects){
+      doSubjectService.collectSub(tkSubjects,session);
 
 
     }
