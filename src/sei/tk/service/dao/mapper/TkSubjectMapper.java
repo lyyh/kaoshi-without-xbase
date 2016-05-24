@@ -154,4 +154,5 @@ public interface TkSubjectMapper {
     List<TkSubjectWithBLOBs> selectSubOrderBy(TkSubjectExample tkSubjectExample);
     List<Integer> selectChapterGroup(Short courseId);
 
+    List<TkSubjectWithBLOBs> selectSubs(TkSubjectExample tkSubjectExample);
 }
