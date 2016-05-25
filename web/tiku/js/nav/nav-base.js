@@ -62,11 +62,11 @@ $(document).ready(function () {
     $(".cancellation").click(function () {
         if (confirm("您确定要注销用户吗？")) {
             $.ajax({
-                url:"/passport/logout.do",
+                url:"/api/passport/authentication.do?action=out",
                 type:"post",
                 dataType:"json",
                 success:function(result){
-                    if(result.code==1){
+                    if(result.code=='1001'){
                         window.location.href = "login.html"
                     }else{
                         alert(result.msg);

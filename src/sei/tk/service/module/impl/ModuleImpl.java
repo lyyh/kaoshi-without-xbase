@@ -30,10 +30,11 @@ public class ModuleImpl implements ModuleService{
         List<TreeMenu> menuList=new ArrayList<>();
         List<Module> moduleList=null;
         Map<Integer,TreeMenu> menuMap=new HashMap<>();
-        String result=moduleMapper.menuList(sessionPassport.getRoleId(), sessionPassport.getGroupId(), sessionPassport.getPassportId());
+        String result=moduleMapper.menuList(sessionPassport.getRoleId(), sessionPassport.getGroupId(), sessionPassport.getPassportId().intValue());
         if(result==null||"".equals(result)){return menuList;}
         else{
             moduleList= JSON.parseArray(result, Module.class);
+            moduleList.remove(moduleList.size()-1);
             for(Module module:moduleList){
                 TreeMenu treeMenu=new TreeMenu();
                 treeMenu.setId(module.getId());
