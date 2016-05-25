@@ -14,7 +14,6 @@ public class Robotmk {
     public TkMkpaper getTkMkpaper() {
         return tkMkpaper;
     }
-
     public void setTkMkpaper(TkMkpaper tkMkpaper) {
         this.tkMkpaper = tkMkpaper;
     }

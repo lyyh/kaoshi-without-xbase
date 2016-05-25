@@ -95,7 +95,7 @@ public class PaperServiceimpl  implements PaperService {
         if (testscheduleMapper.selectByExample(tkTestscheduleExample)==null | testscheduleMapper.selectByExample(tkTestscheduleExample).size()==0) {
             tkTestsubjectMapper.deletebytestpaperid(testpaperId);
             tkTestpaperMapper.deleteByPrimaryKey(testpaperId);
-            tkMkpaperruleMapper.deleteByPrimaryKey(mkpaperid);
+            tkMkpaperruleMapper.deletebymkpaperid(mkpaperid);
             tkMkpaperMapper.deleteByPrimaryKey(mkpaperid);
             return true;
         }

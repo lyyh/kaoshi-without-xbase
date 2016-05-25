@@ -43,14 +43,20 @@ public class RobotMkController  {
                tkMkpaperrules.add(tkMkpaperrule);
        }
        long  mkpaperId= robotService.insertTkMkpaerAndgetmkpareId(tkMkpaper);
+
        for(TkMkpaperrule tkMkpaperrule: tkMkpaperrules){
            tkMkpaperrule.setMkpaperId(mkpaperId);
            robotService.insertTkMkpaperrule(tkMkpaperrule);
        }
        if(robotService.getTkMkpaperrules(mkpaperId)==null)
+       {
+           robotService.delete(mkpaperId);
            return false;
-       else if(robotService.getmakePaper(robotService.getTkMkpaperrules(mkpaperId))==null)
+       }
+       else if(robotService.getmakePaper(robotService.getTkMkpaperrules(mkpaperId))==null) {
+            robotService.delete(mkpaperId);
            return false;
+       }
        else
        {
            List<TkSubject> tkSubjects = robotService.robotmakepaper(robotService.getmakePaper(robotService.getTkMkpaperrules(mkpaperId)));
