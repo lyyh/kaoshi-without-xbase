@@ -64,7 +64,7 @@ $("document").ready(function () {
                     ids.push(ch.val());
                 }
                 $.ajax({
-                    url: "/subject/deleteBatch.do",
+                    url: "/subject/delete.do",
                     type: "post",
                     dataType: "json",
                     data: {

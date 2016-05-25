@@ -4015,6 +4015,9 @@ define("graphic/matrix", [ "core/utils", "graphic/box", "core/class", "graphic/p
         });
         return box;
     };
+    SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformToElement || function(toElement) {
+            return toElement.getScreenCTM().inverse().multiply(this.getScreenCTM());
+        };
     // 获得从 node 到 refer 的变换矩阵
     Matrix.getCTM = function(target, refer) {
         var ctm = {
