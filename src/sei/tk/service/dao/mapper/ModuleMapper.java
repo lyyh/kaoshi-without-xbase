@@ -8,5 +8,5 @@ import org.apache.ibatis.annotations.Param;
 public interface ModuleMapper {
     String menuList(@Param("roleId") Integer roleId
             , @Param("groupId") Integer groupId
-            , @Param("passportId") Long passportId);
+            , @Param("passportId") Integer passportId);
 }

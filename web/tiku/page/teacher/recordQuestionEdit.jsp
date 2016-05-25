@@ -301,9 +301,9 @@
                 $("#knowledgePoint").html("");
                 for(var i=0;i<items.length;i++){
                     if(items[i]=="${subject.knopoint}"){
-                        $("#knowledgePoint").append('<option value="'+items[i].knopointName+'" checked="checked">'+items[i].knopointName+'</option>');
+                        $("#knowledgePoint").append('<option value="'+items[i].knopointId+'" checked="checked">'+items[i].knopointName+'</option>');
                     }else{
-                        $("#knowledgePoint").append('<option value="'+items[i].knopointName+'">'+items[i].knopointName+'</option>');
+                        $("#knowledgePoint").append('<option value="'+items[i].knopointId+'">'+items[i].knopointName+'</option>');
                     }
                 }
             }
@@ -463,7 +463,7 @@
             'courseId': '1',
             'subjectId':${subject.subjectId},
             'chapterId': chapter,
-            'knopoint': knowledgePoint,
+            'knopointId': knowledgePoint,
             'type': questionType,
             'levelId': questionLevel,
             'subjectName': myQuestionContent,
@@ -474,13 +474,13 @@
         };
 
         $.ajax({
-            url: "/subject/add.do",
+            url: "/subject/update.do",
             type: "post",
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify(a),
             success: function (result) {
-                if (result.status != "1001") {
+                if (result.code != "1001") {
                     alert(result.msg);
                     return;
                 } else {
