@@ -98,9 +98,10 @@ public class RobotServiceImpl implements RobotService {
         return tkSubjectMapper.countByExample(tkSubjectExample);
     }
 
-    public long insertTkTestpaperAndgettestpaperId(long mkpareId) {
+    public long insertTkTestpaperAndgettestpaperId(long mkpareId,Long ppassportId) {
         TkTestpaper tkTestpaper = new TkTestpaper();
         tkTestpaper.setMkpaperId(mkpareId);
+        tkTestpaper.setPpassportId(ppassportId);
         tkTestpaperMapper.insertSelective(tkTestpaper);
         return tkTestpaperMapper.selectlastinsertid();
     }

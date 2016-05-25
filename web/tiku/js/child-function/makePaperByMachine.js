@@ -115,24 +115,23 @@ $("#myPaper").on("click", ":checkbox", function () {
 /**
  * 知识点初始化
  */
-//模拟从后台获得的知识点
-var knowledgePointData = [{'knopointId': 10036, 'knopointName': '类与对象'}, {
-    'knopointId': 10037,
-    'knopointName': 'JAVA虚拟机'
-}, {'knopointId': 10038, 'knopointName': '静态关键字static'}, {
-    'knopointId': 10039,
-    'knopointName': 'IO流'
-}, {'knopointId': 10040, 'knopointName': '线程基础'}, {
-    'knopointId': 10041,
-    'knopointName': 'java swing'
-}, {'knopointId': 10042, 'knopointName': '三大流程控制语句'}, {
-    'knopointId': 10043,
-    'knopointName': '条件判断语句'
-}, {'knopointId': 10044, 'knopointName': '变量与常量'}];
-//将生成的知识点加入知识点模态框的表格中
-$(knowledgePointData).each(function () {
-    $('<tr><td>' + this.knopointName + '</td><td><input type="checkbox" checked value=' + this.knopointId + '></td></tr>').insertAfter($('#myKnowledgePoint thead'));
-});
+    $.ajax({
+        url:"/knopoint/list.do",
+        type:"post",
+        dataType:"json",
+        data:{
+            courseId:1,
+       },
+        success:function(result){
+            if(result.code!='1001'){
+                return;
+            }
+            var items=result.data.rows;
+            $(items).each(function () {
+                $('<tr><td>' + this.knopointName + '</td><td><input type="checkbox" checked value=' + this.knopointId + '></td></tr>').insertAfter($('#myKnowledgePoint thead'));
+            })
+            }})
+
 //当去掉任意一个知识点后，【全部知识点】对应的复选框被取消掉；当全部知识点被选中后【全部知识点】对应的复选框被选中
 $("#myKnowledgePoint").on("click", "td :checkbox", function () {
     if ($('#myKnowledgePoint td :checkbox:checked').length == $('#myKnowledgePoint td :checkbox').length) {
@@ -645,7 +644,6 @@ $("#editNewRuleFS").click(function () {
 $("#makePaper").click(function () {
     var details = {
         'courseId': 1,//$("#course")[0].name,
-        'ppassportId': 5,                      //$("#teacherName").val(),出题人id
         'mkpaperTerm': $("#semesterYear").val() + $("#semesterTerm").val(),
         'mkpaperExtime': 60,  //$("#duration").val(),
         'paperName': $("#paperTip").val(),

@@ -9,6 +9,7 @@ import sei.tk.service.dao.model.vo.robot.Robotmk;
 import sei.tk.service.robot.RobotService;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,8 +32,10 @@ public class RobotMkController  {
     **/
    @RequestMapping("/robotMkpaper.do")
    @ResponseBody
-   public Object _saverobotMkpaper(@RequestBody Robotmk robotmk){
+   public Object _saverobotMkpaper(HttpSession session,@RequestBody Robotmk robotmk){
+       SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
        TkMkpaper tkMkpaper =robotmk.getTkMkpaper();
+       tkMkpaper.setPpassportId(sessionPassport.getPassportId());
        TkMkpaperrule [] Mkpaperrules=robotmk.getTkMkpaperrules();
        List<TkMkpaperrule> tkMkpaperrules=new ArrayList<TkMkpaperrule>();
        for(TkMkpaperrule tkMkpaperrule: Mkpaperrules){
@@ -55,7 +58,7 @@ public class RobotMkController  {
            for(TkMkpaperrule tkMkpaperrule:tkMkpaperrules){
                maps.put(tkMkpaperrule.getQuetypeId(),tkMkpaperrule.getMkpaperruleScore());
            }
-           long testpaper1d=robotService.insertTkTestpaperAndgettestpaperId(mkpaperId);  //生成试卷
+           long testpaper1d=robotService.insertTkTestpaperAndgettestpaperId(mkpaperId,sessionPassport.getPassportId());  //生成试卷
            List<TkTestsubject> tkTestsubjects=new ArrayList<TkTestsubject>();
            for(TkSubject tkSubject:tkSubjects){      //设置试卷信息
                TkTestsubject tkTestsubject=new TkTestsubject();
