@@ -25,7 +25,7 @@ public interface RobotService {
          * 制卷
          */
         Long insertTkMkpaerAndgetmkpareId(TkMkpaper tkMkpaper);   //通过前台传来的tkmkpaper生成一个新的tkMkpaper 并得到这个id
-        long insertTkTestpaperAndgettestpaperId(long mkpareId);   //通过制卷id新增一张Testpaper表并得到他的testpaper1d  type为考试类型
+        long insertTkTestpaperAndgettestpaperId(long mkpareId,Long ppassportId );   //通过制卷id新增一张Testpaper表并得到他的testpaper1d  type为考试类型
         void insertTkTestsubject(TkTestsubject tkTestsubjects); //把题目加进testsubjec
 
         /**
