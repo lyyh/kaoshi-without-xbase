@@ -39,14 +39,14 @@ $("document").ready(function () {
             if (checks[i].checked)
                 n++;
         }
-        if (n == 0) {
+        if (n != 1) {
             var a = $("#tip").find(".modal-body");
-            a.html("<p>请您对一行或多行数据进行删除</p>");
+            a.html("<p>只能选择一个</p>");
             $('#tip').modal({backdrop: 'static', keyboard: false});
         }
         else {
             var b = $("#delete").find(".modal-body");
-            b.html("<p>您确定要删除" + "<font color='#d9534f'>" + n + "</font>" + "行吗?</p>")
+            b.html("<p>您确定要删除吗?</p>")
             $('#delete').modal({backdrop: 'static', keyboard: false});
             $(".btn-delete-modal").click(function () {
                 var ids = new Array();
@@ -101,48 +101,65 @@ $("document").ready(function () {
 
     //查看试卷信息
     $(".btn-show").click(function () {
-        var tempdata = $(".table tr").find("input[name=checkname]").val();
-        //从后台去获取查看的数据
-        $.ajax({
-            url: "/paper/selectpaperbyId.do",
-            data: {
-                testpaperId: tempdata
-            },
-            success: function (data) {
-                $("#datatables").html("");
-                $("#datatables").append(
-                    "<tr>"
-                    + " <th colspan=\"5\" style=\"border: none\">"
-                    + " <h2>"
-                    + data.mkpaperTerm
-                    + "</h2>"
-                    + "</th>"
-                    + "</tr>"
-                    + "<tr>"
-                    + "<td>科目:" + data.courseName + "</td>"
-                    + "<td>试卷编号:" + data.testpaperId + "</td>"
-                    + "<td>出卷人:" + data.passportName + "</td>"
-                    + "<td>时长:" + data.mkpaperExtime + "</td>"
-                    + "<td>总分:" + data.mkpaperScore + "</td>"
-                    + "</tr>"
-                );
-                $.each(data, function (index, objs) {
-                    $("#SubList").append(
-                        "<p>" + data.subjects[0].subjectName + "</p>"
-                        + "<p>" + objs.subjects[0].subjectOption + "</p>"
+        var checks = $(".table tr").find("input[name=checkname]"),
+            n = 0;
+        var tempdata = $(".table tr input:checked").val();
+        for (var i = 0; i < checks.length; i++) {
+            if (checks[i].checked)
+                n++;
+        }
+        if (n != 1) {
+            var a = $("#tip").find(".modal-body");
+            a.html("<p>只能选择一个</p>");
+            $('#tip').modal({backdrop: 'static', keyboard: false});
+        }
+        else{
+            $.ajax({
+                url: "/paper/selectpaperbyId.do",
+                data: {
+                    testpaperId: tempdata
+                },
+                success: function (data) {
+
+                    $("#datatables").html("");
+                    $("#datatables").append(
+                        "<tr>"
+                        + " <th colspan=\"5\" style=\"border: none\">"
+                        + " <h2>"
+                        + data.mkpaperTerm
+                        + "</h2>"
+                        + "</th>"
+                        + "</tr>"
+                        + "<tr>"
+                        + "<td>科目:" + data.courseName + "</td>"
+                        + "<td>试卷编号:" + data.testpaperId + "</td>"
+                        + "<td>出卷人:" + data.passportName + "</td>"
+                        + "<td>时长:" + data.mkpaperExtime + "</td>"
+                        + "<td>总分:" + data.mkpaperScore + "</td>"
+                        + "</tr>"
                     );
+                    $.each(data.subjects, function (index, objs) {
+                        $("#SubList").append(
+                            "<p>" + objs.subjectName + "</p>"
+                            + "<p>" + objs.subjectOption + "</p>"
+                        );
 
-                })
-                $("#datamemo").html("");
-                $("#datamemo").append(
-                    "<p>" + data.paperName + "</p>"
-                )
-            }
+                    })
+                    $("#datamemo").html("");
+                    $("#datamemo").append(
+                        "<p>" + data.paperName + "</p>"
+                    )
+                }
 
-        })
+            })
+
+            $('#show-info').modal({backdrop: 'static', keyboard: false});
+        }
+        /**/
+        //从后台去获取查看的数据
 
 
-        $('#show-info').modal({backdrop: 'static', keyboard: false});
+
     })
 
     //全选
