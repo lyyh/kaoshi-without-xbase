@@ -85,7 +85,7 @@ $(function(){
     $(".student-study").click(function () {
         $.ajax({
             type: "get",
-            url: "page/student-study-page.html",
+            url: "/tiku/page/student/student-study-page.html",
             dataType: "html",
             beforesenf: function () {
                 $(".main-block").html("<div class='myJava'>数据加载中...</div>")

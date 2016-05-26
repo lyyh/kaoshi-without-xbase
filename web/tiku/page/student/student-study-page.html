@@ -1,0 +1,92 @@
+<link rel="stylesheet" href="/tiku/css/base/page.css">
+<link rel="stylesheet" href="/tiku/css/functionParts/student-study.css">
+<body>
+<div class="totalContainer">
+    <div class="my-row">
+        <div class="xz-tx">
+            选择科目:
+            <select id="selectCourseId" class="form-control input-sm" style="display: inline-block">
+                <option value="0">java</option>
+                <option value="1">C++</option>
+            </select>
+            选择知识点:
+            <select id="selectKnopointId" class="form-control input-sm" style="display: inline-block">
+                <option value="0">继承</option>
+                <option value="1">数组</option>
+                <option value="1">线程</option>
+            </select>
+            选择题型:
+            <select id="selectTypeId" class="form-control input-sm" style="display: inline-block">
+                <option value="0">选择题</option>
+                <option value="1">判断题</option>
+                <option value="2">填空题</option>
+                <option value="3">解答题</option>
+            </select>
+        </div>
+        <input class="btn btn-default begin" type="button" value="开始学习"/>
+    </div>
+    <div class="table-container">
+        <table id="table-luti" class="table table-hover table-bordered">
+            <thead>
+            <tr class="danger">
+                <th width="3%"><input type="checkbox" class="checkall"></th>
+                <th width="10%">题目编号</th>
+                <th width="37%">题干</th>
+                <th width="10%">出题人</th>
+                <th width="20%">知识点</th>
+                <th width="10%">难度</th>
+                <th width="10%">出题时间</th>
+            </tr>
+            </thead>
+            <tbody id="neirong">
+            <tr>
+                <td><input type="checkbox" name="checkname"></td>
+                <td>加载中...</td>
+                <td>
+                    <div class="neirong-title">加载中...</div>
+                </td>
+                <td>加载中...</td>
+                <td>加载中...</td>
+                <td>加载中...</td>
+                <td>加载中...</td>
+            </tr>
+            </tbody>
+        </table>
+        <ul class="pagination">
+        </ul>
+    </div>
+
+    <!--查看题目的模态框-->
+    <div class="modal fade" id="show-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" style="width: 67%;min-width: 850px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        查看题目
+                    </h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn sure" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<script type="text/javascript" src="/tiku/js/page-function/page.js"></script>-->
+<!--<script type="text/javascript" src="/tiku/js/page-function/teacher-question-manage.js"></script>-->
+<script>
+    $(".back").click(function () {
+        $(".back").unbind("click");
+        $(".location").html("系统主页");
+        $(".main-block").html("<div class='myJava'></div>")
+    });
+</script>
+</body>
