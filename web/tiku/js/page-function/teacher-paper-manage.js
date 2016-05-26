@@ -122,14 +122,14 @@ $("document").ready(function () {
                     + "<td>科目:" + data.courseName + "</td>"
                     + "<td>试卷编号:" + data.testpaperId + "</td>"
                     + "<td>出卷人:" + data.passportName + "</td>"
-                    + "<td>时长:" + 120 + "</td>"
+                    + "<td>时长:" + data.mkpaperExtime + "</td>"
                     + "<td>总分:" + data.mkpaperScore + "</td>"
                     + "</tr>"
                 );
                 $.each(data, function (index, objs) {
                     $("#SubList").append(
-                        "<p>" + objs.subjectName + "</p>"
-                        + "<p>" + objs.subjectOption + "</p>"
+                        "<p>" + data.subjects[0].subjectName + "</p>"
+                        + "<p>" + objs.subjects[0].subjectOption + "</p>"
                     );
 
                 })
@@ -300,7 +300,7 @@ function setItems(result) {
     for (var i = 0; i < items.length; i++) {
 //            var difficulty=(items[i].levelId==1)?'简单':((items[i].levelId==2)?'中等':'困难');
         $("#neirong").append(
-            '<tr><td><input value="' + items[i].testpaperId + '" type="checkbox" name="checkname"></td><td>' + items[i].testpaperId + '</td><td>chujuanren</td><td>' + items[i].mkpaperTerm + '</td><td>' + items[i].mkpaperScore + '</td><td>' + items[i].timeString + '</td><td>' + items[i].paperName + '</td></tr>');
+            '<tr><td><input value="' + items[i].testpaperId + '" type="checkbox" name="checkname"></td><td>' + items[i].testpaperId + '</td><td>' + items[i].passportName + '</td><td>' + items[i].mkpaperTerm + '</td><td>' + items[i].mkpaperScore + '</td><td>' + items[i].timeString + '</td><td>' + items[i].paperName + '</td></tr>');
     }
 
 

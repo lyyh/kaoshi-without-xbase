@@ -317,4 +317,11 @@
             }
         });
     })
+
+    $('#duration').bind('input propertychange', function() {
+        var a=Number(this.value);
+        if(a!==a){
+            this.value=this.value.substring(0,this.length-1);
+        }
+    });
 </script>

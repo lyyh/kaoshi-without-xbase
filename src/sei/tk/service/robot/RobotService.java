@@ -21,11 +21,13 @@ public interface RobotService {
         int getcourseId(TkMkpaperrule tkMkpaperrule);  //根据制卷id得到课程id
         LinkedList<Question> getmakePaper(TkMkpaperrule[] tkMkpaperrules); //根据制卷规则 得到题目的一些条件 用于找出题目
         List<TkSubject> robotmakepaper(LinkedList<Question> questions);   //机器制卷  得到所需要的所有
+        void delete(Long mkpaperId);//制卷失败时 删除规则和 makpaper
+
         /**
          * 制卷
          */
         Long insertTkMkpaerAndgetmkpareId(TkMkpaper tkMkpaper);   //通过前台传来的tkmkpaper生成一个新的tkMkpaper 并得到这个id
-        long insertTkTestpaperAndgettestpaperId(long mkpareId);   //通过制卷id新增一张Testpaper表并得到他的testpaper1d  type为考试类型
+        long insertTkTestpaperAndgettestpaperId(long mkpareId,Long ppassportId );   //通过制卷id新增一张Testpaper表并得到他的testpaper1d  type为考试类型
         void insertTkTestsubject(TkTestsubject tkTestsubjects); //把题目加进testsubjec
 
         /**

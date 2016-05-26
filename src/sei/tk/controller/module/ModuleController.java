@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sei.tk.controller.common.TkBaseController;
 import sei.tk.service.dao.model.SessionPassport;
 import sei.tk.service.module.ModuleService;
 import sei.tk.util.LittleUtil;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 @RequestMapping("api/modules")
-public class ModuleController {
+public class ModuleController extends TkBaseController{
     @Resource
     ModuleService moduleService;
 

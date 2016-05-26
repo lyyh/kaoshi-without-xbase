@@ -69,7 +69,7 @@
               FROM tk_subject A,tk_teacher B,tk_knopoint D,tk_course E
               WHERE A.ppassport_id=B.passport_id AND A.knopoint_id=D.knopoint_id AND A.course_id=E.course_id
               <if test="subjectName!=null">
-                     AND A.subject_name LIKE ${'"%'+subjectName+'%"'}
+                     AND A.subject_name LIKE #{subjectName}
               </if>
               <if test="subjectId!=null">
                      and A.subject_id=#{subjectId}

@@ -12,6 +12,7 @@
         <result column="mkpaper_extime" property="mkpaperExtime" jdbcType="SMALLINT" />
         <result column="ppassport_time" property="ppassportTime" jdbcType="TIMESTAMP" />
         <result column="paper_name" property="paperName" jdbcType="VARCHAR" />
+        <result column="tea_name" property="passportName" jdbcType="VARCHAR" />
         <result column="mkpaper_score" property="mkpaperScore" jdbcType="SMALLINT" />
     </resultMap>
 
