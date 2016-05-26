@@ -93,6 +93,10 @@
     teacher_id, passport_id, tea_name, tea_gender, tea_institute, tea_major, tea_email, 
     tea_tel
   </sql>
+  <select id="getTeanamebyPassportId" parameterType="java.lang.Long" resultType="java.lang.String">
+    select tea_name FROM tk_teacher WHERE passport_id=#{passportId}
+
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="sei.tk.service.dao.model.TkTeacherExample" >
     <!--
       WARNING - @mbggenerated

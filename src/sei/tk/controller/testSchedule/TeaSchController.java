@@ -25,11 +25,7 @@ public class TeaSchController extends TkBaseController {
     @RequestMapping("/addExamSch")
     public Integer addExamSch(HttpSession session, @RequestBody TestInfo testInfo) { //��ʦ��ӿ��԰��ţ��ݸ�����ѧ�����Ͱ��ţ�
         Long sessionPassport = null;
-        if ((session.getAttribute("sessionStudent")) == null) {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionTeacher")).getPassportId();
-        }else {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionStudent")).getPassportId();
-        }
+        sessionPassport = ((SessionPassport) session.getAttribute("sessionPassport")).getPassportId();
         return teaSchService.addExamSch(sessionPassport,testInfo);
     }
 
@@ -37,11 +33,7 @@ public class TeaSchController extends TkBaseController {
     @RequestMapping("/delExamSch")
     public Integer delExamSch(HttpSession session, Long testscheduleId) {  //��ʦɾ�����԰��ţ����ݰ��ű�Ŷ�Ӧ�İ���ʱ�䣩
         Long sessionPassport = null;
-        if ((session.getAttribute("sessionStudent")) == null) {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionTeacher")).getPassportId();
-        }else {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionStudent")).getPassportId();
-        }
+        sessionPassport = ((SessionPassport) session.getAttribute("sessionPassport")).getPassportId();
         return teaSchService.delExamSch(sessionPassport,testscheduleId);
     }
 
@@ -49,11 +41,7 @@ public class TeaSchController extends TkBaseController {
     @RequestMapping("/editExamSch")
     public Integer editExamSch(HttpSession session,@RequestBody  TestInfo testInfo) {  //��ʦ�޸Ŀ��԰��ţ����ݰ��ű�Ŷ�Ӧ�İ���ʱ�䣩
         Long sessionPassport = null;
-        if ((session.getAttribute("sessionStudent")) == null) {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionTeacher")).getPassportId();
-        }else {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionStudent")).getPassportId();
-        }
+        sessionPassport = ((SessionPassport) session.getAttribute("sessionPassport")).getPassportId();
         return teaSchService.editExamSch(sessionPassport, testInfo);
     }
 }

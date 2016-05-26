@@ -31,11 +31,7 @@ public class ExamInfoController extends TkBaseController {
     @RequestMapping("/getAllPaperInfo")
     public JSONObject getAllPaperInfo(HttpSession session, Integer page, Integer rows) { //老师得到所有试卷（无论安排与否）
         Long sessionPassport = null;
-        if ((session.getAttribute("sessionStudent")) == null) {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionTeacher")).getPassportId();
-        }else {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionStudent")).getPassportId();
-        }
+            sessionPassport = ((SessionPassport) session.getAttribute("sessionPassport")).getPassportId();
         return LittleUtil.constructResponse(TkConfig.SUCCESS,"",examInfoService.getAllPaperInfo(sessionPassport,page,rows));
     }
 
@@ -43,11 +39,7 @@ public class ExamInfoController extends TkBaseController {
     @RequestMapping("/getPaperInfoDetails")
     public JSONObject getPaperInfoDetails(HttpSession session,Long testscheduleId,Long testpaperId) { //得到试卷属性细节
         Long sessionPassport = null;
-        if ((session.getAttribute("sessionStudent")) == null) {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionTeacher")).getPassportId();
-        }else {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionStudent")).getPassportId();
-        }
+        sessionPassport = ((SessionPassport) session.getAttribute("sessionPassport")).getPassportId();
         return LittleUtil.constructResponse(TkConfig.SUCCESS,"",examInfoService.getPaperInfoDetails(sessionPassport,testscheduleId,testpaperId));
     }
 
@@ -56,11 +48,7 @@ public class ExamInfoController extends TkBaseController {
     @RequestMapping("/getAllExamInfo")
     public JSONObject getAllExamInfo(HttpSession session,Integer page,Integer rows) {  //老师得到所有已安排试卷
         Long sessionPassport = null;
-        if ((session.getAttribute("sessionStudent")) == null) {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionTeacher")).getPassportId();
-        }else {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionStudent")).getPassportId();
-        }
+        sessionPassport = ((SessionPassport) session.getAttribute("sessionPassport")).getPassportId();
         return LittleUtil.constructResponse(TkConfig.SUCCESS,"",examInfoService.getAllExamInfo(sessionPassport,page,rows));
     }
 
@@ -69,11 +57,7 @@ public class ExamInfoController extends TkBaseController {
     public JSONObject getFutureExamInfo(HttpSession session) {  //得到未考试卷，没有分数
         List<TestInfo> testInfoList = new ArrayList<>();
         Long sessionPassport = null;
-        if ((session.getAttribute("sessionStudent")) == null) {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionTeacher")).getPassportId();
-        }else {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionStudent")).getPassportId();
-        }
+        sessionPassport = ((SessionPassport) session.getAttribute("sessionPassport")).getPassportId();
         testInfoList=examInfoService.getFutureExamInfo(sessionPassport);
         PageTestInfo pageTestInfo=new PageTestInfo(testInfoList,testInfoList.size());
         return LittleUtil.constructResponse(TkConfig.SUCCESS,"",pageTestInfo);
@@ -84,11 +68,7 @@ public class ExamInfoController extends TkBaseController {
     public JSONObject getValidExamInfo(HttpSession session) {  //得到进行中的考卷，没有分数
         List<TestInfo> testInfoList = new ArrayList<>();
         Long sessionPassport = null;
-        if ((session.getAttribute("sessionStudent")) == null) {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionTeacher")).getPassportId();
-        }else {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionStudent")).getPassportId();
-        }
+        sessionPassport = ((SessionPassport) session.getAttribute("sessionPassport")).getPassportId();
         testInfoList=examInfoService.getValidExamInfo(sessionPassport);
         PageTestInfo pageTestInfo=new PageTestInfo(testInfoList,testInfoList.size());
         return LittleUtil.constructResponse(TkConfig.SUCCESS,"",pageTestInfo);
@@ -99,11 +79,7 @@ public class ExamInfoController extends TkBaseController {
     public JSONObject getOverdueExamInfo(HttpSession session) {    //得到过期考卷
         List<TestInfo> testInfoList = new ArrayList<>();
         Long sessionPassport = null;
-        if ((session.getAttribute("sessionStudent")) == null) {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionTeacher")).getPassportId();
-        }else {
-            sessionPassport = ((SessionPassport) session.getAttribute("sessionStudent")).getPassportId();
-        }
+        sessionPassport = ((SessionPassport) session.getAttribute("sessionPassport")).getPassportId();
         testInfoList=examInfoService.getOverdueExamInfo(sessionPassport);
         PageTestInfo pageTestInfo=new PageTestInfo(testInfoList,testInfoList.size());
         return LittleUtil.constructResponse(TkConfig.SUCCESS,"",pageTestInfo);
