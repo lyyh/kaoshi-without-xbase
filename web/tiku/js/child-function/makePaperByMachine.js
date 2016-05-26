@@ -642,13 +642,11 @@ $("#editNewRuleFS").click(function () {
  * 制卷
  */
 $("#makePaper").click(function () {
-    var totalScore = choiceQuestion.totalScoreForType + shortAnswerQuestion.totalScoreForType + singleChoiceQuestion.totalScoreForType + blankQuestion.totalScoreForType + judgeQuestion.totalScoreForType+"";
-
 
     var details = {
         'courseId': $("#course")[0].name,//$("#course")[0].name,
         'mkpaperTerm': $("#semesterYear").val() + $("#semesterTerm").val(),
-        'mkpaperScore': totalScore,
+        'mkpaperScore': choiceQuestion.totalScoreForType + shortAnswerQuestion.totalScoreForType + singleChoiceQuestion.totalScoreForType + blankQuestion.totalScoreForType + judgeQuestion.totalScoreForType+"",
         'mkpaperExtime': $("#duration").val(),  //$("#duration").val(),
         'paperName': $("#paperTip").val()
     };

@@ -10,12 +10,21 @@ import sei.tk.service.dao.model.TkMkpaperrule;
 public class Robotmk {
     private TkMkpaper tkMkpaper;
     private TkMkpaperrule[] Mkpaperrules;
+//    private Short mkpaperScore;
+//
+//    public Short getMkpaperScore() {
+//        return mkpaperScore;
+//    }
+//
+//    public void setMkpaperScore(Short mkpaperScore) {
+//        this.mkpaperScore = mkpaperScore;
+//    }
 
-    public TkMkpaper getTkMkpaper() {
-        return tkMkpaper;
-    }
     public void setTkMkpaper(TkMkpaper tkMkpaper) {
         this.tkMkpaper = tkMkpaper;
+    }
+    public TkMkpaper getTkMkpaper() {
+        return tkMkpaper;
     }
 
     public TkMkpaperrule[] getTkMkpaperrules() {

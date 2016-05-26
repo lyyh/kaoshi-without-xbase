@@ -128,8 +128,8 @@ $("document").ready(function () {
                 );
                 $.each(data, function (index, objs) {
                     $("#SubList").append(
-                        "<p>" + objs.subjectName + "</p>"
-                        + "<p>" + objs.subjectOption + "</p>"
+                        "<p>" + data.subjects[0].subjectName + "</p>"
+                        + "<p>" + objs.subjects[0].subjectOption + "</p>"
                     );
 
                 })
