@@ -1,0 +1,22 @@
+.container{
+    height: 80%;
+}
+.my-row{
+    line-height: 40px;
+    font-size: 25px;
+}
+.my-row p{
+    margin-left: 25px;
+}
+.ques-type{
+}
+.modal-body{
+    text-align: left; !important;
+}
+.header{
+    text-align: left;
+    background-color: #efeeee;
+    height: 50px;
+    line-height: 50px;
+    border-bottom: 1px solid #ddd;
+}

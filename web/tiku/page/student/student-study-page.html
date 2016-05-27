@@ -103,8 +103,8 @@
         </div>
     </div>
 
-    <!--查看题目的模态框-->
-    <div class="modal fade" id="show-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <!--查看结果的模态框-->
+    <div class="modal fade" id="show-result" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" style="width: 67%;min-width: 850px">
             <div class="modal-content">
@@ -114,14 +114,48 @@
                         &times;
                     </button>
                     <h4 class="modal-title">
-                        查看题目
+                        答题情况
                     </h4>
                 </div>
                 <div class="modal-body">
-
+                    <p class="ques-correct">
+                        正确:
+                    <a>
+                        第一题
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </a>
+                    <a>
+                        第二题
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </a>
+                    <a>
+                        第三题
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </a>
+                    <a>
+                        第四题
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    </a>
+                    </p>
+                    <p class="ques-wrong">
+                        错误:
+                    <a class="false">
+                        第五题
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </a>
+                    <a class="false">
+                        第六题
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </a>
+                    <a class="false">
+                        第七题
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </a>
+                    </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn sure" data-dismiss="modal">确定</button>
+                    <button type="button" class="btn continue-study" data-dismiss="modal">继续学习</button>
+                    <button type="button" class="btn check-analysis">查看解析</button>
                 </div>
             </div>
         </div>

@@ -39,3 +39,21 @@
 .ques-option input{
     outline: none;
 }
+.modal-body{
+    text-align: left;
+}
+.modal-body a{
+    text-decoration: none;
+}
+.modal-body .false{
+    color: #e93a35;
+}
+.sure{
+    float:right; !important;
+}
+.answer-wrong{
+    color: #e93a35;
+}
+.answer-correct{
+    color: #00ee00;
+}

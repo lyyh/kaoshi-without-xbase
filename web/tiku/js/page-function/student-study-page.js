@@ -46,6 +46,7 @@ $("document").ready(function () {
     //     $(this).siblings().find("input[type='radio']").attr("checked","checked");
     //     // $(this).find("input[type='radio']").attr("checked","checked");
     // });
+    //提交
     $(".submit").click(function () {
         $("#tip .modal-body").html("");
         $("#tip .modal-body").html("确定要提交吗");
@@ -56,16 +57,16 @@ $("document").ready(function () {
             keyboard:false,
             backdrop:"static"
         })
+        //是否提交(确认按钮)
         $("#sure").click(function () {
             $.ajax({
-                url:"/tiku/page/student/student-study-result.html",
+                url:"/tiku/page/student/student-study-page.html",
                 type:"get",
                 dataType:"html",
-                // beforeSend:function () {
-                //     var a = $("#tip").find(".modal-body");
-                //     a.html("<p>正在处理</p>");
-                //     $('#tip').modal({backdrop: 'static', keyboard: false});
-                // },
+                beforeSend:function () {
+                    $("#tip .modal-body").html("");
+                    $("#tip .modal-body").html("正在处理");
+                },
                 error: function (request) {
                     var a = $("#tip").find(".modal-body");
                     a.html("<p>网络错误</p>");
@@ -75,16 +76,43 @@ $("document").ready(function () {
                     $("#tip").modal("toggle");
                     $("#tip .modal-footer").html("");
                     $("#tip .modal-footer").html("<button type='button' class='btn bg-primary' id='sure' data-dismiss='modal'>确定</button>");
-                    
-                    $(".totalContainer").html("");
-                    $(".totalContainer").html(data);
+                    $("#show-result").modal({
+                        backdrop:"static",
+                        keyboard:false
+                    })
                 }
             })
         })
+        //是否提交(取消按钮)
         $("#cancel").click(function () {
             $("#tip").modal("toggle");
             $("#tip .modal-footer").html("");
             $("#tip .modal-footer").html("<button type='button' class='btn bg-primary' id='sure' data-dismiss='modal'>确定</button>");
+        })
+    })
+    
+    //查看解析
+    $(".check-analysis").click(function () {
+        $.ajax({
+            url:"/ExamInfo/getPaperInfoDetails.do",  //要修改
+            type:"post",
+            dataType:"json",
+            data:{
+                
+            },
+            beforeSend:function () {
+                $("#show-result .modal-body").html("");
+                $("#show-result .modal-body").html("正在处理");
+            },
+            error: function (request) {
+                var a = $("#show-result").find(".modal-body");
+                a.html("<p>网络错误</p>");
+                $('#show-result').modal({backdrop: 'static', keyboard: false});
+            },
+            success:function (data) {
+                $("#show-result").modal("toggle");
+                //交互
+            }
         })
     })
 });
