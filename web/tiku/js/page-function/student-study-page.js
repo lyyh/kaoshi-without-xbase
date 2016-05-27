@@ -6,6 +6,18 @@
 var myContent;
 op = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
+function getBlankAnswers(answer){
+    var arr=answer.split("@#%");
+    console.log(arr);
+    var num=0;
+    for(var i=0;i<arr.length;i++){
+        if(arr[i]!=''){
+            num++;
+        }
+    }
+    return num;
+}
+
 function checkAnswers(){
     var answercheck=[];
     answercheck[0]=[];//正确
@@ -93,9 +105,10 @@ $("document").ready(function () {
         for(var i=0;i<sbjs.length;i++){
             if(sbjs[i].quetypeId==3){
                 var answers=sbjs[i].subjectAnswer.split('@#%');
-                console.log(answers);
-                for(var j= 0,k=0;j<answers.length;j++){
+                //console.log(answers);
+                for(var j= 0,k=0;j<getBlankAnswers(sbjs[i].subjectAnswer);j++){
                     if(answers[j]!=''){
+                        //alert(answers[j]);
                         $('.question:eq('+i+')').find('.inputAs:eq('+k+')').find('.sta-answer').append(answers[j]);
                         k++;
                     }
@@ -118,8 +131,8 @@ function setItems(result) {
     var items = result.data.rows;
     sbjs=[];
     //var type=$("#selectTypeId option:selected").html();
-    for(var i=0;i<items.length;i++){
-        sbjs[i]={
+    for(var i= 0,r=0;i<items.length;i++,r++){
+        sbjs[r]={
             subjectId:items[i].subjectId,
             quetypeId:items[i].quetypeId,
             subjectAnswer:items[i].subjectAnswer,
@@ -135,7 +148,7 @@ function setItems(result) {
                 }
                 //alert(options);
             }
-            $(".subjects").append('<div class="question"><div class="ques-header"><h3><span class="ques-id">习题'+(i+1)+'</span><span class="ques-type">(单选题)</span><span class="sta-answer"> </h3> </div> <div class="ques-name">'+items[i].subjectName+'</div><div class="ques-option">'+options+'</div><div class="analysis"></div></div>');
+            $(".subjects").append('<div id="que'+i+'" class="question"><div class="ques-header"><h3><span class="ques-id">习题'+(i+1)+'</span><span class="ques-type">(单选题)</span><span class="sta-answer"> </h3> </div> <div class="ques-name">'+items[i].subjectName+'</div><div class="ques-option">'+options+'</div><div class="analysis"></div></div>');
         }else if(items[i].quetypeId==5){
             var options="";
             var soptions=items[i].subjectOption.split("@#%");
@@ -146,16 +159,19 @@ function setItems(result) {
                 }
                 //alert(options);
             }
-            $(".subjects").append('<div class="question"><div class="ques-header"><h3><span class="ques-id">习题'+(i+1)+'</span><span class="ques-type">(多选题)</span><span class="sta-answer"></span> </h3> </div> <div class="ques-name">'+items[i].subjectName+'</div><div class="ques-option">'+options+'</div><div class="analysis"></div></div>');
+            $(".subjects").append('<div id="que'+i+'" class="question"><div class="ques-header"><h3><span class="ques-id">习题'+(i+1)+'</span><span class="ques-type">(多选题)</span><span class="sta-answer"></span> </h3> </div> <div class="ques-name">'+items[i].subjectName+'</div><div class="ques-option">'+options+'</div><div class="analysis"></div></div>');
         }else if(items[i].quetypeId==2){
-            $(".subjects").append('<div class="question"><div class="ques-header"><h3><span class="ques-id">习题'+(i+1)+'</span><span class="ques-type">(判断题)</span><span class="sta-answer"></span></h3></div><div class="ques-name">'+items[i].subjectName+'</div><div class="ques-option"><p><input type="radio" value="1" name="radio_'+i+'">正确</p> <p><input type="radio" value="0" name="radio_'+i+'">错误</p> </div><div class="analysis"></div> </div>')
+            $(".subjects").append('<div id="que'+i+'" class="question"><div class="ques-header"><h3><span class="ques-id">习题'+(i+1)+'</span><span class="ques-type">(判断题)</span><span class="sta-answer"></span></h3></div><div class="ques-name">'+items[i].subjectName+'</div><div class="ques-option"><p><input type="radio" value="1" name="radio_'+i+'">正确</p> <p><input type="radio" value="0" name="radio_'+i+'">错误</p> </div><div class="analysis"></div> </div>')
         }else if(items[i].quetypeId==3){
-            var blankNum=items[i].subjectAnswer.split("@#%").length-1;
+            var blankNum=getBlankAnswers(items[i].subjectAnswer);
+            alert(blankNum);
             var blanks="";
             for(var j=0;j<blankNum;j++){
                 blanks+='<div class="inputAs">'+(j+1)+'.<input type="text"><span class="sta-answer"></span></div>'
             }
             $(".subjects").append('<div class="question"><div class="ques-header"><h3><span class="ques-id">习题'+(i+1)+'</span><span class="ques-type">(填空题)</span></h3></div><div class="ques-name">'+items[i].subjectName+'</div><div class="ques-blank">'+blanks+'</div><div class="analysis"></div> </div>');
+        }else{
+            r--;
         }
     }
     $('<div class="btn btn-success submit">提交</div>').appendTo(".container");
