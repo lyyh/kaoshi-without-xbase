@@ -5,7 +5,7 @@
     float: right;
 }
 .container{
-    width: 90%;
+    width: 95%;
     text-align: left;
 }
 .ques-header{
@@ -32,9 +32,13 @@
     right: 0px;
     top: 20px;
 }
-.ques-option div:hover{
+
+.ques-option p:hover{
     background-color: #ddd;
     cursor: pointer;
+}
+.ques-option p input{
+    margin: 0px; !important;
 }
 .ques-blank input{
     outline: none;
@@ -68,4 +72,22 @@
 .analysis{
     text-align: justify;
     color: #C76F1B;
+}
+.submit{
+    width: 100px;
+}
+.instruction{
+    height: 100px;
+    line-height: 100px;
+    background:transparent;
+    font-size: 40px;
+    text-align: center;
+}
+.icon{
+    width: 790px;
+    height: 450px;
+    display: block;
+    margin: 0 auto;
+    background: url("/tiku/img/icon1.png");
+    background-size: cover;
 }
