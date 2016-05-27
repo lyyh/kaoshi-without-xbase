@@ -45,12 +45,20 @@ public class PaperServiceimpl  implements PaperService {
             p.setTimeString(DateFormat.DateToString(p.getPpassportTime(), "yyyy-MM-dd"));
             p.setPaperName(LittleUtil.filterImg(p.getPaperName()));
         }
+
+
+
         return new Page(paperInfos,paperInfoMapper.countPaperInfo(paperInfo));
         }
     public PaperInfo selectpaperinfobyId(Long  testpaperId){
        PaperInfo paperInfo= paperInfoMapper.selectById(testpaperId);
         List<TkSubjectWithBLOBs> subjects=paperInfoMapper.selectSubjects(testpaperId); // 这里做了更改
         paperInfo.setSubjects(subjects);
+         List<TkSubjectWithBLOBs> list=paperInfo.getSubjects();
+           for(TkSubjectWithBLOBs temp:list){
+               String stringtemp=temp.getSubjectOption().replaceAll("@#%","<br>");
+                temp.setSubjectOption(stringtemp);
+           }
         return paperInfo;
     }
     public int deletePaperBatch(Long[] testpaperIds){
@@ -95,7 +103,7 @@ public class PaperServiceimpl  implements PaperService {
         if (testscheduleMapper.selectByExample(tkTestscheduleExample)==null | testscheduleMapper.selectByExample(tkTestscheduleExample).size()==0) {
             tkTestsubjectMapper.deletebytestpaperid(testpaperId);
             tkTestpaperMapper.deleteByPrimaryKey(testpaperId);
-            tkMkpaperruleMapper.deleteByPrimaryKey(mkpaperid);
+            tkMkpaperruleMapper.deletebymkpaperid(mkpaperid);
             tkMkpaperMapper.deleteByPrimaryKey(mkpaperid);
             return true;
         }

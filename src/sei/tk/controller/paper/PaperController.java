@@ -83,7 +83,4 @@ public class PaperController extends TkBaseController{
 
     return paperService.updatepaper(paperUp.getTkMkpaper(),paperUp.getTkTestsubject(),paperUp.getTkTestpaper());
     }
-
-
-
 }

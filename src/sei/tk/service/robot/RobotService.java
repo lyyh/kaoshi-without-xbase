@@ -21,6 +21,8 @@ public interface RobotService {
         int getcourseId(TkMkpaperrule tkMkpaperrule);  //根据制卷id得到课程id
         LinkedList<Question> getmakePaper(TkMkpaperrule[] tkMkpaperrules); //根据制卷规则 得到题目的一些条件 用于找出题目
         List<TkSubject> robotmakepaper(LinkedList<Question> questions);   //机器制卷  得到所需要的所有
+        void delete(Long mkpaperId);//制卷失败时 删除规则和 makpaper
+
         /**
          * 制卷
          */

@@ -268,7 +268,7 @@ public class RobotServiceImpl implements RobotService {
 //        }
 
 
-        for (int i = 1; i < typeAmount && questionAmout[i] != 0; i++) {//外层是用来遍历题型的
+        for (int i = 1; i < typeAmount && questionAmout[i] != 0; ) {//外层是用来遍历题型的
             knopointAount = knopointList[i].length;//获取该题型下知识点数量
             for (int j = 1; j <= knopointAount && questionAmout[i] != 0; j++) {//中层遍历知识点
                 for (int k = 1; k <= levelAmount && questionAmout[i] != 0; k++) {//内层遍历难度
@@ -365,5 +365,8 @@ public class RobotServiceImpl implements RobotService {
         }
         return list;
     }
-
+    public void delete(Long mkpaperId){
+        tkMkpaperruleMapper.deletebymkpaperid(mkpaperId);
+        tkMkpaperMapper.deleteByPrimaryKey(mkpaperId);
+    }
 }

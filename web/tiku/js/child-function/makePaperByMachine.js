@@ -642,12 +642,13 @@ $("#editNewRuleFS").click(function () {
  * 制卷
  */
 $("#makePaper").click(function () {
+
     var details = {
-        'courseId': 1,//$("#course")[0].name,
+        'courseId': $("#course")[0].name,//$("#course")[0].name,
         'mkpaperTerm': $("#semesterYear").val() + $("#semesterTerm").val(),
-        'mkpaperExtime': 60,  //$("#duration").val(),
-        'paperName': $("#paperTip").val(),
-        'mkpaperScore': 1    //把总分加上
+        'mkpaperScore': choiceQuestion.totalScoreForType + shortAnswerQuestion.totalScoreForType + singleChoiceQuestion.totalScoreForType + blankQuestion.totalScoreForType + judgeQuestion.totalScoreForType+"",
+        'mkpaperExtime': $("#duration").val(),  //$("#duration").val(),
+        'paperName': $("#paperTip").val()
     };
 
     var rule = [

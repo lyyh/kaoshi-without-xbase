@@ -71,7 +71,7 @@ public class LabourMkController extends TkBaseController{
     @NeedLogin(TkConfig.ROLE_TEACHER)
     public Object insertLabourPaper(HttpSession session,String courseName,String duration,String semesterTerm,
                                     String questionAndScore,String mkpaperType,String score,String note){
-        SessionPassport sessionPassport=(SessionPassport)session.getAttribute("sessionTeacher");
+        SessionPassport sessionPassport=(SessionPassport)session.getAttribute("sessionPassport");
         //判断制卷内容是否完整
         HasValueUtil.hasValue(courseName,duration,semesterTerm,questionAndScore,mkpaperType,score);
         TkMkpaper tkMkpaper = new TkMkpaper();
