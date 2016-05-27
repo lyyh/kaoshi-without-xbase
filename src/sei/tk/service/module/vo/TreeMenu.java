@@ -12,6 +12,7 @@ public class TreeMenu {
     private int id;//菜单节点id
     private String text;//菜单名称
     private int state;//菜单状态
+    private String url;//url
     private List<TreeMenu> children;//子菜单
     private int pid;//父菜单
     private Map<String,Object> attributes;
@@ -71,5 +72,13 @@ public class TreeMenu {
 
     public void setPid(int pid) {
         this.pid = pid;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
