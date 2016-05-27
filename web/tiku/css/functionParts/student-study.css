@@ -32,9 +32,13 @@
     right: 0px;
     top: 20px;
 }
+
 .ques-option p:hover{
     background-color: #ddd;
     cursor: pointer;
+}
+.ques-option p input{
+    margin: 0px; !important;
 }
 .ques-blank input{
     outline: none;

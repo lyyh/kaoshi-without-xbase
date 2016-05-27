@@ -42,12 +42,21 @@ $("document").ready(function () {
             }
         });
     });
-    
+
+    //增加选择框的效果
     $(".ques-option p").click(function () {
-        alert($(this).find("input[type='radio']").attr("checked"))
-        console.log($(this).siblings().find("input[type='radio']"))
-        $(this).find("input[type=radio]").prop("checked",true);
+        if($(this).find("input").attr("type")=="radio") {
+            $(this).find("input[type=radio]").prop("checked", true);
+        }else if($(this).find("input").attr("type") == "checkbox"){
+            alert($(this).find("input[type=checkbox]").prop("checked"))
+            if($(this).find("input[type=checkbox]").prop("checked")){
+                $(this).find("input[type=checkbox]").attr("checked",false);
+            }
+            $(this).find("input[type=checkbox]").attr("checked",true);
+        }
     });
+    
+    
     //提交
     $(".submit").click(function () {
         $("#tip .modal-body").html("");
