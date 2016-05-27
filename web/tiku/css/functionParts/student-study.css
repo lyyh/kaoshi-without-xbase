@@ -5,7 +5,7 @@
     float: right;
 }
 .container{
-    width: 90%;
+    width: 95%;
     text-align: left;
 }
 .ques-header{
@@ -75,4 +75,16 @@
 }
 .submit{
     width: 100px;
+}
+.instruction{
+    height: 100px;
+    line-height: 100px;
+    background:transparent;
+    font-size: 40px;
+    text-align: center;
+}
+.icon{
+    height: 500px;
+    background: url("/tiku/img/icon.jpg") no-repeat;
+    background-size: cover;
 }
