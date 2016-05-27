@@ -5,49 +5,70 @@
  */
 var myContent;
 
-$("document").ready(function () {
-    table.page({
-        pageurl: "/subject/list.do",
-        pagedata: {
-            page: 1,
-            rows: 10,
+function getCourses(getKno){
+    $.ajax({
+        url:"/subjectReference/getAllCourse.do",
+        type:"get",
+        dataType:"json",
+        success:function(result){
+            $("#selectCourseId").html("");
+            var items=result.data;
+            for(var i=0;i<items.length;i++) {
+                $("#selectCourseId").append('<option value="' + items[i].courseId + '">' + items[i].courseName + '</option>');
+            }
+            getKno();
         }
     });
-    $("#luti-op").change(function () {
-        var type = $("#luti-op option:selected").val();
-        var subjectName=$(".search input").val();
-        table.page({
-            pageurl: "/subject/list.do",
-            pagedata: {
-                type: type,
-                subjectName: subjectName,
-                page: 1,
-                rows: 10,
-            }
-        });
-    });
+}
 
-    //搜索框
-    $(".begin").click(function(){
-        var subjectName=$(".search input").val();
-        var type = $("#luti-op option:selected").val();
-        if(subjectName=='')subjectName=null;
+function bindBeginstudy(){
+    $("#beginstudy").click(function(){
+        var courseId=$("#selectCourseId option:selected").val();
+        var knoid=$("#selectKnopointId option:selected").val();
+        var quetypeId=$("#selectTypeId option:selected").val();
+        if(quetypeId==0){
+            quetypeId=null;
+        }
+        if(knoid==0){
+            knoid=null;
+        }
         table.page({
-            pageurl: "/subject/list.do",
+            pageurl: "/study/getsubjects.do",
             pagedata: {
-                subjectName: subjectName,
-                type:type,
+                courseId:courseId,
+                knopointId:knoid,
+                quetypeId:quetypeId,
                 page: 1,
                 rows: 10,
             }
         });
     });
-    
-    $(".ques-option p").click(function () {
-        alert($(this).find("input[type='radio']").attr("checked"))
-        console.log($(this).siblings().find("input[type='radio']"))
-        $(this).find("input[type=radio]").prop("checked",true);
+}
+
+function getKnopoints(bindBtn){
+    var courseId=$("#selectCourseId option:selected").val();
+    $.ajax({
+        url:"/subjectReference/getKnopoint.do",
+        type:"get",
+        dataType:"json",
+        data:{
+            courseId:courseId,
+        },
+        success:function(result){
+            var items=result.data;
+            $("#selectKnopointId").html("<option value='0'>全部</option>");
+            for(var i=0;i<items.length;i++) {
+                $("#selectKnopointId").append('<option value="' + items[i].knopointId + '">' + items[i].knopointName + '</option>');
+            }
+            bindBtn();
+        }
     });
+}
+
+$("document").ready(function () {
+
+    getCourses(function(){getKnopoints(bindBeginstudy)});
+
     //提交
     $(".submit").click(function () {
         $("#tip .modal-body").html("");
@@ -122,22 +143,57 @@ $("document").ready(function () {
 });
 
 function setItems(result) {
-    $("#neirong").html('');
+    $(".container").html('');
     var items = result.data.rows;
-    for (var i = 0; i < items.length; i++) {
-        var difficulty = (items[i].levelId == 1) ? '简单' : ((items[i].levelId == 2) ? '中等' : '困难');
-        $("#neirong").append('<tr><td><input value="' + items[i].subjectId + '" type="checkbox" name="checkname"></td><td>' + items[i].subjectId + '</td><td>' + items[i].subjectName + '</td><td>' + items[i].passportName + '</td><td>' + items[i].knopoint + '</td><td>' + difficulty + '</td><td>' + items[i].createTimeString + '</td></tr>');
-    }
-    //表格选择
-    $("#neirong tr").click(function (e) {
-        var input = $(this).find("input[name=checkname]");//获取checkbox
-        if ($(e.target).attr("type") != "checkbox") {
-            //判断当前checkbox是否为选中状态
-            if (input.is(":checked")) {
-                input.prop("checked", false);
-            } else {
-                input.prop("checked", true);
+    sbjs=[];
+    var type=$("#selectTypeId option:selected").html();
+    for(var i=0;i<items.length;i++){
+        sbjs[items[i].subjectId]={
+            subjectId:items[i].subjectId,
+            subjectAnswer:items[i].subjectAnswer,
+            subjectSolution:items[i].subjectSolution
+        };
+        if(items[i].quetypeId==1){
+            var options="";
+            var soptions=items[i].subjectOption.split("@#%");
+            for(var j=0;j<soptions.length;j++){
+                if(soptions[j]!=""){
+                    options+='<div><input type="radio" name="radio_'+i+'">'+soptions[j]+'</div>';
+                }
+                //alert(options);
             }
+            $(".container").append('<div class="question"><div class="ques-header"><h3><span class="ques-id">习题'+(i+1)+'</span><span class="ques-type">(单选题)</span> </h3> </div> <div class="ques-name">'+items[i].subjectName+'</div><div class="ques-option">'+options+'</div><div class="analysis"></div></div>');
+        }else if(items[i].quetypeId==5){
+            var options="";
+            var soptions=items[i].subjectOption.split("@#%");
+            for(var j=0;j<soptions.length;j++){
+                if(soptions[j]!=""){
+                    options+='<div><input type="checkbox" name="checkbox_'+i+'">'+soptions[j]+'</div>';
+                }
+                //alert(options);
+            }
+            $(".container").append('<div class="question"><div class="ques-header"><h3><span class="ques-id">习题'+(i+1)+'</span><span class="ques-type">(多选题)</span><span class="sta-answer"></span> </h3> </div> <div class="ques-name">'+items[i].subjectName+'</div><div class="ques-option">'+options+'</div><div class="analysis"></div></div>');
+        }else if(items[i].quetypeId==2){
+            $(".container").append('<div class="question"><div class="ques-header"><h3><span class="ques-id">习题'+(i+1)+'</span><span class="ques-type">(判断题)</span><span class="sta-answer"></span></h3></div><div class="ques-name">'+items[i].subjectName+'</div><div class="ques-option"><p><input type="radio" value="1" name="radio_'+i+'">正确</p> <p><input type="radio" value="0" name="radio_'+i+'">错误</p> </div><div class="analysis"></div> </div>')
+        }else if(items[i].quetypeId==3){
+            var blankNum=items[i].subjectAnswer.split("@#%").length;
+            var blanks="";
+            for(var j=0;j<blankNum;j++){
+                blanks+='<div>'+(j+1)+'.<input type="text"></div>'
+            }
+            $(".container").append('<div class="question"><div class="ques-header"><h3><span class="ques-id">习题'+(i+1)+'</span><span class="ques-type">(填空题)</span></h3></div><div class="ques-name">'+items[i].subjectName+'</div><div class="ques-blank">'+blanks+'</div><div class="analysis"></div> </div>');
         }
-    })
+    }
+    //增加选择框的效果
+    $(".ques-option div").click(function () {
+        if($(this).find("input").attr("type")=="radio") {
+            $(this).find("input[type=radio]").prop("checked", true);
+        }else if($(this).find("input").attr("type") == "checkbox"){
+            alert($(this).find("input[type=checkbox]").prop("checked"))
+            if($(this).find("input[type=checkbox]").prop("checked")){
+                $(this).find("input[type=checkbox]").attr("checked",false);
+            }
+            $(this).find("input[type=checkbox]").attr("checked",true);
+        }
+    });
 }
