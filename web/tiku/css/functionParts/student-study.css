@@ -84,7 +84,10 @@
     text-align: center;
 }
 .icon{
-    height: 500px;
-    background: url("/tiku/img/icon.jpg") no-repeat;
+    width: 790px;
+    height: 450px;
+    display: block;
+    margin: 0 auto;
+    background: url("/tiku/img/icon1.png");
     background-size: cover;
 }
