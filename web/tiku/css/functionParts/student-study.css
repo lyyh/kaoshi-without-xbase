@@ -68,6 +68,10 @@
 .sta-answer{
     float: right;
     color: #00a0e9;
+    max-width: 500px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .analysis{
     text-align: justify;

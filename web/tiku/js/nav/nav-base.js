@@ -4,6 +4,46 @@
 var state = 0;
 
 $(document).ready(function () {
+    /**
+     * 动态生成菜单
+     */
+    function createMenu() {
+        $.ajax({
+            url:"/api/modules/menuList.do",
+            type:"get",
+            dataType:"json",
+            success:function (result) {
+                if(result.code=='2001'){
+                    alert(result.msg);
+                    window.location.href="/tiku/page/util/login.html";
+                    return;
+                }else if(result.code!='1001'){
+                    alert(result.msg);
+                    return;
+                }
+                $(".navigation").html("");
+                var menus = "<ul><li class='pushButton'><span class='glyphicon glyphicon-chevron-right'></span></li>";
+                $.each(result["data"],function (index,item) {
+                    menus += "<li><span class='"+item["moduleCode"]+"'></span><span class='functionName'>"+item["text"]+"</span></li>"
+                    if(item["children"].length!=0) {
+                        // menus += "<li><span class='"+item["moduleCode"]+"'></span><span class='functionName'>"+item["text"]+"</span></li>"
+                        menus += "<li class='childFunction'><ul>"
+                        $.each(item["children"],function (index,data) {
+                            // menus += "<li><span class='"+data["moduleCode"]+"'></span><span class='functionName'>"+item["text"]+"</span></li> <li class="teacher-makePaperByMachine">
+                            //     <span class="glyphicon glyphicon-wrench"></span>
+                            //     <span class="functionName">机械制卷</span>
+                            //     </li>
+                            //     </ul>
+                            //     </li>"
+                        })
+                    }
+                })
+                $(".navigation").append("<ul>")
+            }
+        });
+    }
+    createMenu();
+
     /***
      * 登录初始化信息
      */
@@ -108,4 +148,5 @@ $(document).ready(function () {
     }).mouseleave(function () {
         $(this).find("span:eq(0)").stop().animate({'font-size': '13px'}, 100);
     });
+
 });
