@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import sei.tk.controller.common.TkBaseController;
 import sei.tk.service.dao.model.TkSubject;
 import sei.tk.service.study.DoSubjectService;
 import sei.tk.util.LittleUtil;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/study")
-public class DoSubjectController {
+public class DoSubjectController extends TkBaseController{
     @Resource
     DoSubjectService doSubjectService;
     @RequestMapping("/getnums")

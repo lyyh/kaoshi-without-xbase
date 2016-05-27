@@ -13,6 +13,7 @@ public class TreeMenu {
     private String text;//菜单名称
     private int state;//菜单状态
     private String url;//url
+    private String moduleCode;
     private List<TreeMenu> children;//子菜单
     private int pid;//父菜单
     private Map<String,Object> attributes;
@@ -80,5 +81,13 @@ public class TreeMenu {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getModuleCode() {
+        return moduleCode;
+    }
+
+    public void setModuleCode(String moduleCode) {
+        this.moduleCode = moduleCode;
     }
 }

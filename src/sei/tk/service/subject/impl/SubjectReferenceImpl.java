@@ -38,7 +38,7 @@ public class SubjectReferenceImpl implements SubjectReference {
         TkKnopointExample tkKnopointExample = new TkKnopointExample();
         TkKnopointExample.Criteria criteria = tkKnopointExample.createCriteria();
         criteria.andCourseIdEqualTo(courseId);
-        criteria.andChapterIdEqualTo(chapterId);
+//        criteria.andChapterIdEqualTo(chapterId);
         List<TkKnopoint> tkKnopointList = tkKnopointMapper.selectByExample(tkKnopointExample);
         return tkKnopointList;
     }
