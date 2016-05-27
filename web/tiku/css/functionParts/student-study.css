@@ -4,3 +4,38 @@
 .begin{
     float: right;
 }
+.container{
+    width: 90%;
+    text-align: left;
+}
+.ques-header{
+    border-bottom: 1px solid #cccccc;
+    color: #9a9a9a;
+}
+.ques-name{
+    text-align: justify;
+    margin-bottom: 15px;
+}
+.question{
+    border-bottom: 1px solid #cccccc;
+    font-size: 18px;
+}
+/*.ques-option p:hover{*/
+    /*background-color: #9a9a9a;*/
+    /*cursor: pointer;*/
+/*}*/
+.page-footer{
+    text-align: center;
+    position: relative;
+}
+.pagination{
+    display: inline-block;
+}
+.submit{
+    position: absolute;
+    right: 0px;
+    top: 20px;
+}
+.ques-option input{
+    outline: none;
+}
