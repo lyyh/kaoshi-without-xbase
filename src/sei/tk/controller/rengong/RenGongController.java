@@ -44,6 +44,7 @@ public class RenGongController {
     @RequestMapping("/rg_getByKpoint")
     public List<TkSubjectWithBLOBs> getByKpoint( Short courseId,@RequestParam(required = false) Byte chapterId , Long knopointId, Byte levelId, Short quetypeId){
                      knopointId=knopointId==0?null:knopointId;
+                    levelId=levelId==0?null:levelId;
         List<TkSubjectWithBLOBs> list= renGongService.getByKpoint(courseId,chapterId,knopointId,levelId,quetypeId);
 
         return list;
