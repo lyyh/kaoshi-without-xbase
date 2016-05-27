@@ -10,7 +10,7 @@ $("document").ready(function () {
         pageurl: "/subject/list.do",
         pagedata: {
             page: 1,
-            rows: 15,
+            rows: 10,
         }
     });
     $("#luti-op").change(function () {
@@ -22,11 +22,13 @@ $("document").ready(function () {
                 type: type,
                 subjectName: subjectName,
                 page: 1,
-                rows: 15,
+                rows: 10,
             }
         });
     });
-    $("#search-btn").click(function(){
+
+    //搜索框
+    $(".begin").click(function(){
         var subjectName=$(".search input").val();
         var type = $("#luti-op option:selected").val();
         if(subjectName=='')subjectName=null;
@@ -36,7 +38,7 @@ $("document").ready(function () {
                 subjectName: subjectName,
                 type:type,
                 page: 1,
-                rows: 15,
+                rows: 10,
             }
         });
     });
@@ -57,6 +59,7 @@ $("document").ready(function () {
             keyboard:false,
             backdrop:"static"
         })
+
         //是否提交(确认按钮)
         $("#sure").click(function () {
             $.ajax({
@@ -83,6 +86,7 @@ $("document").ready(function () {
                 }
             })
         })
+        
         //是否提交(取消按钮)
         $("#cancel").click(function () {
             $("#tip").modal("toggle");
@@ -94,7 +98,7 @@ $("document").ready(function () {
     //查看解析
     $(".check-analysis").click(function () {
         $.ajax({
-            url:"/ExamInfo/getPaperInfoDetails.do",  //要修改
+            url:"/tiku/page/student/student-study-result.html",  //这里要修改
             type:"post",
             dataType:"json",
             data:{
@@ -111,7 +115,7 @@ $("document").ready(function () {
             },
             success:function (data) {
                 $("#show-result").modal("toggle");
-                //交互
+                //我是交互
             }
         })
     })
