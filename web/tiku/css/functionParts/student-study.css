@@ -33,7 +33,7 @@
     top: 20px;
 }
 
-.ques-option p:hover{
+.ques-option div:hover{
     background-color: #ddd;
     cursor: pointer;
 }

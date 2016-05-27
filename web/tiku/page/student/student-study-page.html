@@ -17,21 +17,23 @@
             </select>
             选择题型:
             <select id="selectTypeId" class="form-control input-sm" style="display: inline-block">
-                <option value="0">单选题</option>
-                <option value="1">多选题</option>
+                <option value="0">全部</option>
+                <option value="1">单选题</option>
+                <option value="5">多选题</option>
                 <option value="2">判断题</option>
                 <option value="3">填空题</option>
             </select>
         </div>
-        <input class="btn btn-primary begin" type="button" value="开始学习"/>
+        <input id="beginstudy" class="btn btn-primary begin" type="button" value="开始学习"/>
     </div>
     <div class="table-container">
         <div class="container">
-            <div class="instruction">
+            <div class="subjects"><div class="instruction">
                 请选择科目,知识点,题型后点击开始学习
             </div>
-            <div class="icon">
-                <!--<img src="/tiku/img/icon1.png" alt="">-->
+                <div class="icon">
+                    <!--<img src="/tiku/img/icon1.png" alt="">-->
+                </div>
             </div>
             <!--<div class="question">-->
                 <!--<div class="ques-header">-->
@@ -107,8 +109,8 @@
                 <!--<div class="analysis">解析:<span>我是解析我是解析我是解析我是解析我是解析我是解析我是解析我是解析我是解析我是解析我是解析我是解析我是解析我是解析我是解析我是解析我是解析我是解析我是解析</span></div>-->
             <!--</div>-->
             <!--<div class="page-footer">-->
-            <!--<ul class="pagination">-->
-            <!--</ul>-->
+            <ul class="pagination">
+            </ul>
                 <!--<div class="btn btn-success submit">提交</div>-->
             <!--</div>-->
         </div>
