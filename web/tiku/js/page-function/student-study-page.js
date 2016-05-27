@@ -42,12 +42,12 @@ $("document").ready(function () {
             }
         });
     });
-    // $(".ques-option p").click(function () {
-    //     alert($(this).find("input[type='radio']").attr("checked"))
-    //     console.log($(this).siblings().find("input[type='radio']"))
-    //     $(this).siblings().find("input[type='radio']").attr("checked","checked");
-    //     // $(this).find("input[type='radio']").attr("checked","checked");
-    // });
+    
+    $(".ques-option p").click(function () {
+        alert($(this).find("input[type='radio']").attr("checked"))
+        console.log($(this).siblings().find("input[type='radio']"))
+        $(this).find("input[type=radio]").prop("checked",true);
+    });
     //提交
     $(".submit").click(function () {
         $("#tip .modal-body").html("");

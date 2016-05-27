@@ -32,12 +32,10 @@
     right: 0px;
     top: 20px;
 }
-/*.ques-option input{*/
-    /*outline: none;*/
-    /*border: none;*/
-    /*border-bottom: 1px solid #ddd;*/
-    /*background:transparent;*/
-/*}*/
+.ques-option p:hover{
+    background-color: #ddd;
+    cursor: pointer;
+}
 .ques-blank input{
     outline: none;
     border: none;
