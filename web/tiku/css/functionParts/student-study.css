@@ -4,3 +4,70 @@
 .begin{
     float: right;
 }
+.container{
+    width: 90%;
+    text-align: left;
+}
+.ques-header{
+    border-bottom: 1px solid #cccccc;
+    color: #9a9a9a;
+}
+.ques-name{
+    text-align: justify;
+    margin-bottom: 15px;
+}
+.question{
+    border-bottom: 1px solid #cccccc;
+    font-size: 18px;
+}
+.page-footer{
+    text-align: center;
+    position: relative;
+}
+.pagination{
+    display: inline-block;
+}
+.submit{
+    position: absolute;
+    right: 0px;
+    top: 20px;
+}
+/*.ques-option input{*/
+    /*outline: none;*/
+    /*border: none;*/
+    /*border-bottom: 1px solid #ddd;*/
+    /*background:transparent;*/
+/*}*/
+.ques-blank input{
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background:transparent;
+    width: 250px;
+}
+.modal-body{
+    text-align: left;
+}
+.modal-body a{
+    text-decoration: none;
+}
+.modal-body .false{
+    color: #e93a35;
+}
+.sure{
+    float:right; !important;
+}
+.answer-wrong{
+    color: #e93a35;
+}
+.answer-correct{
+    color: #00ee00;
+}
+.sta-answer{
+    float: right;
+    color: #00a0e9;
+}
+.analysis{
+    text-align: justify;
+    color: #C76F1B;
+}

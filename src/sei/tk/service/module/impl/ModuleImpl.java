@@ -41,6 +41,7 @@ public class ModuleImpl implements ModuleService{
                 treeMenu.setPid(module.getModulePid());
                 treeMenu.setText(module.getName());
                 treeMenu.setState(module.getStatus());
+                treeMenu.setUrl(module.getModuleUrl());
                 menuMap.put(module.getId(),treeMenu);
                 menuList.add(treeMenu);
             }
