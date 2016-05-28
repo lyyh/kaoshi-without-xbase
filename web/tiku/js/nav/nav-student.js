@@ -59,6 +59,7 @@ $(function(){
         }
     );
 
+    
     //考试系统
     $(".student-exam").click(function () {
         $.ajax({

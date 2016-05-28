@@ -8,7 +8,7 @@ op = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
 
 function getBlankAnswers(answer){
     var arr=answer.split("@#%");
-    console.log(arr);
+    console.log(arr );
     var num=0;
     for(var i=0;i<arr.length;i++){
         if(arr[i]!=''){

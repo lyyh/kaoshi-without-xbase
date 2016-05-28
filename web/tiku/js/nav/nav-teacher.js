@@ -115,7 +115,7 @@ $(function () {
         $(".childFunction:eq(0)").slideToggle(200);
         $(".teacher-paper-manage .glyphicon-chevron-down,.teacher-paper-manage .glyphicon-chevron-up").toggleClass("glyphicon-chevron-up").toggleClass("glyphicon-chevron-down");
     });
-
+    
     $(".teacher-user-operate").click(
         function () {
             $(".childFunction:not(:eq(1))").slideUp(200);
