@@ -1,4 +1,4 @@
-/*用户信息*/
+/*锟矫伙拷锟斤拷息*/
 .left-block .teacher-user-info{
     height: 170px;
     width: 195px;
@@ -6,14 +6,21 @@
     position: relative;
 }
 
-.left-block .teacher-user-icon {
+.left-block .teacher-user-icon-container {
     margin: 10px auto;
     width: 80px;
     height: 80px;
     border: 2px solid #e5e5e5;
     border-radius: 50px;
-    background: url("/tiku/img/shunping.jpg");
     background-size: 100px 80px;
+    position: relative;
+    text-align: center;
+}
+
+.left-block .teacher-user-icon {
+    margin: 5px auto;
+    font-size: 50px;
+    color: whitesmoke;
     position: relative;
 }
 
