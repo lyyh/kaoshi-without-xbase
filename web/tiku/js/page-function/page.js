@@ -4,8 +4,8 @@ var allNum = 0, //总共的条数
     pageNum = 15,   //每页条数
     allPage = Math.ceil(allNum / pageNum),  //总页数
     ul = $(".pagination");
-var table = {
 
+var table = {
     //配置
     config:{
         pageurl:"",
@@ -21,6 +21,7 @@ var table = {
 
         if(typeof newconfig === "object"){
             this.config = newconfig;
+            pageNum=this.config.pagedata.rows;
         }
         //初始化
         $.ajax({

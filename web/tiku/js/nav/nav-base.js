@@ -53,8 +53,7 @@ $(document).ready(function () {
                         $(".childFunction:eq("+pos+")").slideToggle(200);
                         $(this).find(".glyphicon-chevron-down,.glyphicon-chevron-up").toggleClass("glyphicon-chevron-up").toggleClass("glyphicon-chevron-down");
                     }
-                    
-                    var url = $(this).attr("title"); 
+                    var url = $(this).attr("title");
                     menuPage(url);
                 })
                 
@@ -108,6 +107,8 @@ $(document).ready(function () {
     function  menuPage(pageUrl) {
         if(pageUrl == "#"){
             return;
+        }else if(pageUrl == "loginOut"){
+            loginOut();
         }
         $.ajax({
             url:pageUrl,
@@ -125,7 +126,23 @@ $(document).ready(function () {
             }
         })
     }
-   
+
+    function loginOut() {
+        if (confirm("您确定要注销用户吗？")) {
+            $.ajax({
+                url:"/api/passport/authentication.do?action=out",
+                type:"post",
+                dataType:"json",
+                success:function(result){
+                    if(result.code=='1001'){
+                        window.location.href = "login.html"
+                    }else{
+                        alert(result.msg);
+                    }
+                }
+            });
+        }
+    }
 
     /***
      * 登录初始化信息
@@ -157,21 +174,4 @@ $(document).ready(function () {
         alert("更改密码")
     });
 
-    //注销用户
-    $(".cancellation").click(function () {
-        if (confirm("您确定要注销用户吗？")) {
-            $.ajax({
-                url:"/api/passport/authentication.do?action=out",
-                type:"post",
-                dataType:"json",
-                success:function(result){
-                    if(result.code=='1001'){
-                        window.location.href = "login.html"
-                    }else{
-                        alert(result.msg);
-                    }
-                }
-            });
-        }
-    });
 });
