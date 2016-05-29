@@ -5,50 +5,50 @@ var myContent;
 
 $(function(){
     //加载学生的信息
-    var student = $(".student-user[data-toggle='popover']");
-    student.popover({
-        trigger: 'manual',
-        placement: 'right',
-        title: "<div class='tool-userInfo-title'>用户信息</div>",
-        html: 'true',
-        content: "<div class='tool-userInfo'>胡凯赫<br>2014213952<br>1301415班</div>"
-    }).on("mouseenter", function () {
-        var _this = this;
-        $(this).popover("show");
-        $(this).siblings(".popover").on("mouseleave", function () {
-            $(_this).popover('hide');
-        });
-    }).on("mouseleave", function () {
-        var _this = this;
-        setTimeout(function () {
-            if (!$(".popover:hover").length) {
-                $(_this).popover("hide")
-            }
-        }, 100);
-    });
+    //var student = $(".student-user[data-toggle='popover']");
+    //student.popover({
+    //    trigger: 'manual',
+    //    placement: 'right',
+    //    title: "<div class='tool-userInfo-title'>用户信息</div>",
+    //    html: 'true',
+    //    content: "<div class='tool-userInfo'>胡凯赫<br>2014213952<br>1301415班</div>"
+    //}).on("mouseenter", function () {
+    //    var _this = this;
+    //    $(this).popover("show");
+    //    $(this).siblings(".popover").on("mouseleave", function () {
+    //        $(_this).popover('hide');
+    //    });
+    //}).on("mouseleave", function () {
+    //    var _this = this;
+    //    setTimeout(function () {
+    //        if (!$(".popover:hover").length) {
+    //            $(_this).popover("hide")
+    //        }
+    //    }, 100);
+    //});
 
     //初始化框架上部菜单栏用户消息提示框
-    var myMessage = $(".myMessage");
-    myMessage.popover({
-        trigger: 'manual',
-        placement: 'bottom',
-        title: "<div class='tool-userInfo-title'>消息</div>",
-        html: 'true',
-        content: "<div class='tool-userMessage'>胡凯赫同学，您好：<br>请您于6月27日在软件实验室B231参加Java考试</div>"
-    }).on("mouseenter", function () {
-        var _this = this;
-        $(this).popover("show");
-        $(this).siblings(".popover").on("mouseleave", function () {
-            $(_this).popover('hide');
-        });
-    }).on("mouseleave", function () {
-        var _this = this;
-        setTimeout(function () {
-            if (!$(".popover:hover").length) {
-                $(_this).popover("hide")
-            }
-        }, 100);
-    });
+    //var myMessage = $(".myMessage");
+    //myMessage.popover({
+    //    trigger: 'manual',
+    //    placement: 'bottom',
+    //    title: "<div class='tool-userInfo-title'>消息</div>",
+    //    html: 'true',
+    //    content: "<div class='tool-userMessage'>胡凯赫同学，您好：<br>请您于6月27日在软件实验室B231参加Java考试</div>"
+    //}).on("mouseenter", function () {
+    //    var _this = this;
+    //    $(this).popover("show");
+    //    $(this).siblings(".popover").on("mouseleave", function () {
+    //        $(_this).popover('hide');
+    //    });
+    //}).on("mouseleave", function () {
+    //    var _this = this;
+    //    setTimeout(function () {
+    //        if (!$(".popover:hover").length) {
+    //            $(_this).popover("hide")
+    //        }
+    //    }, 100);
+    //});
 
     //显示导航栏的子功能
     $(".student-user-operate").click(

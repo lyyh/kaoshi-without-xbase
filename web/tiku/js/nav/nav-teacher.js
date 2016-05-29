@@ -9,7 +9,7 @@ $(function () {
         placement: 'right',
         title: "<div class='tool-userInfo-title'>用户信息</div>",
         html: 'true',
-        content: "<div class='tool-userInfo'>韩顺平<br>高级工程师</div>"
+        content: "<div class='tool-userInfo'></div>"
     }).on("mouseenter", function () {
         var _this = this;
         $(this).popover("show");
@@ -26,27 +26,27 @@ $(function () {
     });
 
     //初始化框架上部菜单栏用户消息提示框
-    var myMessage = $(".myMessage");
-    myMessage.popover({
-        trigger: 'manual',
-        placement: 'bottom',
-        title: "<div class='tool-userInfo-title'>消息</div>",
-        html: 'true',
-        content: "<div class='tool-userMessage'>韩顺平老师，您好：<br>请您于6月15日前将JAVA考试题目录入完毕</div>"
-    }).on("mouseenter", function () {
-        var _this = this;
-        $(this).popover("show");
-        $(this).siblings(".popover").on("mouseleave", function () {
-            $(_this).popover('hide');
-        });
-    }).on("mouseleave", function () {
-        var _this = this;
-        setTimeout(function () {
-            if (!$(".popover:hover").length) {
-                $(_this).popover("hide")
-            }
-        }, 100);
-    });
+    //var myMessage = $(".myMessage");
+    //myMessage.popover({
+    //    trigger: 'manual',
+    //    placement: 'bottom',
+    //    title: "<div class='tool-userInfo-title'>消息</div>",
+    //    html: 'true',
+    //    content: "<div class='tool-userMessage'>韩顺平老师，您好：<br>请您于6月15日前将JAVA考试题目录入完毕</div>"
+    //}).on("mouseenter", function () {
+    //    var _this = this;
+    //    $(this).popover("show");
+    //    $(this).siblings(".popover").on("mouseleave", function () {
+    //        $(_this).popover('hide');
+    //    });
+    //}).on("mouseleave", function () {
+    //    var _this = this;
+    //    setTimeout(function () {
+    //        if (!$(".popover:hover").length) {
+    //            $(_this).popover("hide")
+    //        }
+    //    }, 100);
+    //});
 
     //学习管理
     $(".teacher-study-manage").click(function () {
