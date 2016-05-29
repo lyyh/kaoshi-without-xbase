@@ -25,14 +25,14 @@ public class SubjectReferenceController extends TkBaseController{
 
     @RequestMapping("/getAllCourse")
     @ResponseBody
-    @NeedLogin(TkConfig.ROLE_TEACHER)
+    @NeedLogin({TkConfig.ROLE_TEACHER,TkConfig.ROLE_STUDENT})
     public Object getAllCourse(HttpSession session) {//得到所有课程
         return LittleUtil.constructResponse(TkConfig.SUCCESS, "", subjectReference.getAllCourse());
     }
 
     @RequestMapping("/getKnopoint")
     @ResponseBody
-    @NeedLogin(TkConfig.ROLE_TEACHER)
+    @NeedLogin({TkConfig.ROLE_TEACHER,TkConfig.ROLE_STUDENT})
     public Object getKnopoint(HttpSession session,Short courseId,Byte chapterId) { //根据课程号得到所有知识点
         if(chapterId==null)chapterId=0;
         return LittleUtil.constructResponse(TkConfig.SUCCESS, "", subjectReference.getKnopoint(courseId, chapterId));
@@ -40,14 +40,14 @@ public class SubjectReferenceController extends TkBaseController{
 
     @RequestMapping("/getAllType")
     @ResponseBody
-    @NeedLogin(TkConfig.ROLE_TEACHER)
+    @NeedLogin({TkConfig.ROLE_TEACHER,TkConfig.ROLE_STUDENT})
     public Object getAllType(HttpSession session) {//得到所有题型
         return LittleUtil.constructResponse(TkConfig.SUCCESS, "", subjectReference.getAllType());
     }
 
     @RequestMapping("/getChapterId")
     @ResponseBody
-    @NeedLogin(TkConfig.ROLE_TEACHER)
+    @NeedLogin({TkConfig.ROLE_TEACHER,TkConfig.ROLE_STUDENT})
     public Object getChapterId(HttpSession session,Short courseId) {  //得到所有章节
         return LittleUtil.constructResponse(TkConfig.SUCCESS, "", subjectReference.getChapterId(courseId));
     }

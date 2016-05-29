@@ -164,7 +164,7 @@ function setItems(result) {
             $(".subjects").append('<div id="que'+i+'" class="question"><div class="ques-header"><h3><span class="ques-id">习题'+(i+1)+'</span><span class="ques-type">(判断题)</span><span class="sta-answer"></span></h3></div><div class="ques-name">'+items[i].subjectName+'</div><div class="ques-option"><p><input type="radio" value="1" name="radio_'+i+'">正确</p> <p><input type="radio" value="0" name="radio_'+i+'">错误</p> </div><div class="analysis"></div> </div>')
         }else if(items[i].quetypeId==3){
             var blankNum=getBlankAnswers(items[i].subjectAnswer);
-            alert(blankNum);
+            //alert(blankNum);
             var blanks="";
             for(var j=0;j<blankNum;j++){
                 blanks+='<div class="inputAs">'+(j+1)+'.<input type="text"><span class="sta-answer"></span></div>'
