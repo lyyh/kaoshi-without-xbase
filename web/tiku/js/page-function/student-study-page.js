@@ -189,14 +189,15 @@ function setItems(result) {
     $('<div class="btn btn-success submit">提交</div>').appendTo(".container");
     //增加选择框的效果
     $(".ques-option div").click(function () {
+        alert(1)
         if($(this).find("input").attr("type")=="radio") {
             $(this).find("input[type=radio]").prop("checked", true);
         }else if($(this).find("input").attr("type") == "checkbox"){
-            //alert($(this).find("input[type=checkbox]").prop("checked"))
             if($(this).find("input[type=checkbox]").prop("checked")){
-                $(this).find("input[type=checkbox]").attr("checked",false);
+                $(this).find("input[type=checkbox]").prop("checked",false);
+            }else {
+                $(this).find("input[type=checkbox]").prop("checked", true);
             }
-            $(this).find("input[type=checkbox]").attr("checked",true);
         }
     });
     //提交
