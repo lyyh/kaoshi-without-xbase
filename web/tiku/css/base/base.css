@@ -89,6 +89,7 @@
 .neirong-title {
     margin: auto;
     width: 250px;
+    height: 20px;
     word-break: keep-all;
     white-space: nowrap;
     overflow: hidden;

@@ -155,7 +155,7 @@ function setItems(result) {
             var soptions=items[i].subjectOption.split("@#%");
             for(var j= 0,k=0;j<soptions.length;j++){
                 if(soptions[j]!=""){
-                    options+='<div>'+op[k]+'.<input type="radio" value="'+op[k]+'" name="radio_'+i+'">'+soptions[j]+'</div>';
+                    options+='<div class="xuanze">'+op[k]+'.<input type="radio" value="'+op[k]+'" name="radio_'+i+'">'+soptions[j]+'</div>';
                     k++;
                 }
                 //alert(options);
