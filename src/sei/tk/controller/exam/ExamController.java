@@ -33,9 +33,9 @@ public class ExamController extends TkBaseController{
     @ResponseBody
     @NeedLogin(TkConfig.ROLE_STUDENT)
     public Object initExam(HttpSession session,HttpServletRequest request,Long scheduleId,Long testpapaerId){
-        testpapaerId=8L;
-        scheduleId=4L;
-        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionStudent");
+        testpapaerId=3L;
+        scheduleId=2L;
+        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
         if(!exam.isBuilded(sessionPassport.getPassportId())) {//若考试未建立，则建立
             exam.initExam(sessionPassport.getPassportId(), testpapaerId);
             exam.getExamMapForRedis().put(sessionPassport.getPassportId(), "scheduleId", scheduleId);
@@ -48,7 +48,7 @@ public class ExamController extends TkBaseController{
     @ResponseBody
     @NeedLogin(TkConfig.ROLE_STUDENT)
     public Object testPanel(HttpSession session){
-        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionStudent");
+        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
         long time=exam.getOddTime(sessionPassport.getPassportId());
         return LittleUtil.constructResponse(TkConfig.SUCCESS,"",""+time);
     }
@@ -57,7 +57,7 @@ public class ExamController extends TkBaseController{
     @ResponseBody
     @NeedLogin(TkConfig.ROLE_STUDENT)
     public Object cacheAnswer(HttpSession session,@RequestBody SubjectInfoVo[] subjectInfoVos){
-        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionStudent");
+        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
         exam.setTempAnswer(sessionPassport.getPassportId(),subjectInfoVos);
         return LittleUtil.constructResponse(TkConfig.SUCCESS,"",null);
     }
@@ -66,7 +66,7 @@ public class ExamController extends TkBaseController{
     @ResponseBody
     @NeedLogin(TkConfig.ROLE_STUDENT)
     public Object submitPaper(HttpSession session,@RequestBody SubjectInfoVo[] subjectInfoVos){
-        SessionPassport sessionPassport=(SessionPassport) session.getAttribute("sessionStudent");
+        SessionPassport sessionPassport=(SessionPassport) session.getAttribute("sessionPassport");
         Integer score;
         exam.setTempAnswer(sessionPassport.getPassportId(), subjectInfoVos);//记录答案
         StuAnswerVo stuAnswerVo = JSON.parseObject(exam.getExamMapForRedis()
@@ -83,7 +83,7 @@ public class ExamController extends TkBaseController{
     @ResponseBody
     @NeedLogin(TkConfig.ROLE_STUDENT)
     public Object getTestInfo(HttpSession session){
-        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionStudent");
+        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
         String json=exam.getExamMapForRedis().get(sessionPassport.getPassportId(),TkConfig.TEST_PAPER_INFO);
         System.out.println(json);
         TestpaperInfVo testpaperInfVo=JSON.parseObject(json,TestpaperInfVo.class);
@@ -94,7 +94,7 @@ public class ExamController extends TkBaseController{
     @ResponseBody
     @NeedLogin(TkConfig.ROLE_STUDENT)
     public Object getQuestionInfo(HttpSession session){
-        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionStudent");
+        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
         String json=exam.getExamMapForRedis().get(sessionPassport.getPassportId(),TkConfig.TEST_STU_ANSWER);
 //        System.out.println(json);
         StuAnswerVo stuAnswerVo= JSON.parseObject(json, StuAnswerVo.class);
@@ -105,7 +105,7 @@ public class ExamController extends TkBaseController{
     @RequestMapping("questionsPanel")
     @NeedLogin(TkConfig.ROLE_STUDENT)
     public Object questionPanel(HttpSession session,Model model){
-        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionStudent");
+        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
         String json=exam.getExamMapForRedis().get(sessionPassport.getPassportId(),TkConfig.TEST_STU_ANSWER);
         StuAnswerVo stuAnswerVo= JSON.parseObject(json,StuAnswerVo.class);
         model.addAttribute("subjects",stuAnswerVo.getAnswers());
@@ -115,7 +115,7 @@ public class ExamController extends TkBaseController{
     @RequestMapping("testPanel")
     @NeedLogin(TkConfig.ROLE_STUDENT)
     public Object testPanel(HttpSession session,Model model){
-        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionStudent");
+        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
         String json=exam.getExamMapForRedis().get(sessionPassport.getPassportId(),"testpaperInfo");
         TestpaperInfVo testpaperInfVo=JSON.parseObject(json,TestpaperInfVo.class);
         model.addAttribute("paper",testpaperInfVo);

@@ -190,7 +190,7 @@
 }
 
 .paper-block ul li label{
-    color: #bc562c;
+    color: #000000;
 }
 
 .paper-block ul li>p{
@@ -202,23 +202,23 @@
 }
 
 .paper-block ul li .options{
-    color: #9876AA;
+    color: #000000;
 }
 
 .paper-block .judge-que li .options{
     color: #6A8759;
 }
 
-.paper-block ul li img{
-    background-color: white;
-}
+/*.paper-block ul li img{*/
+    /*background-color: white;*/
+/*}*/
 
 .paper-block ul li .options li{
     padding-left: 10px;
 }
 
 .paper-block ul li .options li:hover{
-    background-color: #323232;
+    background-color: #d3d3d3;
     cursor: pointer;
 }
 

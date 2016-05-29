@@ -51,4 +51,12 @@ public class PassportController extends TkBaseController {
         passportService.changePsw(sessionPassport.getPassportId(),oldPsw,newPsw);
         return LittleUtil.constructResponse(TkConfig.SUCCESS,null,null);
     }
+
+    @RequestMapping(value = "selfPassportInfo",method = RequestMethod.GET)
+    @ResponseBody
+    @NeedLogin({TkConfig.ROLE_STUDENT,TkConfig.ROLE_TEACHER,TkConfig.ROLE_ADMIN})
+    public Object selfInfo(HttpSession session){
+        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
+        return LittleUtil.constructResponse(TkConfig.SUCCESS,null,sessionPassport);
+    }
 }
