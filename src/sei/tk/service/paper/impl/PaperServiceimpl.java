@@ -46,15 +46,24 @@ public class PaperServiceimpl  implements PaperService {
             p.setPaperName(LittleUtil.filterImg(p.getPaperName()));
         }
 
-
-
         return new Page(paperInfos,paperInfoMapper.countPaperInfo(paperInfo));
         }
     public PaperInfo selectpaperinfobyId(Long  testpaperId){
        PaperInfo paperInfo= paperInfoMapper.selectById(testpaperId);
         List<TkSubjectWithBLOBs> subjects=paperInfoMapper.selectSubjects(testpaperId);
+
         for(TkSubjectWithBLOBs tkSubjectWithBLOBs:subjects){
             //替换 成<br>
+            if(tkSubjectWithBLOBs.getQuetypeId()==1 || tkSubjectWithBLOBs.getQuetypeId()==2){
+                String tem=tkSubjectWithBLOBs.getSubjectOption();
+                String temp1="";
+                String [] temps=tem.split("@#%");
+                for(int i=0;i<temps.length;i++){
+                    temps[i]=temps[i].replaceAll("<p>","<p>"+(char)(65+i)+".");
+                    temp1+=temps[i];
+                }
+                tkSubjectWithBLOBs.setSubjectOption(temp1);
+            }
             String temp=tkSubjectWithBLOBs.getSubjectOption();
             temp=temp.replaceAll("@#%","<br>");
             tkSubjectWithBLOBs.setSubjectOption(temp);
