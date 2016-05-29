@@ -21,6 +21,7 @@ var table = {
 
         if(typeof newconfig === "object"){
             this.config = newconfig;
+            pageNum=this.config.pagedata.rows;
         }
         //初始化
         $.ajax({
