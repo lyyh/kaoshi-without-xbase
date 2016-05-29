@@ -301,7 +301,7 @@ $("#previewQuestion").click(function () {
     }
 
     if (questionType == 1 || questionType == 5)
-        $("#myQuestion").html('<tr><td class="td-title" colspan="4">题目通用</td></tr><tr><td class="my-th">科目</td><td>&nbsp;&nbsp;java</td><td class="my-th">题目类型</td><td>&nbsp;&nbsp;' + que_type + '</td></tr> <tr><td class="my-th">难度</td><td>&nbsp;&nbsp;' + questionLevel + '</td><td class="my-th">章节</td><td>&nbsp;&nbsp;' + chapter + '</td></tr> <tr><td class="my-th">知识点</td><td>&nbsp;&nbsp;' + knowledgePoint + '</td><td class="my-th">出题人</td><td>&nbsp;&nbsp;韩顺平</td></tr> <tr><td class="td-title" colspan="4">题目内容</td></tr> <tr><td colspan="4">' + myQuestionContent +'<br>'+ questionOption + '</td></tr> <tr><td class="td-title" colspan="4">参考答案</td></tr>  <tr><td colspan="4">' + questionAnswer + '</td></tr> <tr><td class="td-title" colspan="4">答案解析</td></tr> <tr><td colspan="4">' + myQuestionSolution + '</td></tr>');
+        $("#myQuestion").html('<tr><td class="td-title" colspan="4">题目通用</td></tr><tr><td class="my-th">科目</td><td>&nbsp;&nbsp;java</td><td class="my-th">题目类型</td><td>&nbsp;&nbsp;' + que_type + '</td></tr> <tr><td class="my-th">难度</td><td>&nbsp;&nbsp;' + questionLevel + '</td><td class="my-th">章节</td><td>&nbsp;&nbsp;' + chapter + '</td></tr> <tr><td class="my-th">知识点</td><td>&nbsp;&nbsp;' + knowledgePoint + '</td><td class="my-th">出题人</td><td>&nbsp;&nbsp;教师1</td></tr> <tr><td class="td-title" colspan="4">题目内容</td></tr> <tr><td colspan="4">' + myQuestionContent +'<br>'+ questionOption + '</td></tr> <tr><td class="td-title" colspan="4">参考答案</td></tr>  <tr><td colspan="4">' + questionAnswer + '</td></tr> <tr><td class="td-title" colspan="4">答案解析</td></tr> <tr><td colspan="4">' + myQuestionSolution + '</td></tr>');
 });
 
 function initial() {

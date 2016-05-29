@@ -198,7 +198,6 @@
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    GROUP by course_id,knopoint_id,quetype_id
     <if test="start != null">
       <if test="row != null">
         limit #{start},#{row}
