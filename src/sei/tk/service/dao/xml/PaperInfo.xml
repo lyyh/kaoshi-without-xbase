@@ -16,7 +16,7 @@
         <result column="mkpaper_score" property="mkpaperScore" jdbcType="SMALLINT" />
     </resultMap>
 
-    <resultMap id="PaperInfoUp" type="sei.tk.service.dao.model.vo.paper.PaperInfoUp" >
+    <resultMap id="PaperInfoUp" type="sei.tk.service.dao.model.TkSubjectWithBLOBs" >
         <id column="subject_id" property="subjectId" jdbcType="BIGINT" />
         <result column="quetype_id" property="quetypeId" jdbcType="SMALLINT" />
         <result column="subject_name" property="subjectName" jdbcType="LONGVARCHAR" />

@@ -1,4 +1,4 @@
-/*╢и╥х╦∙╙╨─г╠м┐Є╡─═и╙├*/
+/*я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜─г╠мя┐╜я┐╜я┐╜═ия┐╜я┐╜*/
 .modal-dialog {
     overflow: auto;
     overflow-x: hidden;
@@ -69,7 +69,7 @@
     text-decoration: none;
     color: snow;
 }
-/*╔ш╓├▓щ┐┤─г╠м┐Є═и╙├*/
+/*я┐╜я┐╜я┐╜├▓щ┐┤─г╠мя┐╜я┐╜═ия┐╜я┐╜*/
 
 #show-info .modal-body {
     height: 400px;
@@ -80,9 +80,11 @@
     text-align: left;
 }
 
+/*
 #show-info p {
     display: inline-block;
 }
+*/
 
 .neirong-title {
     margin: auto;
@@ -94,7 +96,7 @@
 }
 
 
-/*╢и╥х╠с╩╛─г╠м┐Є╡─═и╙├*/
+/*я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜╩╛─г╠мя┐╜я┐╜я┐╜═ия┐╜я┐╜*/
 #delete .modal-dialog,
 #tip .modal-dialog {
     width: 260px;
@@ -134,7 +136,7 @@
     color: #ffffff;
 }
 
-/*╢и╥х╦∙╙╨▒э╕ё╡─═и╙├*/
+/*я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜╨▒я┐╜я┐╜я┐╜═ия┐╜я┐╜*/
 table th {
     font-size: 14px;
     color: #262626;
@@ -145,7 +147,7 @@ table td {
     font-size: 13px;
     color: #262626;
 }
-/*╠╪╩т╟щ╛│╡─░х┐щги▒╚╚ч═°┬ч┤э╬єбв╩¤╛▌╝╙╘╪гй*/
+/*я┐╜я┐╜я┐╜я┐╜я┐╜щ╛│я┐╜─░я┐╜щгия┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜▌╝я┐╜я┐╜╪гя┐╜*/
 .wrong404 {
     width: 100%;
     height: 100%;
