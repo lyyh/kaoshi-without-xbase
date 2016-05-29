@@ -36,13 +36,24 @@ public class CourseController {
     }
 
      @ResponseBody
-    @RequestMapping("/delete")
+    @RequestMapping("/coursedelete")
     public String delete(TkCourse courseVo){
 
         if(course.delete(courseVo))
            return "success";
         return  "删除失败";
     }
+    @ResponseBody
+    @RequestMapping("/courseadd")
+        public String  courseadd(TkCourse tkCourse){
+
+
+            if(course.add(tkCourse)){
+                return "success";
+            }
+
+            return  "新增失败";
+        }
 
 
 

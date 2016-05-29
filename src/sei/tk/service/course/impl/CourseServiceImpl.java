@@ -70,4 +70,15 @@ public class CourseServiceImpl implements Course {
          }
         return false;
     }
+
+    @Override
+    public boolean add(TkCourse tkCourse) {
+
+         int i=tkCourseMapper.insertSelective(tkCourse);
+         if(i!=0){
+             return  true;
+         }
+
+        return false;
+    }
 }
