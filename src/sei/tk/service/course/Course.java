@@ -13,5 +13,6 @@ public interface Course {
     public CourseVo getTkCourse(Short id);
     public Page CourseList(Integer currentPage, Integer rows, CourseVo courseVo);
     public boolean delete(TkCourse tkCourse);
+    public boolean add(TkCourse tkCourse);
 
 }
