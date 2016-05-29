@@ -13,6 +13,7 @@ import sei.tk.util.TkConfig;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -41,10 +42,9 @@ public class DoSubjectController extends TkBaseController{
     }
     @RequestMapping("/collectsubjects")
     @ResponseBody
-    public void collectSubjects(HttpSession session,@RequestBody List<TkSubject> tkSubjects){
-      doSubjectService.collectSub(tkSubjects,session);
-
-
+    public Object collectSubjects(HttpSession session,@RequestBody TkSubject[] tkSubjects){
+        doSubjectService.collectSub(Arrays.asList(tkSubjects),session);
+        return LittleUtil.constructResponse(TkConfig.SUCCESS,null,null);
     }
 
 

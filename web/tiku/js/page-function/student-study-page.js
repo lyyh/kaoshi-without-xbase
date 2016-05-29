@@ -25,11 +25,23 @@ function checkAnswers(){
     for(var i= 0, j=0,k=0;i<sbjs.length;i++){
         if(sbjs[i].quetypeId==3){
 
+        }else if(sbjs[i].quetypeId==5){
+            var inputs=$('.question:eq('+i+') input:checked');
+            var a="";
+            //console.log(inputs);
+            for(var l=0;l<inputs.length;l++){
+                a+=inputs[l].defaultValue;
+            }
+            if(sbjs[i].subjectAnswer==a){
+                answercheck[0][j++]={num:i+1,id:sbjs[i].subjectId};
+            }else{
+                answercheck[1][k++]={num:i+1,id:sbjs[i].subjectId,answer:a};
+            }
         }else{
             if(sbjs[i].subjectAnswer==$('.question:eq('+i+') input:checked').val()){
-                answercheck[0][j++]=i+1;
+                answercheck[0][j++]={num:i+1,id:sbjs[i].subjectId};
             }else{
-                answercheck[1][k++]=i+1;
+                answercheck[1][k++]={num:i+1,id:sbjs[i].subjectId,answer:$('.question:eq('+i+') input:checked').val()};
             }
         }
     }
@@ -203,23 +215,42 @@ function setItems(result) {
         $("#sure").click(function () {
 
             var answercheck=checkAnswers();
-            $('.ques-correct').html('正确:');
-            for(var i=0;i<answercheck[0].length;i++){
-                $('.ques-correct').append('<a>第'+answercheck[0][i]+'题<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> </a>');
-            }
-
-            $('.ques-wrong').html('错误:');
+            var wrong=[];
             for(var i=0;i<answercheck[1].length;i++){
-                $('.ques-wrong').append('<a class="false">第'+answercheck[1][i]+'题<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>');
+                wrong.push({
+                    subjectId:answercheck[1][i].id,
+                    subjectAnswer:answercheck[1][i].answer
+                });
             }
+            console.log(wrong);
+            if(wrong.length!=0){
+                $.ajax({
+                    url:"/study/collectsubjects.do",
+                    type:"post",
+                    dataType:"json",
+                    contentType:"application/json",
+                    data:JSON.stringify(wrong),
+                    success:function(result){
+                        $('.ques-correct').html('正确:');
+                        for(var i=0;i<answercheck[0].length;i++){
+                            $('.ques-correct').append('<a>第'+answercheck[0][i].num+'题<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> </a>');
+                        }
 
-            $("#tip").modal("toggle");
-            $("#tip .modal-footer").html("");
-            $("#tip .modal-footer").html("<button type='button' class='btn bg-primary' id='sure' data-dismiss='modal'>确定</button>");
-            $("#show-result").modal({
-                backdrop:"static",
-                keyboard:false
-            })
+                        $('.ques-wrong').html('错误:');
+                        for(var i=0;i<answercheck[1].length;i++){
+                            $('.ques-wrong').append('<a class="false">第'+answercheck[1][i].num+'题<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>');
+                        }
+
+                        $("#tip").modal("toggle");
+                        $("#tip .modal-footer").html("");
+                        $("#tip .modal-footer").html("<button type='button' class='btn bg-primary' id='sure' data-dismiss='modal'>确定</button>");
+                        $("#show-result").modal({
+                            backdrop:"static",
+                            keyboard:false
+                        })
+                    }
+                })
+            }
         });
 
         //是否提交(取消按钮)
