@@ -67,24 +67,33 @@ public class DoSubjectServiceImpl implements DoSubjectService {
     @Override
     public  void collectSub(List<TkSubject> tkSubjects,HttpSession session){
         SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
-        List<Long> subjectids=new ArrayList<Long>();
-        HashMap<Long,String> answer=new HashMap<Long,String>();
+
         for(TkSubject tkSubject:tkSubjects){
-            subjectids.add(tkSubject.getSubjectId());
-            answer.put(tkSubject.getSubjectId(), tkSubject.getSubjectAnswer());
+            TkQuecoll tkQuecoll=new TkQuecoll();
+            tkQuecoll.setStuId(sessionPassport.getPassportId());
+            tkQuecoll.setSubjectId(tkSubject.getSubjectId());
+            tkQuecoll.setQuecollAnswer(tkSubject.getSubjectAnswer());
+            tkQuecollMapper.insertSelective(tkQuecoll);
         }
-        TkSubjectExample tkSubjectExample=new TkSubjectExample();
-        TkSubjectExample.Criteria criteria=tkSubjectExample.createCriteria();
-        criteria.andSubjectIdIn(subjectids);
-        List<TkSubject> tkSubjects1=tkSubjectMapper.selectByExample(tkSubjectExample);
-        for(int i=0;i<tkSubjects1.size();i++){
-            if(answer.get(tkSubjects1.get(0).getSubjectId())!=tkSubjects1.get(0).getSubjectAnswer()) {
-                TkQuecoll tkQuecoll = new TkQuecoll();
-                tkQuecoll.setStuId(sessionPassport.getPassportId());
-                tkQuecoll.setQuecollId(tkSubjects1.get(0).getSubjectId());
-                tkQuecoll.setQuecollAnswer(answer.get(tkSubjects1.get(0).getSubjectId()));
-                tkQuecollMapper.insertSelective(tkQuecoll);
-            }
-        }
+
+//        List<Long> subjectids=new ArrayList<Long>();
+//        HashMap<Long,String> answer=new HashMap<Long,String>();
+//        for(TkSubject tkSubject:tkSubjects){
+//            subjectids.add(tkSubject.getSubjectId());
+//            answer.put(tkSubject.getSubjectId(), tkSubject.getSubjectAnswer());
+//        }
+//        TkSubjectExample tkSubjectExample=new TkSubjectExample();
+//        TkSubjectExample.Criteria criteria=tkSubjectExample.createCriteria();
+//        criteria.andSubjectIdIn(subjectids);
+//        List<TkSubject> tkSubjects1=tkSubjectMapper.selectByExample(tkSubjectExample);
+//        for(int i=0;i<tkSubjects1.size();i++){
+//            if(answer.get(tkSubjects1.get(i).getSubjectId())!=tkSubjects1.get(i).getSubjectAnswer()) {
+//                TkQuecoll tkQuecoll = new TkQuecoll();
+//                tkQuecoll.setStuId(sessionPassport.getPassportId());
+//                tkQuecoll.setQuecollId(tkSubjects1.get(i).getSubjectId());
+//                tkQuecoll.setQuecollAnswer(answer.get(tkSubjects1.get(i).getSubjectId()));
+//                tkQuecollMapper.insertSelective(tkQuecoll);
+//            }
+//        }
     }
 }

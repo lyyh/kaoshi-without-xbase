@@ -43,7 +43,7 @@ public class PassportController extends TkBaseController {
         return LittleUtil.constructResponse(TkConfig.SUCCESS, null, null);
     }
 
-    @RequestMapping(value = "changePswService",method = RequestMethod.GET)
+    @RequestMapping(value = "changePswService",method = RequestMethod.POST)
     @ResponseBody
     @NeedLogin({TkConfig.ROLE_STUDENT,TkConfig.ROLE_TEACHER,TkConfig.ROLE_ADMIN})
     public Object changePsw(HttpSession session,String oldPsw,String newPsw){

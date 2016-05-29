@@ -58,7 +58,11 @@ public class ExamInfoServiceImpl implements ExamInfoService {
             TkTestpaperExample.Criteria criteria2 = tkTestpaperExample.createCriteria();
             criteria2.andMkpaperIdEqualTo(tkMkpaper.getMkpaperId());
 
-            TkTestpaper tkTestpaper = (tkTestpaperMapper.selectByExample(tkTestpaperExample)).get(0);
+            List<TkTestpaper> tkTestpaperList=tkTestpaperMapper.selectByExample(tkTestpaperExample);
+            if(tkTestpaperList.size()==0){
+                continue;
+            }
+            TkTestpaper tkTestpaper = tkTestpaperList.get(0);
 
             TestInfo testInfo = new TestInfo();
             testInfo.setTestpaperId(tkTestpaper.getTestpaperId());
