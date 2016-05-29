@@ -52,13 +52,14 @@ public class PaperServiceimpl  implements PaperService {
         }
     public PaperInfo selectpaperinfobyId(Long  testpaperId){
        PaperInfo paperInfo= paperInfoMapper.selectById(testpaperId);
-        List<TkSubjectWithBLOBs> subjects=paperInfoMapper.selectSubjects(testpaperId); // 这里做了更改
+        List<TkSubjectWithBLOBs> subjects=paperInfoMapper.selectSubjects(testpaperId);
+        for(TkSubjectWithBLOBs tkSubjectWithBLOBs:subjects){
+            //替换 成<br>
+            String temp=tkSubjectWithBLOBs.getSubjectOption();
+            temp=temp.replaceAll("@#%","<br>");
+            tkSubjectWithBLOBs.setSubjectOption(temp);
+        }
         paperInfo.setSubjects(subjects);
-         List<TkSubjectWithBLOBs> list=paperInfo.getSubjects();
-           for(TkSubjectWithBLOBs temp:list){
-               String stringtemp=temp.getSubjectOption().replaceAll("@#%","<br>");
-                temp.setSubjectOption(stringtemp);
-           }
         return paperInfo;
     }
     public int deletePaperBatch(Long[] testpaperIds){

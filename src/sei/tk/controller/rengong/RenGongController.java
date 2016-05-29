@@ -68,7 +68,7 @@ public class RenGongController {
     @ResponseBody
     @RequestMapping("/mtr")
     public String getMtr(HttpSession session){
-        SessionPassport sessionPassport=(SessionPassport)session.getAttribute("sessionTeacher");
+        SessionPassport sessionPassport=(SessionPassport)session.getAttribute("sessionPassport");
           if(sessionPassport==null){
               return "未命名";
           }
