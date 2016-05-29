@@ -1,6 +1,7 @@
 package sei.tk.controller.exam;
 
 import com.alibaba.fastjson.JSON;
+import org.apache.commons.io.filefilter.ConditionalFileFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,12 +33,19 @@ public class ExamController extends TkBaseController{
     @RequestMapping("initExam")
     @ResponseBody
     @NeedLogin(TkConfig.ROLE_STUDENT)
-    public Object initExam(HttpSession session,HttpServletRequest request,Long scheduleId,Long testpapaerId){
-        testpapaerId=3L;
-        scheduleId=2L;
+    public Object initExam(HttpSession session,HttpServletRequest request,Long scheduleId,Long testpaperId){
+//        testpapaerId=3L;
+//        scheduleId=2L;
+
         SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
+        if(testpaperId==null||scheduleId==null){
+            testpaperId=Long.parseLong(exam.getExamMapForRedis().get(sessionPassport.getPassportId(),"examingTestpaperId"));
+            scheduleId=Long.parseLong(exam.getExamMapForRedis().get(sessionPassport.getPassportId(),"examingTestscheduleId"));
+        }
         if(!exam.isBuilded(sessionPassport.getPassportId())) {//若考试未建立，则建立
-            exam.initExam(sessionPassport.getPassportId(), testpapaerId);
+            exam.initExam(sessionPassport.getPassportId(), testpaperId);
+            exam.getExamMapForRedis().put(sessionPassport.getPassportId(),"examingTestpaperId",testpaperId);
+            exam.getExamMapForRedis().put(sessionPassport.getPassportId(),"examingTestscheduleId",scheduleId);
             exam.getExamMapForRedis().put(sessionPassport.getPassportId(), "scheduleId", scheduleId);
             exam.getExamMapForRedis().put(sessionPassport.getPassportId(), "ip", request.getRemoteAddr());
         }
@@ -120,5 +128,12 @@ public class ExamController extends TkBaseController{
         TestpaperInfVo testpaperInfVo=JSON.parseObject(json,TestpaperInfVo.class);
         model.addAttribute("paper",testpaperInfVo);
         return "tiku/page/student/student-test-dialog";
+    }
+
+    @RequestMapping("/isInExam")
+    @ResponseBody
+    public Object isInExam(HttpSession session){
+        SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
+        return LittleUtil.constructResponse(TkConfig.SUCCESS,null,""+exam.isBuilded(sessionPassport.getPassportId()));
     }
 }

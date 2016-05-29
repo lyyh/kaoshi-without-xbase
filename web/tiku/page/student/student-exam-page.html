@@ -43,7 +43,7 @@
 <body>
 <div class="exam-ready">
     <div class="my-row">
-        <button type="button" class="btn btn-primary btn-sm btn-show"  style="width: 100px">
+        <button type="button" id="toexam" class="btn btn-primary btn-sm btn-show"  style="width: 100px">
             <span class="glyphicon glyphicon-plus"></span> 查看
         </button>
     </div>
@@ -58,27 +58,27 @@
         </tr>
         </thead>
         <tbody id="neirong">
-        <tr>
-            <td><input type="checkbox" name="checkname" value="2"></td>
-            <td>JAVA</td>
-            <td>10:00:00</td>
-            <td>12:00:00</td>
-            <td>第二学期</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" name="checkname" value="1"></td>
-            <td>C++</td>
-            <td>10:00:00</td>
-            <td>12:00:00</td>
-            <td>第二学期</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox" name="checkname" value="1"></td>
-            <td>C#</td>
-            <td>10:00:00</td>
-            <td>12:00:00</td>
-            <td>第二学期</td>
-        </tr>
+        <!--<tr>-->
+            <!--<td><input type="checkbox" name="checkname" value="2"></td>-->
+            <!--<td>JAVA</td>-->
+            <!--<td>10:00:00</td>-->
+            <!--<td>12:00:00</td>-->
+            <!--<td>第二学期</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td><input type="checkbox" name="checkname" value="1"></td>-->
+            <!--<td>C++</td>-->
+            <!--<td>10:00:00</td>-->
+            <!--<td>12:00:00</td>-->
+            <!--<td>第二学期</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td><input type="checkbox" name="checkname" value="1"></td>-->
+            <!--<td>C#</td>-->
+            <!--<td>10:00:00</td>-->
+            <!--<td>12:00:00</td>-->
+            <!--<td>第二学期</td>-->
+        <!--</tr>-->
         </tbody>
     </table>
     <ul class="pagination">
@@ -153,56 +153,20 @@
 <script type="text/javascript" src="/tiku/js/page-function/page.js"></script>
 <script src="/tiku/js/child-function/exam.js"></script>
 <script>
-    $('.btn-show').click(function(){
-        var checks = $(".table tr").find("input[name=checkname]"),
-                n = 0;
 
-        for (var i = 0; i < checks.length; i++) {
-            if (checks[i].checked)
-                n++;
-        }
-        if (n != 1) {
-            var a = $("#tip").find(".modal-body");
-            a.html("<p>必须选择一个</p>");
-            $('#tip').modal({backdrop: 'static', keyboard: false});
-        }
-        else if($(".table tr input:checked").val() != "2"){
-            var a = $("#tip").find(".modal-body");
-            a.html("<p>未到考试时间</p>");
-            $('#tip').modal({backdrop: 'static', keyboard: false});
-        }
-        else{
-            $('.exam-ready').hide(100);
-            $('.exam-load').show(200);
-        }
-
-    })
-
-    //表格选择
-    $("#neirong tr").click(function (e) {
-        var input = $(this).find("input[name=checkname]");//获取checkbox
-        if ($(e.target).attr("type") != "checkbox") {
-            //判断当前checkbox是否为选中状态
-            if (input.is(":checked")) {
-                input.prop("checked", false);
-            } else {
-                input.prop("checked", true);
-            }
-        }
-    })
 
     //全选
-    $(".checkall").click(function () {
-        if (this.checked) {
-            $("input[name='checkname']").each(function () {
-                this.checked = true;
-            });
-        } else {
-            $("input[name='checkname']").each(function () {
-                this.checked = false;
-            });
-        }
-    });
+//    $(".checkall").click(function () {
+//        if (this.checked) {
+//            $("input[name='checkname']").each(function () {
+//                this.checked = true;
+//            });
+//        } else {
+//            $("input[name='checkname']").each(function () {
+//                this.checked = false;
+//            });
+//        }
+//    });
     //设置考试工作区的长度为屏幕长度的85%，且不会出现元素浮动，宽度变化导致的崩溃
     setSize($(".myContent"),0.85,0.75);
 </script>

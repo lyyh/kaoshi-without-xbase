@@ -16,4 +16,5 @@ public interface ExamInfoService {
     List<TestInfo> getFutureExamInfo(Long ppassportId); //得到还未开考的试卷的信息
     List<TestInfo> getValidExamInfo(Long ppassportId);   //得到可进行或进行中试卷的信息
     List<TestInfo> getOverdueExamInfo(Long ppassportId);   //得到过期试卷的信息
+    List<TestInfo> getMyExam(Long passportId);
 }

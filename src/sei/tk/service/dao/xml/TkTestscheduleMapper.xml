@@ -18,6 +18,15 @@
     <result column="create_ppassport_id" property="createPpassportId" jdbcType="BIGINT" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <resultMap id="TestInfo" type="sei.tk.service.dao.model.vo.testSchedule.TestInfo">
+    <id column="testschedule_id" property="testscheduleId" jdbcType="BIGINT"/>
+    <result column="testpaper_id" property="testpaperId" jdbcType="BIGINT"/>
+    <result column="test_starttime" property="starttime" jdbcType="TIMESTAMP"/>
+    <result column="test_endtime" property="endtime" jdbcType="TIMESTAMP"/>
+    <result column="course_id" property="courseId" jdbcType="SMALLINT"/>
+    <result column="course_name" property="courseName" jdbcType="VARCHAR"/>
+    <result column="mkpaper_term" property="mkpaperTerm" jdbcType="VARCHAR"/>
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <!--
       WARNING - @mbggenerated
@@ -388,4 +397,12 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where testschedule_id = #{testscheduleId,jdbcType=BIGINT}
   </update>
+
+  <select id="selectMyExam" resultMap="TestInfo" parameterType="long">
+    SELECT A.testschedule_id, A.testpaper_id, A.test_starttime, A.test_endtime, A.course_id
+    , B.course_name, D.mkpaper_term
+    FROM tk_testschedule A, tk_course B, tk_testpaper C, tk_mkpaper D
+    WHERE A.testpaper_id=C.testpaper_id AND B.course_id=A.course_id AND C.mkpaper_id=D.mkpaper_id
+    AND A.ppassport_id=#{passportId}
+  </select>
 </mapper>

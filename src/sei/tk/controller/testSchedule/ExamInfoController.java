@@ -11,6 +11,7 @@ import sei.tk.service.dao.model.vo.testSchedule.TestInfo;
 import sei.tk.service.testSchedule.ExamInfoService;
 import sei.tk.util.LittleUtil;
 import sei.tk.util.TkConfig;
+import sei.tk.util.annotation.NeedLogin;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -83,5 +84,13 @@ public class ExamInfoController extends TkBaseController {
         testInfoList=examInfoService.getOverdueExamInfo(sessionPassport);
         PageTestInfo pageTestInfo=new PageTestInfo(testInfoList,testInfoList.size());
         return LittleUtil.constructResponse(TkConfig.SUCCESS,"",pageTestInfo);
+    }
+
+    @RequestMapping("/listMyExam")
+    @ResponseBody
+    @NeedLogin(TkConfig.ROLE_STUDENT)
+    public Object listMyExam(HttpSession session){
+        long passportId = ((SessionPassport) session.getAttribute("sessionPassport")).getPassportId();
+        return LittleUtil.constructResponse(TkConfig.SUCCESS,null,examInfoService.getMyExam(passportId));
     }
 }

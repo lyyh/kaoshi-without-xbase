@@ -13,6 +13,7 @@ import sei.tk.util.exception.TKException;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -259,6 +260,19 @@ public class ExamInfoServiceImpl implements ExamInfoService {
             }
         }
         return testInfoList;
+    }
+
+    @Override
+    public List<TestInfo> getMyExam(Long passportId) {
+        List<TestInfo> testInfos = tkTestscheduleMapper.selectMyExam(passportId);
+        Date date=new Date();
+        for(int i=0;i<testInfos.size();i++){
+            if(date.getTime() < testInfos.get(i).getStarttime().getTime()||date.getTime()>testInfos.get(i).getEndtime().getTime()){
+                testInfos.remove(i);
+                i--;
+            }
+        }
+        return testInfos;
     }
 
 }

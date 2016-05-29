@@ -1,5 +1,7 @@
 package sei.tk.service.dao.model.vo.testSchedule;
 
+import sei.tk.util.DateFormat;
+
 import java.util.Date;
 
 /**
@@ -12,6 +14,8 @@ public class TestInfo {
     private Long testpaperId;   //试卷编号
     private String testStarttime; //考试开始时间
     private String testEndtime;   //考试结束时间
+    private Date starttime;
+    private Date endtime;
 
     private String newStarttime;    //用于修改考试安排
 
@@ -158,5 +162,23 @@ public class TestInfo {
 
     public void setTeaName(String teaName) {
         this.teaName = teaName;
+    }
+
+    public Date getStarttime() {
+        return starttime;
+    }
+
+    public void setStarttime(Date starttime) {
+        this.starttime = starttime;
+        this.testStarttime=DateFormat.DateToString(starttime,"yyyy-MM-dd HH:mm:ss");
+    }
+
+    public Date getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(Date endtime) {
+        this.endtime = endtime;
+        this.testEndtime=DateFormat.DateToString(endtime,"yyyy-MM-dd HH:mm:ss");
     }
 }

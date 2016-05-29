@@ -112,7 +112,85 @@ var paperInfo = {
     "totalSubAmount": 6,
     "totalTime": 120
 };
+testpaperId=null;
+testscheduleId=null;
+$(function(){
+    $.ajax({
+        url:"/exam/isInExam.do",
+        type:"post",
+        dataType:"json",
+        success:function(result){
+            if(result.code="1001"){
+                if(result.data=="true"){
+                    alert("您的考试还在进行中，请继续考试");
+                    $('.exam-ready').hide(100);
+                    $('.exam-load').show(200);
+                    $(".start-exam").click();
+                }else{
+                    $.ajax({
+                        url:"/ExamInfo/listMyExam.do",
+                        type:"post",
+                        dataType:"json",
+                        success:function(result){
+                            if(result.code!="1001"){
+                                alert(result.msg);
+                                return;
+                            }
+                            $("#neirong").html("");
+                            var items=result.data;
+                            for(var i=0;i<items.length;i++){
+                                $("#neirong").append('<tr><td><input type="checkbox" name="testscheduleId" value="'+items[i].testscheduleId+'"><input type="hidden" name="testpaperId" value="'+items[i].testpaperId+'"></td><td>'+items[i].courseName+'</td><td>'+items[i].testStarttime+'</td><td>'+items[i].testEndtime+'</td><td>'+items[i].mkpaperTerm+'</td></tr>');
+                            }
+                            console.log(result);
+                            $('.btn-show').click(function(){
+                                var ainput=$("#neirong input[name=testscheduleId]:checked");
+                                testscheduleId=ainput.val();
+                                testpaperId=ainput.next().val();
 
+                                var checks = $(".table tr").find("input[name=testscheduleId]"),
+                                    n = 0;
+                                //console.log(checks);
+                                for (var i = 0; i < checks.length; i++) {
+                                    if (checks[i].checked)
+                                        n++;
+                                }
+                                if (n != 1) {
+                                    var a = $("#tip").find(".modal-body");
+                                    a.html("<p>必须选择一个</p>");
+                                    $('#tip').modal({backdrop: 'static', keyboard: false});
+                                }
+//        else if($(".table tr input:checked").val() != "2"){
+//            var a = $("#tip").find(".modal-body");
+//            a.html("<p>未到考试时间</p>");
+//            $('#tip').modal({backdrop: 'static', keyboard: false});
+//        }
+                                else{
+                                    $('.exam-ready').hide(100);
+                                    $('.exam-load').show(200);
+                                }
+
+                            })
+
+                            //表格选择
+                            $("#neirong tr").click(function (e) {
+                                var input = $(this).find("input[name=checkname]");//获取checkbox
+                                if ($(e.target).attr("type") != "checkbox") {
+                                    //判断当前checkbox是否为选中状态
+                                    if (input.is(":checked")) {
+                                        input.prop("checked", false);
+                                    } else {
+                                        input.prop("checked", true);
+                                    }
+                                }
+                            })
+                        }
+                    });
+                }
+            }
+        }
+    })
+
+});
 
 $(".start-exam").click(function () {
     initial_exam(function () {
@@ -188,10 +266,15 @@ $(".quickType li[value=5]").click(function () {
 
 
 function initial_exam(fn) {
+    //alert(testscheduleId+","+testpaperId);
     $.ajax({
         url:"/exam/initExam.do",
         type:"post",
         dataType:"json",
+        data:{
+            scheduleId:testscheduleId,
+            testpaperId:testpaperId
+        },
         success:function(result){
             if(result.code=="1001"){
                 fn();
