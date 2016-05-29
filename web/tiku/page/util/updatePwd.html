@@ -1,0 +1,104 @@
+<link rel="stylesheet" href="/tiku/css/base/page.css">
+<link rel="stylesheet" href="/tiku/css/functionParts/updatePwd.css">
+<body>
+<div class="totalContainer">
+    <!--<div class="my-row">-->
+        <!--<button type="button" class="btn btn-primary btn-sm teacher-recordQuestion" style="margin-left: 0">-->
+            <!--<span class="glyphicon glyphicon-plus"></span> 新增-->
+        <!--</button>-->
+        <!--<button type="button" class="btn btn-danger btn-sm btn-delete">-->
+            <!--<span class="glyphicon glyphicon-minus"></span> 删除-->
+        <!--</button>-->
+        <!--<button type="button" class="btn btn-info btn-sm btn-show">-->
+            <!--<span class="glyphicon glyphicon-th"></span> 查看-->
+        <!--</button>-->
+        <!--<button type="button" class="btn btn-warning btn-sm btn-edit">-->
+            <!--<span class="glyphicon glyphicon-pencil"></span> 修改-->
+        <!--</button>-->
+        <!--<div class="xz-tx">-->
+            <!--选择题型:-->
+            <!--<select id="luti-op" class="form-control input-sm" style="display: inline-block">-->
+                <!--<option value="0">全部</option>-->
+            <!--</select>-->
+
+
+            <!--<div class="search">-->
+                <!--<div><span id="search-btn" class="glyphicon glyphicon-search" style="cursor:pointer;"></span></div>-->
+                <!--<input type="text" placeholder="在这里根据题干进行查找" class="form-control input-sm">-->
+            <!--</div>-->
+
+        <!--</div>-->
+
+
+    <!--</div>-->
+    <div class="table-container">
+        <div>
+            <div class="form-group" style="margin-top: 100px">
+                <label for="oldPwd">新的密码</label>
+                <input type="password" class="form-control" id="oldPwd" placeholder="" style="width: 200px;display: inline-block">
+                <span class="check">长度为6-16个字符;不能含空格</span>
+            </div>
+            <div class="form-group" style="margin-top: 10px">
+                <label for="newPwd">确认密码</label>
+                <input type="password" class="form-control" id="newPwd" placeholder="" style="width: 200px;display: inline-block">
+                <span class="check">长度为6-16个字符;不能含空格</span>
+            </div>
+            <button class="btn btn-default" style="margin-left: 16px" id="check">提交</button>
+        </div>
+    </div>
+
+    <!--查看题目的模态框-->
+    <div class="modal fade" id="show-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" style="width: 67%;min-width: 850px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">
+                        查看题目
+                    </h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn sure" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/tiku/js/page-function/updatePwd.js"></script>
+<script>
+    $(".back").click(function () {
+        $(".back").unbind("click");
+        $(".location").html("系统主页");
+        $(".main-block").html("<div class='myJava'></div>")
+    })
+    $("#check").click(function () {
+        var oldP = $("#oldPwd").val();
+        var newP = $("#newPwd").val();
+        console.log(oldP+"   "+newP);
+        var regL = /^\d{6,16}$/;
+        var regB = /\s/;
+        if(regB.test(oldP)||regB.test(newP)){
+            alert("注意:不含空格!")
+            return;
+        }
+        else if(!(regL.test(oldP)&&regL.test(newP))){
+            alert("注意:字符长度6-16位!")
+            return;
+        }
+        else if(oldP == newP){
+            doUpdate(newPwd,oldPwd);
+        }
+    })
+    //交互
+    function doUpdate(newPwd,oldPwd) {
+        alert("修改成功!")
+    }
+</script>
+</body>
