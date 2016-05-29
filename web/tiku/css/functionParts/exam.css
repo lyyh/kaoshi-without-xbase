@@ -178,7 +178,10 @@
 
     font-size: 15px;
     font-family:"Microsoft YaHei";
-    color: #FFC66D;
+
+    background-color: #ffffff;
+    border-right:20px solid #3c3f41;
+    border-bottom:20px solid #3C3F41;
 }
 
 .paper-block ul{
