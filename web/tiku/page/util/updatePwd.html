@@ -34,13 +34,18 @@
     <div class="table-container">
         <div>
             <div class="form-group" style="margin-top: 100px">
-                <label for="oldPwd">新的密码</label>
+                <label for="oldPwd">旧密码</label>
                 <input type="password" class="form-control" id="oldPwd" placeholder="" style="width: 200px;display: inline-block">
                 <span class="check">长度为6-16个字符;不能含空格</span>
             </div>
             <div class="form-group" style="margin-top: 10px">
-                <label for="newPwd">确认密码</label>
+                <label for="newPwd">新密码</label>
                 <input type="password" class="form-control" id="newPwd" placeholder="" style="width: 200px;display: inline-block">
+                <span class="check">长度为6-16个字符;不能含空格</span>
+            </div>
+            <div class="form-group" style="margin-top: 10px">
+                <label for="newPwd2">确认密码</label>
+                <input type="password" class="form-control" id="newPwd2" placeholder="" style="width: 200px;display: inline-block">
                 <span class="check">长度为6-16个字符;不能含空格</span>
             </div>
             <button class="btn btn-default" style="margin-left: 16px" id="check">提交</button>
@@ -81,24 +86,45 @@
     $("#check").click(function () {
         var oldP = $("#oldPwd").val();
         var newP = $("#newPwd").val();
+        var new2=$("#newPwd2").val();
         console.log(oldP+"   "+newP);
         var regL = /^\d{6,16}$/;
         var regB = /\s/;
-        if(regB.test(oldP)||regB.test(newP)){
-            alert("注意:不含空格!")
-            return;
+//        if(regB.test(oldP)||regB.test(newP)){
+//            alert("注意:不含空格!");
+//            return;
+//        }
+//        else if(!(regL.test(oldP)&&regL.test(newP))){
+//            alert("注意:字符长度6-16位!");
+//            return;
+//        }
+//        else
+        if(new2!=newP){
+            alert("两次密码不想同!");
+        }else{
+            doUpdate(newP,oldP);
         }
-        else if(!(regL.test(oldP)&&regL.test(newP))){
-            alert("注意:字符长度6-16位!")
-            return;
-        }
-        else if(oldP == newP){
-            doUpdate(newPwd,oldPwd);
-        }
-    })
+    });
     //交互
     function doUpdate(newPwd,oldPwd) {
-        alert("修改成功!")
+//        alert("");
+        $.ajax({
+            url:"/api/passport/changePswService.do",
+            type:"post",
+            dataType:"json",
+            data:{
+                oldPsw:oldPwd,
+                newPsw:newPwd
+            },
+            success: function (result) {
+                if(result.code!="1001"){
+                    alert(result.msg);
+                }else{
+                    alert("修改成功!");
+                    window.location.reload();
+                }
+            }
+        });
     }
 </script>
 </body>
