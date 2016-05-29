@@ -44,6 +44,7 @@ public class DoSubjectServiceImpl implements DoSubjectService {
         criteria.andKnopointIdEqualTo(knopointId);
         if(quetypeId!=null)
         criteria.andQuetypeIdEqualTo(quetypeId);
+        criteria.andQuetypeIdNotEqualTo((short) 4);
         tkSubjectExample.setRow(rows);
         tkSubjectExample.setStart((page-1)*rows);
         List<TkSubjectWithBLOBs> tkSubjectWithBLOBses=tkSubjectMapper.selectSubs(tkSubjectExample);
