@@ -42,9 +42,23 @@ $("document").ready(function () {
         });
     });
     
-    //添加科目和知识点
+    //添加科目
     $("#addCourse").click(function () {
-        $("#addCourseModal").modal({
+        $("#addModal").find(".modal-title").html("新增科目")
+        $("#addModal").find(".modal-body").html("");
+        $("#addModal").find(".modal-body").html("<div class='form-group' style='margin-top: 10px'><label for='oldPwd'>科目</label> <input type='text' class='form-control' id='oldPwd' style='width: 200px;display: inline-block'></div>")
+        $("#addModal").modal({
+            backdrop:"static",
+            keyboard:false
+        });
+    })
+    
+    //添加知识点
+    $("#addKnopoint").click(function () {
+        $("#addModal").find(".modal-title").html("新增知识点")
+        $("#addModal").find(".modal-body").html("");
+        $("#addModal").find(".modal-body").html("选择科目:<select id='courseId' class='form-control input-sm' style='display: inline-block;width: 100px;'><option value='1'>JAVA</option> <option value='2'>C++</option> <option value='3'>高等数学</option><option value='4'>离散数学</option> </select> <div class ='form-group' style='margin-top: 10px;display: inline-block;'><label for='oldPwd'>知识点</label> <input type='text' class='form-control' id='oldPwd' style='width: 200px;display: inline-block;'> </div>")
+        $("#addModal").modal({
             backdrop:"static",
             keyboard:false
         });
