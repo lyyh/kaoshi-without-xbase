@@ -1,0 +1,194 @@
+<link rel="stylesheet" href="/tiku/css/base/page.css">
+<link rel="stylesheet" href="/tiku/css/functionParts/student-study.css">
+<style>
+    .xz-tx{
+        float: right !important;
+    }
+</style>
+<body>
+<div class="totalContainer">
+    <div class="my-row">
+        <button type="button" class="btn-sm btn-show">
+            <span class="glyphicon glyphicon-th"></span> 查看
+        </button>
+        <div class="xz-tx">
+            选择课程:
+            <select id="luti-op" class="form-control input-sm" style="display: inline-block">
+                <option value="0">全部</option>
+                <option value="1">JAVA</option>
+                <option value="2">C++</option>
+                <option value="3">高等数学</option>
+            </select>
+            <div class="search">
+                <div><span id="search-btn" class="glyphicon glyphicon-search" style="cursor:pointer;"></span></div>
+                <input type="text" placeholder="在这里根据知识点进行查找" class="form-control input-sm">
+            </div>
+
+        </div>
+    </div>
+    <div class="table-container">
+        <table id="table-luti" class="table table-hover table-bordered">
+            <thead>
+            <tr class="danger">
+                <th width="3%"><input type="checkbox" class="checkall"></th>
+                <th width="20%">题目编号</th>
+                <th width="20%">题干</th>
+                <th width="20%">知识点</th>
+                <th width="20%">难度</th>
+            </tr>
+            </thead>
+            <tbody id="neirong">
+            <tr>
+                <td><input type="checkbox" name="checkname"></td>
+                <td>1</td>
+                <td><div class="neirong-title">JAVA好难啊JAVA好难啊JAVA好难啊</div></td>
+                <td>对象,继承,集合,数组,泛型,接口,抽象类</td>
+                <td>灰常难</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="checkname"></td>
+                <td>1</td>
+                <td><div class="neirong-title">JAVA好难啊JAVA好难啊JAVA好难啊</div></td>
+                <td>对象,继承,集合,数组,泛型,接口,抽象类</td>
+                <td>灰常难</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="checkname"></td>
+                <td>1</td>
+                <td><div class="neirong-title">JAVA好难啊JAVA好难啊JAVA好难啊</div></td>
+                <td>对象,继承,集合,数组,泛型,接口,抽象类</td>
+                <td>灰常难</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="checkname"></td>
+                <td>1</td>
+                <td><div class="neirong-title">JAVA好难啊JAVA好难啊JAVA好难啊</div></td>
+                <td>对象,继承,集合,数组,泛型,接口,抽象类</td>
+                <td>灰常难</td>
+            </tr>
+            </tbody>
+        </table>
+        <ul class="pagination">
+        </ul>
+    </div>
+
+    <div class="modal fade" id="show-infoml" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close"
+                            data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" style="text-align: left">
+                        查看
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="content">
+                        <div class="form-group">
+                            <label>错题编号</label>
+                            <p>8888</p>
+                        </div>
+                        <div class="form-group">
+                            <label>题干</label>
+                            <p>啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦啦</p>
+                        </div>
+                        <div class="form-group">
+                            <label>知识点</label>
+                            <p>啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
+                        </div>
+                        <div class="form-group">
+                            <label>难度</label>
+                            <p>灰常难</p>
+                        </div>
+                        <div class="form-group">
+                            <label>您的答案</label>
+                            <p>B</p>
+                        </div>
+                        <div class="form-group">
+                            <label>正确答案</label>
+                            <p>A</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/tiku/js/page-function/page.js"></script>
+<script type="text/javascript" src="/tiku/js/page-function/teacher-course-manage.js"></script>
+<script>
+    $(".back").click(function () {
+        $(".back").unbind("click");
+        $(".location").html("系统主页");
+        $(".main-block").html("<div class='myJava'></div>")
+    });
+
+    $(".btn-show").click(function () {
+        var check;
+        var checks = $(".table tr").find("input[name=checkname]"),
+                n = 0;
+        for (var i = 0; i < checks.length; i++) {
+            if (checks[i].checked)
+                n++;
+        }
+        if (n != 1) {
+            var a = $("#tip").find(".modal-body");
+            a.html("<p>请您选择一行数据</p>");
+            $('#tip').modal({backdrop: 'static', keyboard: false});
+        }
+        else {
+           /* check = $(".table tr input:checked");
+            $("#show-info .modal-body").html("加载中...");
+            $.ajax({
+                url: "/subject/detailsPage.do",
+                type: "get",
+                dataType: "html",
+                data: {
+                    subjectId: check.val()
+                },
+                success: function (result) {
+                    if (result == null) {
+                        alert("请登录！");
+                        return;
+                    }
+                    $("#show-info .modal-body").html("");
+                    $("#show-info .modal-body").append(result);
+                }
+            });*/
+            $('#show-infoml').modal({backdrop: 'static', keyboard: false});
+        }
+    });
+
+    //表格选择
+    $("#neirong tr").click(function (e) {
+        var input = $(this).find("input[name=checkname]");//获取checkbox
+        if ($(e.target).attr("type") != "checkbox") {
+            //判断当前checkbox是否为选中状态
+            if (input.is(":checked")) {
+                input.prop("checked", false);
+            } else {
+                input.prop("checked", true);
+            }
+        }
+    })
+
+    //全选
+    $(".checkall").click(function () {
+        if (this.checked) {
+            $("input[name='checkname']").each(function () {
+                this.checked = true;
+            });
+        } else {
+            $("input[name='checkname']").each(function () {
+                this.checked = false;
+            });
+        }
+    });
+</script>
+</body>

@@ -21,9 +21,9 @@ public class CourseController {
 
     @ResponseBody
     @RequestMapping("/courseList")
-    public Page CourseList(Integer currentPage, Integer rows, CourseVo courseName){
+    public Page CourseList(Integer page, Integer rows, CourseVo courseVo){
 
-      return  course.CourseList(currentPage,rows,courseName);
+      return  course.CourseList(page,rows,courseVo);
 
     }
 
@@ -48,7 +48,7 @@ public class CourseController {
         public String  courseadd(TkCourse tkCourse){
 
 
-            if(course.add(tkCourse)){
+            if(course.add(tkCourse)) {
                 return "success";
             }
 

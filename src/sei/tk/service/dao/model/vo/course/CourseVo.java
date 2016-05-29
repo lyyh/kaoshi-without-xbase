@@ -4,7 +4,6 @@ package sei.tk.service.dao.model.vo.course;
  * Created by lenovo on 2016/5/29.
  */
 public class CourseVo  {
-
     private Short courseId;
     private String courseName;
     private String TkKnopoint;

@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="/tiku/css/base/page.css">
+<body>
+<div class="totalContainer">
+    <div class="table-container">
+        <table id="table-luti" class="table table-hover table-bordered">
+            <thead>
+            <tr class="success">
+                <th width="5%"><input type="checkbox" class="checkall"></th>
+                <th width="20%">考试科目</th>
+                <th width="20%">考试学期</th>
+                <th width="20%">试卷总分</th>
+                <th width="20%">所得分数</th>
+            </tr>
+            </thead>
+            <tbody id="neirong">
+            <tr>
+                <td><input type="checkbox" name="checkname" value="2"></td>
+                <td>JAVA</td>
+                <td>第二学期</td>
+                <td>100</td>
+                <td>100</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="checkname" value="2"></td>
+                <td>JAVA</td>
+                <td>第二学期</td>
+                <td>100</td>
+                <td>89</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="checkname" value="2"></td>
+                <td>JAVA</td>
+                <td>第二学期</td>
+                <td>100</td>
+                <td>55</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" name="checkname" value="2"></td>
+                <td>JAVA</td>
+                <td>第二学期</td>
+                <td>100</td>
+                <td>60</td>
+            </tr>
+            </tbody>
+        </table>
+        <ul class="pagination">
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript" src="/tiku/js/page-function/page.js"></script>
+<script type="text/javascript" src="/tiku/js/page-function/teacher-paper-manage.js"></script>
+<script>
+    $(".back").click(function () {
+        $(".back").unbind("click");
+        $(".location").html("系统主页");
+        $(".main-block").html("<div class='myJava'></div>")
+    });
+</script>
+</body>
