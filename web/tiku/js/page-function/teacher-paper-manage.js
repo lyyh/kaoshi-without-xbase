@@ -140,7 +140,7 @@ $("document").ready(function () {
                     );
                     $.each(data.subjects, function (index, objs) {
                         $("#SubList").append(
-                            "<p>" + objs.subjectName + "</p><br>"
+                            "<p>" + objs.subjectName + "</p>"
                             + "<p>" + objs.subjectOption + "</p>"
                         );
 

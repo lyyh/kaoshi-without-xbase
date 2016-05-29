@@ -115,14 +115,26 @@ var paperInfo = {
 
 
 $(".start-exam").click(function () {
-    $(".left-block").hide(150);
-    $(".left-block-container").hide(150);
-    $(".left-tools").show(150);
-    $(".left-tools-container").show(150, function () {
-        $(".myModal").fadeIn(1000);
-        //控制伸缩栏的状态
-        state = 1;
-        initial_exam();
+    initial_exam(function () {
+        $(".left-block").hide(150);
+        $(".left-block-container").hide(150);
+        $(".left-tools").show(150);
+        $(".left-tools-container").show(150, function () {
+            $(".myModal").fadeIn(1000);
+            //控制伸缩栏的状态
+            state = 1;
+            $.ajax({
+                url:"/api/passport/selfPassportInfo.do",
+                type:"get",
+                dataType:"json",
+                success:function(result){
+                    if(result.code=="1001"){
+                        $(".student-name .student-name").append(result.data.userName);
+                        $(".student-num .student-num").append(result.data.userId);
+                    }
+                }
+            });
+        });
     });
 });
 
@@ -175,27 +187,18 @@ $(".quickType li[value=5]").click(function () {
 });
 
 
-function initial_exam() {
-    $.ajax({
-       url:"/passport/selfPassportInfo.do",
-        type:"post",
-        dataType:"json",
-        success:function(result){
-            if(result.code==1){
-                $(".student-name").html(result.data.passportName);
-                $(".student-num").html(result.data.passportCode);
-            }
-        }
-    });
+function initial_exam(fn) {
     $.ajax({
         url:"/exam/initExam.do",
         type:"post",
         dataType:"json",
         success:function(result){
-            if(result.code==1){
+            if(result.code=="1001"){
+                fn();
                 getTestInfo();
             }else{
                 alert(result.msg);
+                //window.location.reload();
             }
         }
     })
@@ -207,7 +210,7 @@ function getTestInfo() {
         type:"post",
         dataType:"json",
         success: function (result) {
-            if(result.code==1){
+            if(result.code=="1001"){
                 paperInfo=result.data;
                 var course = paperInfo.course;
                 var duration = paperInfo.totalTime;
@@ -238,7 +241,7 @@ function getQuestions() {
         type:"post",
         dataType:"json",
         success: function (result) {
-            if(result.code==1){
+            if(result.code=="1001"){
                 queInfo=result.data;
                 $(queInfo).each(function () {
                     switch (this.type) {
@@ -416,7 +419,7 @@ function getOddTime() {
         type: "post",
         dataType: "json",
         success: function (result) {
-            if (result.code == 1) {
+            if (result.code == "1001") {
                 timedCount(result.data);
             } else {
                 alert(result.msg);
