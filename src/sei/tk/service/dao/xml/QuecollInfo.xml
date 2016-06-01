@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sei.tk.service.dao.mapper.QuecollInfoMapper" >
+    <resultMap id="QuecollInfo" type="sei.tk.service.dao.model.vo.subject.QueCollInfo" >
+        <id column="quecoll_id" property="quecollId" jdbcType="BIGINT" />
+        <result column="stu_id" property="stuId" jdbcType="BIGINT" />
+        <result column="subject_id" property="subjectId" jdbcType="BIGINT" />
+        <result column="quecoll_answer" property="quecollAnswer" jdbcType="VARCHAR" />
+        <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+        <result column="knopoint_name" property="knopointName" jdbcType="VARCHAR" />
+        <result column="level_id" property="levelId" jdbcType="TINYINT" />
+        <result column="subject_answer" property="subjectAnswer" jdbcType="VARCHAR" />
+        <result column="subject_name" property="subjectName" jdbcType="LONGVARCHAR" />
+        <result column="subject_option" property="subjectOption" jdbcType="LONGVARCHAR" />
+        <result column="subject_solution" property="subjectSolution" jdbcType="LONGVARCHAR" />
+    </resultMap>
+<select id="selectAllQuecoll" parameterType="sei.tk.service.dao.model.vo.subject.QueCollInfo" resultMap="QuecollInfo">
+    SELECT A.quecoll_id,c.knopoint_name,B.subject_name,B.level_id,D.course_name
+    FROM tk_quecoll A,tk_subject B,tk_knopoint C,tk_course D
+    where A.subject_id=B.subject_id and B.knopoint_id=C.knopoint_id
+    and B.course_id=D.course_id and A.stu_id=#{stuId}
+    <if test="courseName !=null">
+        and D.course_name=#{courseName}
+    </if>
+    <if test="start!=null">
+        <if test="row!=null">
+            limit #{start},#{row}
+        </if>
+    </if>
+</select>
+    <select id="countQuecoll" parameterType="sei.tk.service.dao.model.vo.subject.QueCollInfo" resultType="java.lang.Integer">
+        SELECT count(A.quecoll_id)
+        FROM tk_quecoll A,tk_subject B,tk_knopoint C,tk_course D
+        where A.subject_id=B.subject_id and B.knopoint_id=C.knopoint_id
+        and B.course_id=D.course_id and A.stu_id=#{stuId}
+        <if test="courseName !=null">
+            and D.course_name=#{courseName}
+        </if>
+        <if test="start!=null">
+            <if test="row!=null">
+                limit #{start},#{row}
+            </if>
+        </if>
+    </select>
+    <select id="selectByid" parameterType="java.lang.Long" resultMap="QuecollInfo">
+      SELECT A.quecoll_id,c.knopoint_name,B.subject_name,B.level_id,D.course_name,B.subject_answer,A.quecoll_answer,B.subject_option,B.subject_solution
+      FROM tk_quecoll A,tk_subject B,tk_knopoint C,tk_course D
+      where A.subject_id=B.subject_id and B.knopoint_id=C.knopoint_id
+      and B.course_id=D.course_id and A.quecoll_id=#{quecollId}
+    </select>
+
+</mapper>

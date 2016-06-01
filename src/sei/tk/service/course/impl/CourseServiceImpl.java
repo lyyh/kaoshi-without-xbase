@@ -50,12 +50,16 @@ public class CourseServiceImpl implements Course {
         List<CourseVo> list=    tkCourseMapper.selectByExamplelist(courseVo);
              for(CourseVo temp:list){
                  List<TkKnopoint> list1=renGongService.getKnopointList(temp.getCourseId());
-                 StringBuffer stringBuffer=new StringBuffer();
-                 for(TkKnopoint tkKnopoint:list1){
-                     stringBuffer.append(tkKnopoint.getKnopointName()+",");
+                 if(list1.size()!=0) {
+                     StringBuffer stringBuffer = new StringBuffer();
+                     for (TkKnopoint tkKnopoint : list1) {
+                         stringBuffer.append(tkKnopoint.getKnopointName() + ",");
+                     }
+                     stringBuffer.substring(0, stringBuffer.lastIndexOf(",") - 1);
+                     temp.setTkKnopoint(stringBuffer.toString());
                  }
-                 stringBuffer.substring(0,stringBuffer.lastIndexOf(",")-1);
-                 temp.setTkKnopoint(stringBuffer.toString());
+                 else
+                   temp.setTkKnopoint("暂无");
              }
          Page page=new Page(list,total);
         return page;
@@ -73,12 +77,15 @@ public class CourseServiceImpl implements Course {
 
     @Override
     public boolean add(TkCourse tkCourse) {
+        if(tkCourse==null || tkCourse.equals(""))
+            return false;
+        else {
+            int i = tkCourseMapper.insertSelective(tkCourse);
+            if (i != 0) {
+                return true;
+            }
 
-         int i=tkCourseMapper.insertSelective(tkCourse);
-         if(i!=0){
-             return  true;
-         }
-
-        return false;
+            return false;
+        }
     }
 }

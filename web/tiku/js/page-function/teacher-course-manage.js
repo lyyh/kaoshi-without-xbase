@@ -13,25 +13,13 @@ $("document").ready(function () {
         }
     });
 });
-    $("#luti-op").change(function () {
-        var type = $("#luti-op option:selected").val();
-        var coursetName = $(".search input").val();
-        table.page({
-            pageurl: "/courseList.do",
-            pagedata: {
-                courseName: courseName,
-                page: 1,
-                rows: 15,
-            }
-        });
-    });
     $("#search-btn").click(function () {
         var courseName = $(".search input").val();
         if (courseName == '')courseName = null;
         table.page({
             pageurl: "/courseList.do",
             pagedata: {
-                subjectName: courseName,
+                courseName: courseName,
                 page: 1,
                 rows: 15,
             }
@@ -48,15 +36,25 @@ $("document").ready(function () {
             keyboard: false
         });
 
+
+
         $(".sure").click(function () {
+            var a=$("#newcourse").val()
             $.ajax({
                 url: "/courseadd.do",
                 type: "post",
-                date: {
-                    courseName: $("#newcourese").val()
+                dataType:"json",
+                data: {
+                    courseName: a
                 },
                 success: function (date) {
-
+                    table.page({
+                        pageurl: "/courseList.do",
+                        pagedata: {
+                            page: 1,
+                            rows: 15,
+                        }
+                    });
                 }
             })
         })
@@ -67,17 +65,22 @@ $("document").ready(function () {
     $("#addKnopoint").click(function () {
         $.ajax({
             url: "/subjectReference/getAllCourse.do",
+            dataType:"json",
             type: "post",
             success: function (data) {
-                $("#addModal").find(".modal-body").html("");
-                $("#addModal").find(".modal-body").append("选择科目:<select id='courseId' class='form-control input-sm' style='display: inline-block;width: 100px;'>");
-
-                $.each(data, function (index, content) {
-
-                    $("#addModal").find(".modal-body").append("<option value=" + content.courseId + ">" + content.courseName + "</option>");
+                var course="";
+                $("#addModal").find(".modal-body").html("新增知识点");
+                var course="选择科目:<select id='courseId' class='form-control input-sm' style='display: inline-block;width: 100px;'>"
+                $.each(data.data, function (index, content) {
+                    course+="<option value=" + content.courseId + ">" + content.courseName + "</option>";
                 })
-                $("#addModal").find(".modal-body").append("  </select> <div class ='form-group' style='margin-top: 10px;display: inline-block;'><label for='newknopoint'>知识点</label> <input type='text' class='form-control' id='newknopoint' style='width: 200px;display: inline-block;'> </div>");
-
+                course+="</select>"
+                $("#addModal").find(".modal-body").append(course);
+                $("#addModal").find(".modal-body").append("<div class ='form-group' style='margin-top: 10px;display: inline-block;'><label for='newknopoint'>知识点</label> <input type='text' class='form-control' id='newknopoint' style='width: 200px;display: inline-block;'> </div>");
+                $("#addModal").modal({
+                    backdrop: "static",
+                    keyboard: false
+                })
             }
 
         });
@@ -86,31 +89,34 @@ $("document").ready(function () {
             $.ajax({
                 url: "/knopoint/save.do",
                 type: "post",
-                date: {
+                dataType:"json",
+                data: {
                     type: "add",
                     courseId: $("#courseId").val(),
                     knopointName: $("#newknopoint").val()
                 },
                 success: function (date) {
-
+                    table.page({
+                        pageurl: "/courseList.do",
+                        pagedata: {
+                            page: 1,
+                            rows: 15,
+                        }
+                    });
                 }
             })
-            $("#addModal").find(".modal-title").html("新增知识点")
-            $("#addModal").find(".modal-body").html("");
-            $("#addModal").modal({
-                backdrop: "static",
-                keyboard: false
-            });
         })
     })
 
+
+
 function setItems(result) {
     $("#neirong").html('');
-    var items = result.rows;
+    var items = result.data.rows;
+    //alert(items);    console.log(items)
     for (var i = 0; i < items.length; i++) {
-//            var difficulty=(items[i].levelId==1)?'简单':((items[i].levelId==2)?'中等':'困难');
         $("#neirong").append(
-            '<tr><td><input value="' + items[i].courseId + '" type="checkbox" name="checkname"></td><td>' + items[i].courseName + '</td><td>' + items[i].TkKnopoint + '</td></tr>');
+            '<tr><td><input value="' + items[i].courseId + '" type="checkbox" name="checkname"></td><td>' + items[i].courseId + '</td><td>' + items[i].courseName + '</td><td>' + items[i].tkKnopoint + '</td></tr>');
     }
 
 

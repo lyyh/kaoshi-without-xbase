@@ -8,13 +8,20 @@
         <button type="button" class="btn btn-primary btn-sm" id="addKnopoint" style="width: 100px">
             <span class="glyphicon glyphicon-plus"></span> 新增知识点
         </button>
-        <!--<button type="button" class="btn btn-danger btn-sm btn-delete">-->
-            <!--<span class="glyphicon glyphicon-minus"></span> 删除-->
-        <!--</button>-->
-
+        <button type="button" class="btn btn-danger btn-sm btn-delete">
+            <span class="glyphicon glyphicon-minus"></span> 删除
+        </button>
+        <div class="xz-tx">
+            <!--选择课程:-->
+            <!--<select id="luti-op" class="form-control input-sm" style="display: inline-block">-->
+                <!--<option value="0">全部</option>-->
+                <!--<option value="1">JAVA</option>-->
+                <!--<option value="2">C++</option>-->
+                <!--<option value="3">高等数学</option>-->
+            <!--</select>-->
             <div class="search">
                 <div><span id="search-btn" class="glyphicon glyphicon-search" style="cursor:pointer;"></span></div>
-                <input type="text" placeholder="在这里根据科目名进行查找" class="form-control input-sm">
+                <input type="text" placeholder="在这里根据科目进行查找" class="form-control input-sm">
             </div>
 
         </div>
@@ -30,30 +37,7 @@
             </tr>
             </thead>
             <tbody id="neirong">
-            <tr>
-                <td><input type="checkbox" name="checkname"></td>
-                <td>1</td>
-                <td>JAVA</td>
-                <td>对象,继承,集合,数组,泛型,接口,抽象类</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name="checkname"></td>
-                <td>2</td>
-                <td>C++</td>
-                <td>对象,继承,集合,数组,泛型,接口,抽象类</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name="checkname"></td>
-                <td>3</td>
-                <td>高等数学</td>
-                <td>对象,继承,集合,数组,泛型,接口,抽象类</td>
-            </tr>
-            <tr>
-                <td><input type="checkbox" name="checkname"></td>
-                <td>4</td>
-                <td>离散数学</td>
-                <td>对象,继承,集合,数组,泛型,接口,抽象类</td>
-            </tr>
+
             </tbody>
         </table>
         <ul class="pagination">
@@ -87,7 +71,7 @@
                     <!--</div>-->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn sure" data-dismiss="modal" >确定</button>
+                    <button type="button" class="btn sure" data-dismiss="modal">确定</button>
                 </div>
             </div>
         </div>
