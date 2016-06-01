@@ -2,6 +2,7 @@ package sei.tk.service.course.impl;
 
 import org.springframework.stereotype.Service;
 import sei.tk.service.course.Course;
+import sei.tk.service.dao.mapper.CourseInfoMapper;
 import sei.tk.service.dao.mapper.TkCourseMapper;
 import sei.tk.service.dao.model.TkCourse;
 import sei.tk.service.dao.model.TkKnopoint;
@@ -25,6 +26,9 @@ public class CourseServiceImpl implements Course {
     @Resource
     RenGongService renGongService;
 
+    @Resource
+    CourseInfoMapper courseInfoMapper;
+
     @Override
     public CourseVo getTkCourse(Short id) {
 
@@ -44,10 +48,10 @@ public class CourseServiceImpl implements Course {
 
     @Override
     public Page CourseList(Integer currentPage, Integer rows, CourseVo courseVo) {
-          Integer total=tkCourseMapper.countList(courseVo.getCourseName());
+          Integer total=courseInfoMapper.countList(courseVo.getCourseName());
          courseVo.setStart((currentPage-1)*rows);
          courseVo.setAmount(rows);
-        List<CourseVo> list=    tkCourseMapper.selectByExamplelist(courseVo);
+        List<CourseVo> list=    courseInfoMapper.selectByExamplelist(courseVo);
              for(CourseVo temp:list){
                  List<TkKnopoint> list1=renGongService.getKnopointList(temp.getCourseId());
                  if(list1.size()!=0) {
