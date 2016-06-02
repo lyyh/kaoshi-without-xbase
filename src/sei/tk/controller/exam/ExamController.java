@@ -16,6 +16,7 @@ import sei.tk.service.exam.Exam;
 import sei.tk.util.LittleUtil;
 import sei.tk.util.TkConfig;
 import sei.tk.util.annotation.NeedLogin;
+import sei.tk.util.exception.TKException;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -38,9 +39,13 @@ public class ExamController extends TkBaseController{
 //        scheduleId=2L;
 
         SessionPassport sessionPassport= (SessionPassport) session.getAttribute("sessionPassport");
-        if(testpaperId==null||scheduleId==null){
-            testpaperId=Long.parseLong(exam.getExamMapForRedis().get(sessionPassport.getPassportId(),"examingTestpaperId"));
-            scheduleId=Long.parseLong(exam.getExamMapForRedis().get(sessionPassport.getPassportId(),"examingTestscheduleId"));
+        try{
+            if(testpaperId==null||scheduleId==null){
+                testpaperId=Long.parseLong(exam.getExamMapForRedis().get(sessionPassport.getPassportId(),"examingTestpaperId"));
+                scheduleId=Long.parseLong(exam.getExamMapForRedis().get(sessionPassport.getPassportId(),"examingTestscheduleId"));
+            }
+        }catch (NumberFormatException e){
+            throw new TKException(TkConfig.INVALID_ACTION,"你现在不能进行考试");
         }
         if(!exam.isBuilded(sessionPassport.getPassportId())) {//若考试未建立，则建立
             exam.initExam(sessionPassport.getPassportId(), testpaperId);

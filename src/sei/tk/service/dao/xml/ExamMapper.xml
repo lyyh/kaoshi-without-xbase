@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sei.tk.service.dao.mapper.ExamMapper" >
+       <resultMap id="MyExam" type="sei.tk.service.exam.vo.MyExam">
+              <id column="testschedule_id" property="scheduleId" jdbcType="BIGINT"/>
+              <result column="course_id" property="courseId" jdbcType="VARCHAR"/>
+              <result column="course_name" property="courseName" jdbcType="VARCHAR"/>
+              <result column="mkpaper_term" property="term" jdbcType="VARCHAR"/>
+              <result column="mkpaper_score" property="maxScore" jdbcType="SMALLINT"/>
+              <result column="stu_score" property="score" jdbcType="SMALLINT"/>
+       </resultMap>
+
+       <select id="getMyExam" parameterType="long" resultMap="MyExam">
+              SELECT A.testschedule_id, A.stu_score, B.course_id, B.course_name, C.mkpaper_term, C.mkpaper_score
+              FROM tk_testschedule A, tk_course B, tk_mkpaper C, tk_testpaper D
+              WHERE A.course_id = B.course_id and A.testpaper_id = D.testpaper_id AND D.mkpaper_id = C.mkpaper_id
+              AND A.ppassport_id = #{passportId}
+       </select>
+</mapper>
