@@ -15,5 +15,5 @@ public interface AfterExamService {
 
     Page listAllGradsByPage(Integer currentPage, Integer rows, GenExam genExam);
 
-    Analyse getAnalyse(Long passportId);
+    Analyse getAnalyse(Long testpaperId, Long passportId);
 }

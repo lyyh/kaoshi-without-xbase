@@ -1,8 +1,11 @@
 package sei.tk.controller.exam;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.portlet.ModelAndView;
+import sei.tk.controller.common.TkBaseController;
 import sei.tk.service.dao.model.SessionPassport;
 import sei.tk.service.exam.AfterExamService;
 import sei.tk.service.exam.vo.GenExam;
@@ -19,7 +22,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("afterExam")
-public class AfterExamController {
+public class AfterExamController extends TkBaseController{
 
     @Resource
     AfterExamService afterExamService;
@@ -41,7 +44,8 @@ public class AfterExamController {
 
     @RequestMapping("grads/analyses/details")
     @NeedLogin(TkConfig.ROLE_TEACHER)
-    public Object showGrads(HttpSession session){
-        return null;
+    public Object showGrads(HttpSession session, Model model, Long testpaperId, Long passportId){
+        model.addAttribute("analyse",afterExamService.getAnalyse(testpaperId, passportId));
+        return "/tiku/page/teacher/teacher-analysis";
     }
 }

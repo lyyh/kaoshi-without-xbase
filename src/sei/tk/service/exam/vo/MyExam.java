@@ -4,6 +4,7 @@ package sei.tk.service.exam.vo;
  * Created by liuruijie on 2016/6/2.
  */
 public class MyExam {
+    protected Long testpaperId;
     protected Long scheduleId;
     protected Long courseId;
     protected String courseName;
@@ -76,5 +77,13 @@ public class MyExam {
 
     public void setRows(Integer rows) {
         this.rows = rows;
+    }
+
+    public Long getTestpaperId() {
+        return testpaperId;
+    }
+
+    public void setTestpaperId(Long testpaperId) {
+        this.testpaperId = testpaperId;
     }
 }

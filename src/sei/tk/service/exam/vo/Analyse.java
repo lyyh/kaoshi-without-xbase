@@ -4,12 +4,13 @@ package sei.tk.service.exam.vo;
  * Created by liuruijie on 2016/6/4.
  */
 public class Analyse {
+    private String name;//名字
     private int score;//自己的分数
     private int myRankInClass;//自己的班级排名
     private int myRankInGrade;//自己的年纪排名
 
     private int classRankInGrade;//班级的年纪排名
-    private int classAvgScore;//班级的平均分
+    private double classAvgScore;//班级的平均分
     private double classFailPercent;//班级的挂科率
 
     private int classFailNum;//挂掉的人数
@@ -48,14 +49,6 @@ public class Analyse {
         this.classRankInGrade = classRankInGrade;
     }
 
-    public int getClassAvgScore() {
-        return classAvgScore;
-    }
-
-    public void setClassAvgScore(int classAvgScore) {
-        this.classAvgScore = classAvgScore;
-    }
-
     public double getClassFailPercent() {
         return classFailPercent;
     }
@@ -86,5 +79,21 @@ public class Analyse {
 
     public void setClassGreatNum(int classGreatNum) {
         this.classGreatNum = classGreatNum;
+    }
+
+    public double getClassAvgScore() {
+        return classAvgScore;
+    }
+
+    public void setClassAvgScore(double classAvgScore) {
+        this.classAvgScore = classAvgScore;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

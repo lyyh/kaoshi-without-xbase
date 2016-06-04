@@ -15,14 +15,14 @@
     </thead>
     <tbody>
     <tr>
-        <td>学生姓名:达芬奇</td>
-        <td>考试成绩:100分</td>
+        <td>学生姓名:${analyse.name}</td>
+        <td>考试成绩:${analyse.score}分</td>
         <%--<td>学生姓名:${student.name}</td>--%>
         <%--<td>考试成绩:${student.score}</td>--%>
     </tr>
     <tr>
-        <td>班级排名:1</td>
-        <td>年级排名:1</td>
+        <td>班级排名:${analyse.myRankInClass}</td>
+        <td>年级排名:${analyse.myRankInGrade}</td>
         <%--<td>班级排名:${student.classRank}</td>--%>
         <%--<td>年级排名:${student.gradeRank}</td>--%>
     </tr>
@@ -36,9 +36,9 @@
     </thead>
     <tbody>
     <tr>
-        <td>班级的年级排名:1</td>
-        <td>班级的平均分:90</td>
-        <td>班级挂科率:10%</td>
+        <td>班级的年级排名:${analyse.classRankInGrade}</td>
+        <td>班级的平均分:${analyse.classAvgScore}</td>
+        <td>班级挂科率:${analyse.classFailPercent*100}%</td>
         <%--<td>班级的年级排名:${stuClass.gradeRank}</td>--%>
         <%--<td>班级的平均分:${stuClass.average}</td>--%>
         <%--<td>班级挂科率:${stuClass.passRate}</td>--%>
@@ -52,9 +52,9 @@
         <td>80分到100分</td>
     </tr>
     <tr>
-        <td>10人</td>
-        <td>10人</td>
-        <td>10人</td>
+        <td>${analyse.classFailNum}人</td>
+        <td>${analyse.classPassNum}人</td>
+        <td>${analyse.classGreatNum}人</td>
     </tr>
     </tbody>
 </table>

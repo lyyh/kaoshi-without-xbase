@@ -43,28 +43,6 @@ $("document").ready(function () {
             });
         }
     });
-
-    $(".neirong tr").click(function () {
-        $("#show-info .modal-body").html("加载中...");
-        $.ajax({
-            url: "/tiku/page/teacher/teacher-analysis.jsp",
-            // type: "get",
-            dataType: "html",
-            // data: {
-            //     stuId: $(this).attr("value")
-            // },
-            success: function (data) {
-                if (data == null) {
-                    alert("请登录！");
-                    return;
-                }
-                $("#show-info .modal-body").html("");
-                $("#show-info .modal-body").append(data);
-            }
-        });
-        $('#show-info').modal({backdrop: 'static', keyboard: false});
-        
-    });
     
     
     $(".neirong td").mouseover(function(e) {
@@ -102,22 +80,21 @@ function setItems(result) {
     for (var i = 0; i < items.length; i++) {
         //items.examRes == 1 ? items.examRes = "是" : items.examRes = "否";
         items[i].examRes='否';
-        $("#neirong").append('<tr><td>' + items[i].courseName + '</td><td>' + items[i].term + '</td><td>' + items[i].stuClass + '</td><td>' + items[i].stuCode + '</td><td>' + items[i].stuName + '</td><td>' + items[i].score + '</td><td>' + items[i].examRes + '</td></tr>');
+        $("#neirong").append('<tr><td><input name="passportId" type="hidden" value="'+items[i].passportId+'"><input name="testpaperId" type="hidden" value="'+items[i].testpaperId+'">' + items[i].courseName + '</td><td>' + items[i].term + '</td><td>' + items[i].stuClass + '</td><td>' + items[i].stuCode + '</td><td>' + items[i].stuName + '</td><td>' + items[i].score + '</td><td>' + items[i].examRes + '</td></tr>');
     }
     $(".neirong tr").click(function () {
         $("#show-info .modal-body").html("加载中...");
+        var passportId = $(this).find("input[name=passportId]").val();
+        var testpaperId = $(this).find("input[name=testpaperId]").val();
         $.ajax({
-            url: "/tiku/page/teacher/teacher-analysis.jsp",
+            url: "/afterExam/grads/analyses/details.do",
             // type: "get",
             dataType: "html",
-            // data: {
-            //     stuId: $(this).attr("value")
-            // },
+             data: {
+                 passportId:passportId,
+                 testpaperId:testpaperId
+             },
             success: function (data) {
-                if (data == null) {
-                    alert("请登录！");
-                    return;
-                }
                 $("#show-info .modal-body").html("");
                 $("#show-info .modal-body").append(data);
             }
