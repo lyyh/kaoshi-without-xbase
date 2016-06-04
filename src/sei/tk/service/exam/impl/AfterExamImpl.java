@@ -41,6 +41,12 @@ public class AfterExamImpl implements AfterExamService{
             genExam.setStart((currentPage-1)*rows);
         }
 
+        if(genExam.getStuCode()!=null){
+            genExam.setStuCode("%"+genExam.getStuCode()+"%");
+        }
+        if(genExam.getStuName()!=null){
+            genExam.setStuName("%"+genExam.getStuName()+"%");
+        }
         genExam.setRows(rows);
 
         return new Page(examMapper.selectGradeByPage(genExam),examMapper.countGradeByPage(genExam));
