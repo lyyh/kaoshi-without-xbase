@@ -78,8 +78,7 @@ function setItems(result) {
     $("#neirong").html('');
     var items = result.data.rows;
     for (var i = 0; i < items.length; i++) {
-        //items.examRes == 1 ? items.examRes = "是" : items.examRes = "否";
-        items[i].examRes='否';
+        items[i].score >=60 ? items[i].examRes = "否" : items[i].examRes = "是";
         $("#neirong").append('<tr><td><input name="passportId" type="hidden" value="'+items[i].passportId+'"><input name="testpaperId" type="hidden" value="'+items[i].testpaperId+'">' + items[i].courseName + '</td><td>' + items[i].term + '</td><td>' + items[i].stuClass + '</td><td>' + items[i].stuCode + '</td><td>' + items[i].stuName + '</td><td>' + items[i].score + '</td><td>' + items[i].examRes + '</td></tr>');
     }
     $(".neirong tr").click(function () {

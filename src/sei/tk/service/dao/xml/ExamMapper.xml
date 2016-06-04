@@ -49,7 +49,7 @@
               <if test="term!=null">
                      AND C.mkpaper_term LIKE #{term}
               </if>
-              ORDER BY A.testschedule_id,A.stu_score DESC
+              ORDER BY A.testpaper_id,A.stu_score DESC
               <if test="start!=null and rows!=null">
                      limit #{start}, #{rows}
               </if>
