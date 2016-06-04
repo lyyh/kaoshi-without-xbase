@@ -12,7 +12,7 @@ $("document").ready(function () {
 
 
     table.page({
-        pageurl: "/subject/list.do",
+        pageurl: "/afterExam/grads/analyses.do",
         pagedata: {
 //                courseId: $("#luti-op option:selected").val(),
             page: 1,
@@ -42,28 +42,6 @@ $("document").ready(function () {
                 this.checked = false;
             });
         }
-    });
-
-    $(".neirong tr").click(function () {
-        $("#show-info .modal-body").html("加载中...");
-        $.ajax({
-            url: "/tiku/page/teacher/teacher-analysis.jsp",
-            // type: "get",
-            dataType: "html",
-            // data: {
-            //     stuId: $(this).attr("value")
-            // },
-            success: function (data) {
-                if (data == null) {
-                    alert("请登录！");
-                    return;
-                }
-                $("#show-info .modal-body").html("");
-                $("#show-info .modal-body").append(data);
-            }
-        });
-        $('#show-info').modal({backdrop: 'static', keyboard: false});
-        
     });
     
     
@@ -99,11 +77,30 @@ $("document").ready(function () {
 function setItems(result) {
     $("#neirong").html('');
     var items = result.data.rows;
-
     for (var i = 0; i < items.length; i++) {
-        items.examRes == 1 ? items.examRes = "是" : items.examRes = "否";
-        $("#neirong").append('<tr><td>' + items[i].courseName + '</td><td>' + items[i].classId + '</td><td>' + items[i].stuId + '</td><td>' + items[i].stuName + '</td><td>' + items[i].score + '</td><td>' + items[i].examRes + '</td><td>' + 1 + '</tr>');
+        items[i].score >=60 ? items[i].examRes = "否" : items[i].examRes = "是";
+        $("#neirong").append('<tr><td><input name="passportId" type="hidden" value="'+items[i].passportId+'"><input name="testpaperId" type="hidden" value="'+items[i].testpaperId+'">' + items[i].courseName + '</td><td>' + items[i].term + '</td><td>' + items[i].stuClass + '</td><td>' + items[i].stuCode + '</td><td>' + items[i].stuName + '</td><td>' + items[i].score + '</td><td>' + items[i].examRes + '</td></tr>');
     }
+    $(".neirong tr").click(function () {
+        $("#show-info .modal-body").html("加载中...");
+        var passportId = $(this).find("input[name=passportId]").val();
+        var testpaperId = $(this).find("input[name=testpaperId]").val();
+        $.ajax({
+            url: "/afterExam/grads/analyses/details.do",
+            // type: "get",
+            dataType: "html",
+             data: {
+                 passportId:passportId,
+                 testpaperId:testpaperId
+             },
+            success: function (data) {
+                $("#show-info .modal-body").html("");
+                $("#show-info .modal-body").append(data);
+            }
+        });
+        $('#show-info').modal({backdrop: 'static', keyboard: false});
+
+    });
     // //表格选择
     // $("#neirong tr").click(function (e) {
     //     var input = $(this).find("input[name=checkname]");//获取checkbox

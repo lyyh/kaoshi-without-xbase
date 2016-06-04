@@ -114,12 +114,12 @@
         </div>
         <div class="xz-tx student-id">
             学生学号
-            <select id="stu-id" class="form-control input-sm" style="display: inline-block">
-                <option value="0">全部</option>
-                <option value="1301401">2014213880</option>
-                <option value="1301402">2014213881</option>
-                <option value="1301403">2014213886</option>
-            </select>
+            <!--<select id="stu-id" class="form-control input-sm" style="display: inline-block">-->
+                <!--<option value="0">全部</option>-->
+                <!--<option value="1301401">2014213880</option>-->
+                <!--<option value="1301402">2014213881</option>-->
+                <!--<option value="1301403">2014213886</option>-->
+            <!--</select>-->
             <div class="search search-stu-id">
                 <div><span class="glyphicon glyphicon-search"></span></div>
                 <input type="text" placeholder="输入学生学号" class="form-control input-sm">
@@ -127,12 +127,12 @@
         </div>
         <div class="xz-tx student-name">
             学生姓名
-            <select id="stu-name" class="form-control input-sm" style="display: inline-block">
-                <option value="0">全部</option>
-                <option value="1301401">小明</option>
-                <!--<option value="1301402">达芬奇</option>-->
-                <!--<option value="1301403">达芬奇</option>-->
-            </select>
+            <!--<select id="stu-name" class="form-control input-sm" style="display: inline-block">-->
+                <!--<option value="0">全部</option>-->
+                <!--<option value="1301401">小明</option>-->
+                <!--&lt;!&ndash;<option value="1301402">达芬奇</option>&ndash;&gt;-->
+                <!--&lt;!&ndash;<option value="1301403">达芬奇</option>&ndash;&gt;-->
+            <!--</select>-->
             <div class="search search-stu-name">
                 <div><span class="glyphicon glyphicon-search"></span></div>
                 <input type="text" placeholder="输入学生姓名" class="form-control input-sm">
@@ -145,26 +145,28 @@
             <thead>
             <tr class="normal">
                 <th width="10%">科目</th>
+                <th width="20%">学期</th>
                 <th width="10%">班级</th>
                 <th width="20%">学号</th>
                 <th width="20%">学生姓名</th>
-                <th width="10%">总分</th>
+                <th width="10%">分数</th>
                 <th width="10%">是否补考</th>
             </tr>
             </thead>
-            <tbody class="neirong">
-            <tr value="2014213000">
-                <td>JAVA</td>
-                <td>1301401</td>
-                <td>2014213000</td>
-                <td>小明</td>
-                <td>100</td>
-                <td>否</td>
-            </tr>
+            <tbody id="neirong" class="neirong">
+            <!--<tr>-->
+                <!--<td>JAVA</td>-->
+                <!--<td>大二</td>-->
+                <!--<td>1301401</td>-->
+                <!--<td>2014213000</td>-->
+                <!--<td>小明</td>-->
+                <!--<td>100</td>-->
+                <!--<td>否</td>-->
+            <!--</tr>-->
             </tbody>
         </table>
-        <!--<ul class="pagination">-->
-        <!--</ul>-->
+        <ul class="pagination">
+        </ul>
     </div>
 
     <!--查看题目的模态框-->
