@@ -1,5 +1,6 @@
 package sei.tk.service.dao.mapper;
 
+import sei.tk.service.exam.vo.GenExam;
 import sei.tk.service.exam.vo.MyExam;
 
 import java.util.List;
@@ -9,4 +10,8 @@ import java.util.List;
  */
 public interface ExamMapper {
     List<MyExam> getMyExam(Long passportId);
+
+    List<GenExam> selectGradeByPage(GenExam genExam);
+
+    int countGradeByPage(GenExam genExam);
 }

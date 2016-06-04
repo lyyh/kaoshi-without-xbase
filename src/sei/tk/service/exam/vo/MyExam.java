@@ -4,12 +4,15 @@ package sei.tk.service.exam.vo;
  * Created by liuruijie on 2016/6/2.
  */
 public class MyExam {
-    private Long scheduleId;
-    private Long courseId;
-    private String courseName;
-    private String term;
-    private Short score;
-    private Short maxScore;
+    protected Long scheduleId;
+    protected Long courseId;
+    protected String courseName;
+    protected String term;
+    protected Short score;
+    protected Short maxScore;
+
+    protected Integer start;
+    protected Integer rows;
 
     public Long getCourseId() {
         return courseId;
@@ -57,5 +60,21 @@ public class MyExam {
 
     public void setScheduleId(Long scheduleId) {
         this.scheduleId = scheduleId;
+    }
+
+    public Integer getStart() {
+        return start;
+    }
+
+    public void setStart(Integer start) {
+        this.start = start;
+    }
+
+    public Integer getRows() {
+        return rows;
+    }
+
+    public void setRows(Integer rows) {
+        this.rows = rows;
     }
 }
