@@ -69,6 +69,8 @@ public class AfterExamImpl implements AfterExamService{
         //查询班级中的所有学生成绩
         List<GenExam> genExamList=examMapper.selectGradeByPage(genExam);
 
+        //班级
+        analyse.setKlass(""+students.get(0).getStuClassId());
         //姓名
         analyse.setName(students.get(0).getStuName());
         //班级的挂科率
@@ -122,7 +124,7 @@ public class AfterExamImpl implements AfterExamService{
     private List<GenExam> gradeOfGrade(Long classId,List<GenExam> genExams){
         String grad = (""+classId).substring(3,5);
         for(int i=0;i<genExams.size();i++){
-            GenExam genExam = genExams.get(0);
+            GenExam genExam = genExams.get(i);
             String ngrad = (""+genExam.getStuClass()).substring(3,5);
             if(!ngrad.equals(grad)){
                 genExams.remove(i);

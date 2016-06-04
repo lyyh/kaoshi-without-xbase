@@ -22,7 +22,7 @@
               SELECT A.testschedule_id, A.testpaperId, A.stu_score, B.course_id, B.course_name, C.mkpaper_term, C.mkpaper_score
               FROM tk_testschedule A, tk_course B, tk_mkpaper C, tk_testpaper D
               WHERE A.course_id = B.course_id and A.testpaper_id = D.testpaper_id AND D.mkpaper_id = C.mkpaper_id
-              AND A.ppassport_id = #{passportId}
+              AND A.ppassport_id = #{passportId} AND A.stu_score!=-1
        </select>
 
        <select id="selectGradeByPage" parameterType="sei.tk.service.exam.vo.GenExam" resultMap="GenExam">
@@ -30,7 +30,7 @@
               E.stu_name, E.stu_class_id, E.student_id, E.passport_id
               FROM tk_testschedule A, tk_course B, tk_mkpaper C, tk_testpaper D, tk_student E
               WHERE A.course_id = B.course_id and A.testpaper_id = D.testpaper_id AND D.mkpaper_id = C.mkpaper_id
-              AND A.ppassport_id = E.passport_id
+              AND A.ppassport_id = E.passport_id AND A.stu_score!=-1
               <if test="scheduleId!=null">
                      AND A.testschedule_id=#{scheduleId}
               </if>
@@ -59,7 +59,7 @@
               SELECT count(*)
               FROM tk_testschedule A, tk_course B, tk_mkpaper C, tk_testpaper D, tk_student E
               WHERE A.course_id = B.course_id and A.testpaper_id = D.testpaper_id AND D.mkpaper_id = C.mkpaper_id
-              AND A.ppassport_id = E.passport_id
+              AND A.ppassport_id = E.passport_id AND A.stu_score!=-1
               <if test="scheduleId!=null">
                      AND A.testschedule_id=#{scheduleId}
               </if>

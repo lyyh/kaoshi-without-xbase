@@ -31,7 +31,7 @@
 <table class="table table-bordered table-info">
     <thead>
     <tr>
-        <th colspan="3">班级分析</th>
+        <th colspan="3">班级分析 ( 年级：${analyse.grad}级，班级：${analyse.klass} )</th>
     </tr>
     </thead>
     <tbody>

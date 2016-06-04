@@ -17,6 +17,9 @@ public class Analyse {
     private int classPassNum;//合格到优秀之间的人数
     private int classGreatNum;//优秀的人数
 
+    private String grad;//年级
+    private String klass;//班级
+
     public int getScore() {
         return score;
     }
@@ -95,5 +98,22 @@ public class Analyse {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getGrad() {
+        return grad;
+    }
+
+    public void setGrad(String grad) {
+        this.grad = grad;
+    }
+
+    public String getKlass() {
+        return klass;
+    }
+
+    public void setKlass(String klass) {
+        this.klass = klass;
+        this.grad="20"+klass.substring(3,5);
     }
 }
