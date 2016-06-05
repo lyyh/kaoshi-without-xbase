@@ -27,8 +27,8 @@
     .my-row .xz-tx {
         float: left;
     }
-    .student-id,.student-name{
-        margin-left: 108px;
+    .student-id,.student-name,.subject,.class{
+        margin-left: 76px;
     }
     .xz-tx select {
         margin-top: -2px;
@@ -39,7 +39,7 @@
 
     .search {
         margin-top: -2px;
-        width: 121px;
+        margin-left: -7px;
         display: inline-block;
         vertical-align: top;
     }
@@ -69,14 +69,14 @@
     }
 
     .search-stu-id{
-        width: 128px;
+        width: 137px;
     }
     .search-stu-id input{
-        width: 100px; !important;
+        width: 103px; !important;
     }
 
     .search-stu-name input{
-        width: 93px; !important;
+        width: 102px; !important;
     }
     .table {
         text-align: center;
@@ -95,11 +95,39 @@
         position: absolute;
         background-color: #FFFFFF;
     }
+    .glyphicon-search:hover{
+        cursor: pointer;
+    }
 </style>
 <body>
 <div class="totalContainer">
     <div class="my-row">
-        <div class="xz-tx">
+        <div class="xz-tx term">
+            学期选择
+            <select id="luti-op-term" class="form-control input-sm" style="display: inline-block">
+                <option value="0">全部</option>
+                <option value="1301401">1301401</option>
+                <option value="1301402">1301402</option>
+                <option value="1301403">1301403</option>
+            </select>
+            <div class="search search-stu-name">
+                <div><span class="glyphicon glyphicon-search"></span></div>
+            </div>
+
+        </div>
+        <div class="xz-tx subject">
+            科目选择
+            <select id="luti-op-subject" class="form-control input-sm" style="display: inline-block">
+                <option value="0">全部</option>
+                <option value="1301401">1301401</option>
+                <option value="1301402">1301402</option>
+                <option value="1301403">1301403</option>
+            </select>
+            <div class="search search-stu-name">
+                <div><span class="glyphicon glyphicon-search"></span></div>
+            </div>
+        </div>
+        <div class="xz-tx class">
             班级编号
             <select id="luti-op" class="form-control input-sm" style="display: inline-block">
                 <option value="0">全部</option>
@@ -107,19 +135,12 @@
                 <option value="1301402">1301402</option>
                 <option value="1301403">1301403</option>
             </select>
-            <div class="search">
+            <div class="search search-stu-name">
                 <div><span class="glyphicon glyphicon-search"></span></div>
-                <input type="text" placeholder="输入班级编号" class="form-control input-sm">
             </div>
         </div>
         <div class="xz-tx student-id">
             学生学号
-            <!--<select id="stu-id" class="form-control input-sm" style="display: inline-block">-->
-                <!--<option value="0">全部</option>-->
-                <!--<option value="1301401">2014213880</option>-->
-                <!--<option value="1301402">2014213881</option>-->
-                <!--<option value="1301403">2014213886</option>-->
-            <!--</select>-->
             <div class="search search-stu-id">
                 <div><span class="glyphicon glyphicon-search"></span></div>
                 <input type="text" placeholder="输入学生学号" class="form-control input-sm">
@@ -127,17 +148,12 @@
         </div>
         <div class="xz-tx student-name">
             学生姓名
-            <!--<select id="stu-name" class="form-control input-sm" style="display: inline-block">-->
-                <!--<option value="0">全部</option>-->
-                <!--<option value="1301401">小明</option>-->
-                <!--&lt;!&ndash;<option value="1301402">达芬奇</option>&ndash;&gt;-->
-                <!--&lt;!&ndash;<option value="1301403">达芬奇</option>&ndash;&gt;-->
-            <!--</select>-->
-            <div class="search search-stu-name">
+            <div class="search search-stu-name" style="width: 137px">
                 <div><span class="glyphicon glyphicon-search"></span></div>
                 <input type="text" placeholder="输入学生姓名" class="form-control input-sm">
             </div>
         </div>
+
     </div>
     <div class="table-container">
         <span class="analysis-tip">点击后查看考试分析</span>
